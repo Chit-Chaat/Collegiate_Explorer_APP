@@ -5,6 +5,13 @@
 2. dont submit you setting files. (.idea/.DS_Store/...)
 
 
+### Usage:
+- dir <b>crawler</b> is used to save how you got the raw data
+- dir <b>documents</b> is used to save our PPT and other wirtten assets
+- dir <b>data_sample</b> saved some sample raw data files, enabling the team to do further process.
+- you can add more dirs if necessary.
+
+
 ### Tasks:
 | No|     Task       | SkillSet | Assigned to   | Current Status | Finished | 
 |---|----------------|---------------|---------------|----------------|-----------|
