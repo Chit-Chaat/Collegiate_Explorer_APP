@@ -1,5 +1,10 @@
 # Collegiate_Explorer_APP
 
+### Tips:
+1. guys, add what you have done here.
+2. dont submit you setting files. (.idea/.DS_Store/...)
+
+
 | No|     Task       | SkillSet | Assigned to   | Current Status | Finished | 
 |---|----------------|---------------|---------------|----------------|-----------|
 | 1 |Proposal & PPT  | -  | Kevin, Ryan, Aaron | finished|  <ul><li>[x] Presentation</li>
