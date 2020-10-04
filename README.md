@@ -5,6 +5,7 @@
 2. dont submit you setting files. (.idea/.DS_Store/...)
 
 
+### Tasks:
 | No|     Task       | SkillSet | Assigned to   | Current Status | Finished | 
 |---|----------------|---------------|---------------|----------------|-----------|
 | 1 |Proposal & PPT  | -  | Kevin, Ryan, Aaron | finished|  <ul><li>[x] Presentation</li>
