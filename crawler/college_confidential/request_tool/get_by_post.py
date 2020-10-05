@@ -158,7 +158,7 @@ def append_2_file(file_path, data):
             output_file.write(json_item.encode("utf-8"))
 
 
-for region in range(2, 10):
+for region in range(1, 10):
     payload["post_filter"]["term"]["region"] = str(region)
     start = 0
     while start < total_item_per_region + step:
@@ -171,5 +171,5 @@ for region in range(2, 10):
                       data=schools_info)
         print("crawling region {} schools - {}%".format(region, round(100 * start / total_item_per_region, 3)))
         start += step
-        time.sleep(random.randint(1, 2))
+        time.sleep(random.randint(1, 3))
     print("region {} finished! (got {} records)".format(region, total_item_per_region))
