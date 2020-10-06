@@ -46,3 +46,28 @@ data = [{'_index': 'schools', '_type': 'school', '_id': 'new-york-university', '
          'url': 'https://www.collegeconfidential.com/schools/school/university-of-maryland-college-park'}]
 
 append_2_file("../output/test.jl", data)
+
+
+
+from datetime import datetime
+
+timestamp = 1601953076680
+            # 1601954088226097
+           #1601954324654
+ss = datetime.now().timestamp()
+print(ss)
+dt_object = datetime.fromtimestamp(timestamp)
+
+print("dt_object =", dt_object)
+
+# "__cfduid=de35ecc27c5967b11534be4705f663dc31600910359; zabUserId=1600910362328zabu0.4824852002565372; _ga=GA1.2.45828874.1600910362; STYXKEY_first_visit=yes; __gads=ID=b21c474b5e86c1f6:T=1600910362:S=ALNI_Ma90NlVVtwzv035DnSQd9NY9MjtYQ; _fbp=fb.1.1600910365255.1074073799; _mkto_trk=id:335-VIN-535&token:_mch-topuniversities.com-1600910365652-13252; _hjid=b7c7af82-1323-4fa7-8438-c26f431ef67e; hubspotutk=c428a342d5aadd2a574b7856cae7f5ca; messagesUtk=5346d84eeb96482282f2fa9ec10b787a; has_js=1; _gid=GA1.2.1385675015.1601947909; " \
+# "" \
+# "__hstc=238059679.c428a342d5aadd2a574b7856cae7f5ca.1600910366050.1600910366050.1601947910159.2; __" \
+# "hssrc=1; Hm_lvt_d4f650e8b28d910a41791663c4ef9cb3=1600910365,1601947911; _hjIncludedInPageviewSample=1; _hjTLDTest=1; _hjAbsoluteSessionInProgress=0; cookie-agreed=2; home-search-bar=1; zabVisitId=1601948123561zabv0.6312808910573757; Hm_lpvt_d4f650e8b28d910a41791663c4ef9cb3=1601948484; _gat=1"
+#
+#
+#
+# "__cfduid=de35ecc27c5967b11534be4705f663dc31600910359; zabUserId=1600910362328zabu0.4824852002565372; _ga=GA1.2.45828874.1600910362; STYXKEY_first_visit=yes; __gads=ID=b21c474b5e86c1f6:T=1600910362:S=ALNI_Ma90NlVVtwzv035DnSQd9NY9MjtYQ; _fbp=fb.1.1600910365255.1074073799; _mkto_trk=id:335-VIN-535&token:_mch-topuniversities.com-1600910365652-13252; _hjid=b7c7af82-1323-4fa7-8438-c26f431ef67e; hubspotutk=c428a342d5aadd2a574b7856cae7f5ca; messagesUtk=5346d84eeb96482282f2fa9ec10b787a; has_js=1; _gid=GA1.2.1385675015.1601947909; " \
+# "" \
+# "__hssrc=1; Hm_lvt_d4f650e8b28d910a41791663c4ef9cb3=1600910365,1601947911; " \
+# "_hjIncludedInPageviewSample=1; _hjTLDTest=1; _hjAbsoluteSessionInProgress=0; cookie-agreed=2; home-search-bar=1; zabVisitId=1601948123561zabv0.6312808910573757; __hstc=238059679.c428a342d5aadd2a574b7856cae7f5ca.1600910366050.1601947910159.1601953079045.3; __hssc=238059679.1.1601953079045; Hm_lpvt_d4f650e8b28d910a41791663c4ef9cb3=1601953079; _gat=1"

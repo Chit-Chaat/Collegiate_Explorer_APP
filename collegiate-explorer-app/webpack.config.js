@@ -31,7 +31,7 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'
@@ -48,7 +48,8 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    overlay: true,
+    hot: true
   },
   performance: {
     hints: false

@@ -45,7 +45,7 @@ def export_2_file(file_path, data):
 
 if __name__ == '__main__':
     base_path = "../output/"
-    for region in range(1, 10):
+    for region in range(7, 10):
         school_json_file = "region_{}.jl".format(region)
         schools = read_raw_data(os.path.join(base_path, school_json_file))
         for school in schools:
