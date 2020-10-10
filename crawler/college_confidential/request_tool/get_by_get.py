@@ -33,6 +33,7 @@ def read_raw_data(file_path):
 def process_raw_data(school_info):
     del school_info["unit_id"]
     del school_info["weight"]
+    del school_info['majors']
     # TODO maybe need to do something on "degree"
     return school_info
 
@@ -57,6 +58,6 @@ if __name__ == '__main__':
                     os.mkdir(dir_path)
                 export_2_file(file_path=os.path.join(dir_path, "{}.jl".format(school["_id"])),
                               data=process_raw_data(school_detail))
-                time.sleep(1)
+                time.sleep(0.5)
             except:
                 print("something wrong when crawl this url -> ", school_url)
