@@ -8,14 +8,14 @@ college_confidential https://drive.google.com/file/d/1fsNdC7bjZqaQcGlM3y9ghk63i8
 ```json
 region code
 {
-  1: New England
-  2: Mid East
-  3: Great Lakes
-  4: Plains
-  5: Southeast
-  6: Southwest
-  7: Rocky Mountains
-  8: Far West
-  9: Outlying areas
+	"1": "New England",
+	"2": "Mid East",
+	"3": "Great Lakes",
+	"4": "Plains",
+	"5": "Southeast",
+	"6": "Southwest",
+	"7": "Rocky Mountains",
+	"8": "Far West",
+	"9": "Outlying areas"
 }
 ```
