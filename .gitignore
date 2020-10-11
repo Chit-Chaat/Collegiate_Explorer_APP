@@ -2,3 +2,8 @@
 /crawler/college_confidential/output
 /crawler/db_pedia/.idea
 /collegiate-explorer-app/*.log
+/crawler/qs_ranking/qs_crawler/qs_crawler/__pycache__
+/crawler/qs_ranking/.idea/*.xml
+/crawler/qs_ranking/.idea
+/crawler/qs_ranking/qs_crawler/qs_crawler/spiders/__pycache__/__init__.cpython-36.pyc
+/crawler/qs_ranking/qs_crawler/qs_crawler/spiders/__pycache__/school_spider.cpython-36.pyc

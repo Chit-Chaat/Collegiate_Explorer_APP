@@ -10,6 +10,7 @@
       <el-main id="index_search_box">
         <SearchBox></SearchBox>
       </el-main>
+      <el-divider>EXPLORE YOUR FINDINGS</el-divider>
       <el-main id="index_recommend_res">
         <Recommend></Recommend>
       </el-main>
@@ -75,6 +76,12 @@
     line-height: 160px;
     padding-top: 0px;
     padding-bottom: 0px;
+  }
+
+  .el-divider{
+    width: 92%;
+    margin-left: 4%;
+    height: 2px;
   }
 
   #index_title {
