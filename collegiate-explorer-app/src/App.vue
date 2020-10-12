@@ -14,6 +14,7 @@
       <el-main id="index_recommend_res">
         <Recommend></Recommend>
       </el-main>
+      <el-divider></el-divider>
       <el-footer>
         <Footer></Footer>
       </el-footer>
@@ -73,7 +74,6 @@
   .el-main {
     color: #333;
     text-align: center;
-    line-height: 160px;
     padding-top: 0px;
     padding-bottom: 0px;
   }
@@ -90,17 +90,6 @@
 
   #index_search_box {
     line-height: 80px;
-  }
-
-  #index_recommend_res {
-    line-height: 500px;
-  }
-
-  .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
-    height: 100px !important;
   }
 
   body {

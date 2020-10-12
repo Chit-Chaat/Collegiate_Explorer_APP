@@ -1,6 +1,6 @@
 <template>
   <div id="cc_searchbox">
-    <el-row>
+    <el-row style="margin-bottom: 0px;">
       <el-col :span="6">
         <div style="visibility: hidden;">dont delete me</div>
       </el-col>
@@ -27,10 +27,10 @@
       <el-col :span="6">
         <div style="visibility: hidden;">dont delete me</div>
       </el-col>
-      <el-col :span="1" v-for="tag in tags" :key="tag.name">
-        <el-link   :type="tag.type">
+      <el-col :span="1.5" v-for="tag in tags" :key="tag.name">
+        <el-tag :type="tag.type" round>
           {{tag.name}}
-        </el-link>
+        </el-tag>
       </el-col>
     </el-row>
   </div>
@@ -47,7 +47,7 @@
         content: '',
         school_type: '',
         tags: [
-          { name: 'Tag1', type: '' },
+          { name: 'Tag1', type: 'primary' },
           { name: 'Tag2', type: 'success' },
           { name: 'Tag3', type: 'info' },
           { name: 'Tag4', type: 'warning' },
@@ -58,7 +58,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   #cc_searchbox {
     left: 0;
     right: 0;

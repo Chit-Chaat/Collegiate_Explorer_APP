@@ -23,3 +23,6 @@
 | 5 |Neo4J Init   | neo4j  | not yet | Kevin, Ryan |  <ul><li>[ ] item1</li><li>[ ] item2</li></ul>
 | 6 |Front-end Init   | Vue, Element  | Aaron | in progress |  <ul><li>[x] Init</li><li>[ ] item2</li></ul>
 | 7 |Back-end Init   |   | Kevin, Ryan | not yet |  <ul><li>[ ] Init</li><li>[ ] item2</li></ul>
+
+### ScreenShot
+![WeChat Screenshot_20201011195851](https://user-images.githubusercontent.com/24391143/95700627-5de6c100-0bfc-11eb-9cac-65c392357a17.png)
