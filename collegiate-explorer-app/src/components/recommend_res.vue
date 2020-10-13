@@ -44,7 +44,7 @@
         <div class="grid-content bg-purple">I</div>
       </el-col>
     </el-row>
-    <el-pagination background layout="prev, pager, next" :total="50">
+    <el-pagination background layout="prev, pager, next" :page-size="10" :total="50">
     </el-pagination>
   </div>
 </template>

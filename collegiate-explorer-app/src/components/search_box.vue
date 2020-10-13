@@ -7,7 +7,7 @@
       <el-col :span="10">
         <div class="common_searchobox">
           <el-input placeholder="knowledge graph" v-model="content">
-            <el-select v-model="school_type" slot="prepend" placeholder="SCHOOL TYPE">
+            <el-select v-model="school_type" slot="prepend" placeholder="SCHOOL TYPE" style="width: 140px;">
               <el-option label="PRIVATE" value="1"></el-option>
               <el-option label="PUBLIC" value="2"></el-option>
               <el-option label="COMMUNITY" value="2"></el-option>
@@ -18,9 +18,16 @@
       </el-col>
       <el-col :span="3">
         <div class="advanced_searchobox">
-          <el-link id="filter_bth"icon="el-icon-edit" ><b><u>More Filter</u></b></el-link>
-          <Advanced_Search_Filter style="display:none"></Advanced_Search_Filter>
+          <el-link id="filter_bth" icon="el-icon-edit"><b><u>More Filter</u></b></el-link>
         </div>
+      </el-col>
+    </el-row>
+    <el-row id="filter_row">
+      <el-col :span="4">
+        <div style="visibility: hidden;">dont delete me</div>
+      </el-col>
+      <el-col :span="15">
+        <Advanced_Search_Filter class="advanced_search_filter"></Advanced_Search_Filter>
       </el-col>
     </el-row>
     <el-row id="recommend_search_tag" :gutter="10">
@@ -70,15 +77,11 @@
   }
 
   .common_searchobox {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .common_searchobox .el-input .el-input__inner {
     height: 40px;
-  }
-
-  .el-input-group__prepend {
-    width: 100px;
   }
 
   .el-row {
@@ -89,8 +92,16 @@
     text-align: left;
   }
 
-  #filter_bth{
+  #filter_bth {
     color: azure;
     font-size: 16px;
+  }
+
+  .advanced_search_filter {
+    display: block;
+  }
+
+  #filter_row {
+    line-height: 40px;
   }
 </style>
