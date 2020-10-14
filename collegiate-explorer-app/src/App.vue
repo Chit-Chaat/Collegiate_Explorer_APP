@@ -1,6 +1,6 @@
 <template>
   <el-container id="app">
-    <div id="cover">
+    <div id="cover"></div>
       <el-header>
         <Header></Header>
       </el-header>
@@ -18,8 +18,6 @@
       <el-footer>
         <Footer></Footer>
       </el-footer>
-    </div>
-
   </el-container>
 </template>
 
@@ -62,7 +60,7 @@
     top: 0;
     bottom: 0;
     background-color: #999;
-    opacity: 0.95;
+    opacity: 0.20;
     z-index: -1;
   }
 

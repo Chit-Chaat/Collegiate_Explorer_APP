@@ -10,7 +10,7 @@
             <el-select v-model="school_type" slot="prepend" placeholder="SCHOOL TYPE" style="width: 140px;">
               <el-option label="PRIVATE" value="1"></el-option>
               <el-option label="PUBLIC" value="2"></el-option>
-              <el-option label="COMMUNITY" value="2"></el-option>
+              <el-option label="COMMUNITY" value="3"></el-option>
             </el-select>
             <el-button slot="append" icon="el-icon-search">Search</el-button>
           </el-input>
@@ -18,16 +18,16 @@
       </el-col>
       <el-col :span="3">
         <div class="advanced_searchobox">
-          <el-link id="filter_bth" icon="el-icon-edit"><b><u>More Filter</u></b></el-link>
+          <el-link id="filter_bth" icon="el-icon-edit" @click="toggleFilter"><b><u>More Filter</u></b></el-link>
         </div>
       </el-col>
     </el-row>
-    <el-row id="filter_row">
+    <el-row v-bind:style="{ 'line-height': filterRowHeight + 'px' }">
       <el-col :span="4">
         <div style="visibility: hidden;">dont delete me</div>
       </el-col>
       <el-col :span="15">
-        <Advanced_Search_Filter class="advanced_search_filter"></Advanced_Search_Filter>
+        <Advanced_Search_Filter v-bind:style="{ display: show_or_not  }"></Advanced_Search_Filter>
       </el-col>
     </el-row>
     <el-row id="recommend_search_tag" :gutter="10">
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+  let clicked = false
   import Advanced_Search_Filter from './advanced_search_filter.vue'
   export default {
     components: {
@@ -53,6 +54,8 @@
       return {
         content: '',
         school_type: '',
+        filterRowHeight: '5',
+        show_or_not: 'none',
         tags: [
           { name: 'Tag1', type: 'primary' },
           { name: 'Tag2', type: 'success' },
@@ -61,6 +64,19 @@
           { name: 'Tag5', type: 'danger' }
         ]
       }
+    },
+    methods: {
+      toggleFilter(e) {
+        clicked = !clicked
+        if (clicked) {
+          this.filterRowHeight = '40'
+          this.show_or_not = 'block'
+        } else {
+          this.filterRowHeight = '5'
+          this.show_or_not = 'none'
+        }
+      }
+
     }
   }
 </script>
@@ -102,6 +118,6 @@
   }
 
   #filter_row {
-    line-height: 40px;
+    line-height: var(--row_height);
   }
 </style>
