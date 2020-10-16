@@ -50,8 +50,8 @@
       <el-row>
         <el-col :span="23" style="text-align: right;">
           <el-button-group>
-            <el-button  icon="el-icon-refresh-right" @click="reset">Rest All</el-button>
-            <el-button @click="go_search">Search<i class="el-icon-search el-icon--right" ></i></el-button>
+            <el-button icon="el-icon-refresh-right" @click="reset">Rest All</el-button>
+            <el-button @click="go_search">Search<i class="el-icon-search el-icon--right"></i></el-button>
           </el-button-group>
         </el-col>
       </el-row>
@@ -69,39 +69,31 @@
           'Rocky Mountains', 'Far West', 'Outlying areas'],
 
         marjors: [
-          'Agriculture',
-          'Architecture',
-          'Arts',
-          'Aviation',
-          'Biological and Biomedical Sciences',
-          'Business/Management/Marketing',
-          'Communication',
-          'Computer',
+          'Humanities',
+          'Natural sciences or mathematics',
+          'Social sciences ',
+          'Architecture or urban planning',
+          'Art and design',
+          'Business',
+          'Dentistry',
           'Education',
-          'Engineering ',
-          'English',
-          'Consumer Sciences/human Sciences',
-          'Foreign Languages, Literatures, and Linguistics',
-          'Health',
-          'History',
-          'Homeland Security/Law Enforcement',
-          'Legal Professions and Studies',
-          'Library Science',
-          'Mathematics and Statistics',
-          'Mechanic Technologies',
-          'Military Technologies',
-          'Natural Resources and Conservation',
-          'Philosophy and Religious Studies',
-          'Physical Sciences',
-          'Psychology',
-          'Social Sciences'],
+          'Engineering',
+          'Law',
+          'Medicine',
+          'Music, theatre, or dance',
+          'Nursing',
+          'Pharmacy',
+          'Public health',
+          'Public policy',
+          'Social work',
+          'Other'],
 
 
         tuitions: ['>= $5k', '>= $10k', '>= $15k'],
 
         selectTags: {
-          area: 'Southwest',
-          major: '',
+          area: '',
+          major: 'Engineering',
           tuition: '',
         }
       }
@@ -123,7 +115,7 @@
         else
           this.selectTags.tuition = ''
       },
-      reset(e){
+      reset(e) {
         this.selectTags.area = ''
         this.selectTags.major = ''
         this.selectTags.tuition = ''
@@ -133,8 +125,8 @@
         });
         e.target.blur() // auto unfocused
       },
-      go_search(){
-        let text = this.selectTags.area + '/'+ this.selectTags.major +'/'+ this.selectTags.tuition 
+      go_search() {
+        let text = this.selectTags.area + '/' + this.selectTags.major + '/' + this.selectTags.tuition
         console.log(text)
       }
     }

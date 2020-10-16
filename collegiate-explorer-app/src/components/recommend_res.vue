@@ -1,47 +1,9 @@
 <template>
   <div id="cc_recm_res">
-    <el-row :gutter="20">
-      <el-col :span="8">
-        <div class="grid-content bg-purple">A</div>
-      </el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple-light">B</div>
-      </el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple">C</div>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20">
-      <el-col :span="8">
-        <div class="grid-content bg-purple">D</div>
-      </el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple-light">E</div>
-      </el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple">F</div>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20">
-      <el-col :span="8">
-        <div class="grid-content bg-purple">G</div>
-      </el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple-light">H</div>
-      </el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple">I</div>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20">
-      <el-col :span="8">
-        <div class="grid-content bg-purple">G</div>
-      </el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple-light">H</div>
-      </el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple">I</div>
+    <el-row :gutter="20" v-for="(row, i) in dividedList" :key='i'>
+      <el-col :span="8" v-for="(cell, j) in row" :key="j">
+        <!-- <div class="grid-content bg-purple" :id="'T_'+(i*3+j)">Data-{{cell}}</div> -->
+        <Item></Item>
       </el-col>
     </el-row>
     <el-pagination background layout="prev, pager, next" :page-size="10" :total="50">
@@ -57,18 +19,27 @@
     },
     data() {
       return {
-        todos: [
-          { text: '学习 JavaScript' },
-          { text: '学习 Vue' },
-          { text: '整个牛项目' },
-          { text: '循环的例子' },
-          { text: '循环的文本' },
-          { text: '循环的文本1' },
-          { text: '循环的文本2' },
-          { text: '循环的文本3' }
-        ]
+        recommend_list: ['a','b','c','d','e','f','g','h','i'],
+
+      }
+    },
+    computed: {
+      dividedList: function () {
+        var recommend_list = this.recommend_list;
+        var arrTemp = [];
+        var index = 0;
+        var sectionCount = 3;
+        for (var i = 0; i < recommend_list.length; i++) {
+          index = parseInt(i / sectionCount);
+          if (arrTemp.length <= index) {
+            arrTemp.push([]);
+          }
+          arrTemp[index].push(recommend_list[i]);
+        }
+        return arrTemp;
       }
     }
+
   }
 
 </script>
