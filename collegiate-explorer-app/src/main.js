@@ -6,10 +6,12 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/images/gray_64.png'
 import './assets/images/school_logo.jpg'
 import './assets/styles/global.css'
+import router from './router'
 
 Vue.use(ElementUI, { size: 'small', zIndex: 3000 });
 
 new Vue({
   el: '#app',
+  router,
   render: h => h(App)
 })

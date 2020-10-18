@@ -2,7 +2,6 @@
   <div id="cc_recm_res">
     <el-row :gutter="20" v-for="(row, i) in dividedList" :key='i'>
       <el-col :span="8" v-for="(item, j) in row" :key="j">
-        <!-- <div class="grid-content bg-purple" :id="'T_'+(i*3+j)">Data-{{cell}}</div> -->
         <Item :item="item" :key="item.id"></Item>
       </el-col>
     </el-row>
@@ -25,8 +24,10 @@
           logo: 'school_logo.jpg',
           desc: 'this is desc this is this is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
           rating: {
-            A: '4.5',
-            B: '4.1'
+            A: 5,
+            B: 3,
+            A_val: '5',
+            B_val: '3'
           },
           review: '3453',
           level: 'A',
@@ -40,8 +41,10 @@
           logo: 'school_logo2.jpg',
           desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
           rating: {
-            A: '4.1',
-            B: '4.2'
+            A: 2,
+            B: 3,
+            A_val: '2',
+            B_val: '3'
           },
           review: '3453',
           level: 'A',
@@ -55,8 +58,10 @@
           logo: 'school_logo.jpg',
           desc: 'this is desc this is this is desc this isthis is des desc this isthis is des desc this isthis is des desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
           rating: {
-            A: '4.2',
-            B: '4.9'
+            A: 4,
+            B: 3,
+            A_val: '4',
+            B_val: '3'
           },
           review: '3453',
           level: 'A',
@@ -70,8 +75,10 @@
           logo: 'school_logo2.jpg',
           desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
           rating: {
-            A: '4.2',
-            B: '4.2'
+            A: 4,
+            B: 3,
+            A_val: '4',
+            B_val: '3'
           },
           review: '3453',
           level: 'A',
@@ -85,8 +92,10 @@
           logo: 'school_logo2.jpg',
           desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
           rating: {
-            A: '4.2',
-            B: '4.3'
+            A: 4,
+            B: 3,
+            A_val: '4',
+            B_val: '3'
           },
           review: '3453',
           level: 'A',
@@ -100,8 +109,10 @@
           logo: 'school_logo.jpg',
           desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
           rating: {
-            A: '4',
-            B: '4'
+            A: 4,
+            B: 3,
+            A_val: '4',
+            B_val: '3'
           },
           review: '3453',
           level: 'A',
@@ -115,8 +126,10 @@
           logo: 'school_logo.jpg',
           desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
           rating: {
-            A: '4',
-            B: '4'
+            A: 4,
+            B: 3,
+            A_val: '4',
+            B_val: '3'
           },
           review: '3453',
           level: 'A',
@@ -130,8 +143,10 @@
           logo: 'school_logo2.jpg',
           desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
           rating: {
-            A: '4',
-            B: '4'
+            A: 4,
+            B: 3,
+            A_val: '4',
+            B_val: '3'
           },
           review: '3453',
           level: 'A',
@@ -145,8 +160,10 @@
           logo: 'school_logo.jpg',
           desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
           rating: {
-            A: '4',
-            B: '4'
+            A: 4,
+            B: 3,
+            A_val: '4',
+            B_val: '3'
           },
           review: '3453',
           level: 'A',
@@ -160,8 +177,10 @@
           logo: 'school_logo.jpg',
           desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
           rating: {
-            A: '4',
-            B: '4'
+            A: 4,
+            B: 3,
+            A_val: '4',
+            B_val: '3'
           },
           review: '3453',
           level: 'A',
@@ -175,8 +194,10 @@
           logo: 'school_logo2.jpg',
           desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
           rating: {
-            A: '4',
-            B: '4'
+            A: 4,
+            B: 3,
+            A_val: '4',
+            B_val: '3'
           },
           review: '3453',
           level: 'A',
@@ -220,15 +241,16 @@
 
   .el-row {
     margin-bottom: 20px;
+  }
 
-    &:last-child {
-      margin-bottom: 0;
-    }
+  .el-row:last-child {
+    margin-bottom: 0;
   }
 
   .el-col {
     border-radius: 4px;
   }
+
 
   .bg-purple-dark {
     background: #99a9bf;

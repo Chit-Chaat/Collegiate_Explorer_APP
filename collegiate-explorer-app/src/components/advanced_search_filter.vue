@@ -128,6 +128,10 @@
       go_search() {
         let text = this.selectTags.area + '/' + this.selectTags.major + '/' + this.selectTags.tuition
         console.log(text)
+        this.$message({
+          message: 'Going to send request.',
+          type: 'success'
+        });
       }
     }
   }

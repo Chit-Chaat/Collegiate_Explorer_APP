@@ -1,11 +1,22 @@
 <template>
   <div id="cc_title">
-    <div id="main_title">Your Collegiate Explorer</div>
-    <div id="sub_title">Knowledge Graph</div>
-    <p>some descriptive words some descriptive words some  <br> descriptive words some descriptive words some descriptive words some descriptive words</p>
+    <div id="main_title">{{title_obj.main_title}}</div>
+    <div id="sub_title">{{title_obj.sub_title}}</div>
+    <p>{{title_obj.desc}}</p>
   </div>
 
 </template>
+
+<script>
+  export default {
+    props: {
+      title_obj: {
+        type: Object,
+        required: true,
+      }
+    }
+  }
+</script>
 
 <style scoped>
   #cc_title {

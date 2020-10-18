@@ -15,13 +15,13 @@
       <el-divider content-position="right">Other</el-divider>
       <div class="other">
         <div class="ratingA">Niche:
-          <el-rate v-model="item.rating.A" disabled show-score text-color="#ff9900" style="display: inline;"
-            :score-template=item.rating.A>
+          <el-rate v-model="item.rating.A" disabled void-icon-class="el-icon-medal" :icon-classes="iconClasses" :colors="iconColors" style="display: inline;"
+            :score-template="item.rating.A_val">
           </el-rate>
         </div>
         <div class="ratingB">CC:
-          <el-rate v-model="item.rating.B" disabled show-score text-color="#ff9900" style="display: inline;"
-            :score-template=item.rating.B>
+          <el-rate v-model="item.rating.B" disabled void-icon-class="el-icon-medal" :icon-classes="iconClasses" :colors="iconColors" style="display: inline;"
+            :score-template="item.rating.B_val">
           </el-rate>
         </div>
       </div>
@@ -39,9 +39,14 @@
     },
     data() {
       return {
-        currentDate: new Date()
+        currentDate: new Date(),
+        iconClasses: ["el-icon-medal-1","el-icon-medal-1", "el-icon-medal-1"],
+        iconColors: ['#99A9BF', '#F7BA2A', '#FF9900']
       };
-    }
+    },
+    methods: {
+      
+    },
   }
 </script>
 
