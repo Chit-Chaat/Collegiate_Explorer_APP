@@ -1,9 +1,9 @@
 <template>
   <div id="cc_recm_res">
     <el-row :gutter="20" v-for="(row, i) in dividedList" :key='i'>
-      <el-col :span="8" v-for="(cell, j) in row" :key="j">
+      <el-col :span="8" v-for="(item, j) in row" :key="j">
         <!-- <div class="grid-content bg-purple" :id="'T_'+(i*3+j)">Data-{{cell}}</div> -->
-        <Item></Item>
+        <Item :item="item" :key="item.id"></Item>
       </el-col>
     </el-row>
     <el-pagination background layout="prev, pager, next" :page-size="10" :total="50">
@@ -19,22 +19,186 @@
     },
     data() {
       return {
-        recommend_list: ['a','b','c','d','e','f','g','h','i'],
+        result_list: [{
+          id: '1',
+          name: 'University of AAAAAA',
+          logo: 'school_logo.jpg',
+          desc: 'this is desc this is this is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
+          rating: {
+            A: '4.5',
+            B: '4.1'
+          },
+          review: '3453',
+          level: 'A',
+          detail: 'detail/school_id',
+          address: '1420 22nd W St, Los Angeles, CA, 90007',
+          tuition: '$17,234'
+        },
+        {
+          id: '2',
+          name: 'University of bbbbbbbb',
+          logo: 'school_logo2.jpg',
+          desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
+          rating: {
+            A: '4.1',
+            B: '4.2'
+          },
+          review: '3453',
+          level: 'A',
+          detail: 'detail/school_id',
+          address: '1420 22nd W St, Los Angeles, CA, 90007',
+          tuition: '$17,234'
+        },
+        {
+          id: '3',
+          name: 'University of cCCCCC',
+          logo: 'school_logo.jpg',
+          desc: 'this is desc this is this is desc this isthis is des desc this isthis is des desc this isthis is des desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
+          rating: {
+            A: '4.2',
+            B: '4.9'
+          },
+          review: '3453',
+          level: 'A',
+          detail: 'detail/school_id',
+          address: '1420 22nd W St, Los Angeles, CA, 90007',
+          tuition: '$17,234'
+        },
+        {
+          id: '4',
+          name: 'University of DDDDDDDDD',
+          logo: 'school_logo2.jpg',
+          desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
+          rating: {
+            A: '4.2',
+            B: '4.2'
+          },
+          review: '3453',
+          level: 'A',
+          detail: 'detail/school_id',
+          address: '1420 22nd W St, Los Angeles, CA, 90007',
+          tuition: '$17,234'
+        },
+        {
+          id: '5',
+          name: 'University of EEEEEEEEEE',
+          logo: 'school_logo2.jpg',
+          desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
+          rating: {
+            A: '4.2',
+            B: '4.3'
+          },
+          review: '3453',
+          level: 'A',
+          detail: 'detail/school_id',
+          address: '1420 22nd W St, Los Angeles, CA, 90007',
+          tuition: '$17,234'
+        },
+        {
+          id: '6',
+          name: 'University of FFFFFFF',
+          logo: 'school_logo.jpg',
+          desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
+          rating: {
+            A: '4',
+            B: '4'
+          },
+          review: '3453',
+          level: 'A',
+          detail: 'detail/school_id',
+          address: '1420 22nd W St, Los Angeles, CA, 90007',
+          tuition: '$17,234'
+        },
+        {
+          id: '7',
+          name: 'University of FGGGGGGG',
+          logo: 'school_logo.jpg',
+          desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
+          rating: {
+            A: '4',
+            B: '4'
+          },
+          review: '3453',
+          level: 'A',
+          detail: 'detail/school_id',
+          address: '1420 22nd W St, Los Angeles, CA, 90007',
+          tuition: '$17,234'
+        },
+        {
+          id: '8',
+          name: 'University of HHHHHHH',
+          logo: 'school_logo2.jpg',
+          desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
+          rating: {
+            A: '4',
+            B: '4'
+          },
+          review: '3453',
+          level: 'A',
+          detail: 'detail/school_id',
+          address: '1420 22nd W St, Los Angeles, CA, 90007',
+          tuition: '$17,234'
+        },
+        {
+          id: '9',
+          name: 'University of IIIIIIIIIIII',
+          logo: 'school_logo.jpg',
+          desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
+          rating: {
+            A: '4',
+            B: '4'
+          },
+          review: '3453',
+          level: 'A',
+          detail: 'detail/school_id',
+          address: '1420 22nd W St, Los Angeles, CA, 90007',
+          tuition: '$17,234'
+        },
+        {
+          id: '10',
+          name: 'University of JJJJJJJJJJJJJJ',
+          logo: 'school_logo.jpg',
+          desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
+          rating: {
+            A: '4',
+            B: '4'
+          },
+          review: '3453',
+          level: 'A',
+          detail: 'detail/school_id',
+          address: '1420 22nd W St, Los Angeles, CA, 90007',
+          tuition: '$17,234'
+        },
+        {
+          id: '11',
+          name: 'University of KKKKKKKKKKKKKKK',
+          logo: 'school_logo2.jpg',
+          desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
+          rating: {
+            A: '4',
+            B: '4'
+          },
+          review: '3453',
+          level: 'A',
+          detail: 'detail/school_id',
+          address: '1420 22nd W St, Los Angeles, CA, 90007',
+          tuition: '$17,234'
+        }]
 
       }
     },
     computed: {
       dividedList: function () {
-        var recommend_list = this.recommend_list;
+        var result_list = this.result_list;
         var arrTemp = [];
         var index = 0;
         var sectionCount = 3;
-        for (var i = 0; i < recommend_list.length; i++) {
+        for (var i = 0; i < result_list.length; i++) {
           index = parseInt(i / sectionCount);
           if (arrTemp.length <= index) {
             arrTemp.push([]);
           }
-          arrTemp[index].push(recommend_list[i]);
+          arrTemp[index].push(result_list[i]);
         }
         return arrTemp;
       }

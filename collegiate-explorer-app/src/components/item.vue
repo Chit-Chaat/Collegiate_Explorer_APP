@@ -1,15 +1,29 @@
 <template>
   <div class='cc_item'>
-    <el-card :body-style="{ padding: '3px'}" shadow="hover">
-      <div class="logo_block">
-        <img :src="img_path" class="logo" /></div>
-
-      <div class='info'>
-        <span>好吃的汉堡</span>
-        <!--<div class="bottom clearfix">
-          <time class="time">{{ currentDate }}</time>
-          <el-button type="text" class="button">操作按钮</el-button>
-        </div> -->
+    <el-card class="box-card" :body-style="{ height:'200px' }">
+      <div slot="header" class="clearfix">
+        <div class='title'><img :src="require('../assets/images/' + item.logo)" width="25px"><span
+            class='school_name'>{{item.name}}</span>
+        </div>
+        <div style="display: inline;">
+          <el-button class="go_detail_btn" size="medium" type="text"><i class="el-icon-link"></i>Link</el-button>
+        </div>
+      </div>
+      <div class="location"><i class="el-icon-map-location"></i>{{item.address}} | <i
+          class="el-icon-chat-line-square"></i>{{item.review}} reviews</div>
+      <div class="desc">{{item.desc}}</div>
+      <el-divider content-position="right">Other</el-divider>
+      <div class="other">
+        <div class="ratingA">Niche:
+          <el-rate v-model="item.rating.A" disabled show-score text-color="#ff9900" style="display: inline;"
+            :score-template=item.rating.A>
+          </el-rate>
+        </div>
+        <div class="ratingB">CC:
+          <el-rate v-model="item.rating.B" disabled show-score text-color="#ff9900" style="display: inline;"
+            :score-template=item.rating.B>
+          </el-rate>
+        </div>
       </div>
     </el-card>
   </div>
@@ -17,9 +31,14 @@
 
 <script>
   export default {
+    props: {
+      item: {
+        type: Object,
+        required: true,
+      }
+    },
     data() {
       return {
-        img_path: "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
         currentDate: new Date()
       };
     }
@@ -27,50 +46,65 @@
 </script>
 
 <style scoped>
-  /* .time {
-    font-size: 13px;
-    color: #999;
-  }
-  
-  .bottom {
-    margin-top: 13px;
-    line-height: 12px;
+  .el-divider {
+    margin: 10px 0;
   }
 
-  .button {
-    padding: 0;
-    float: right;
-  }
-
-
-
-  .clearfix:before,
-  .clearfix:after {
-      display: table;
-      content: "";
-  }
-  
-  .clearfix:after {
-      clear: both
-  } */
   .cc_item {
     text-align: left;
   }
 
-  .el-card {
-    height: 200px;
+  .go_detail_btn {
+    float: right;
   }
 
-  .logo_block {
+  .clearfix {
+    height: 25px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both
+  }
+
+  .box-card {
+    width: 100%;
+  }
+
+  .title {
+    display: inline;
+  }
+
+  .school_name {
     display: inline-block;
-    padding-left: 0px;
+    position: relative;
+    padding-left: 10px;
+    font-size: 20px;
+    top: -5px;
   }
 
-  .logo {
-    width: 50%;
+  .location {
+    margin-top: -15px;
+    font-size: 14 px;
+    color: darkgray;
   }
 
-  .info {
-    display: inline-block;
+  .desc {
+    margin-top: 5px;
+    font-size: 14 px;
+    color: rgb(105, 103, 103);
+  }
+
+  .ratingA {
+    display: inline;
+  }
+  .ratingB {
+    padding-left: 5px;
+    display: inline;
   }
 </style>
