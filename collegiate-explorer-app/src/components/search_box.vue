@@ -22,7 +22,7 @@
         </div>
       </el-col>
     </el-row>
-    <el-row v-bind:style="{ 'line-height': filterRowHeight + 'px' }">
+    <el-row v-bind:style="{ 'line-height': filter_row_height + 'px' }">
       <el-col :span="4">
         <div style="visibility: hidden;">dont delete me</div>
       </el-col>
@@ -34,8 +34,8 @@
       <el-col :span="6">
         <div style="visibility: hidden;">dont delete me</div>
       </el-col>
-      <el-col :span="1.5" v-for="tag in tags" :key="tag.name">
-        <el-tag :type="tag.type" round>
+      <el-col :span="1.5" v-for="tag in recommend_search_tags" :key="tag.name">
+        <el-tag :type="tag.type" round @click="toggleTagSearch(tag.name)">
           {{tag.name}}
         </el-tag>
       </el-col>
@@ -54,14 +54,14 @@
       return {
         content: '',
         school_type: '',
-        filterRowHeight: '5',
+        filter_row_height: '5',
         show_or_not: 'none',
-        tags: [
-          { name: 'Tag1', type: 'primary' },
-          { name: 'Tag2', type: 'success' },
-          { name: 'Tag3', type: 'info' },
-          { name: 'Tag4', type: 'warning' },
-          { name: 'Tag5', type: 'danger' }
+        recommend_search_tags: [
+          { name: 'USC', type: 'primary', link: '' },
+          { name: 'Best CS in LA', type: 'success', link: '' },
+          { name: 'xxxxxxxxxxx', type: 'info', link: '' },
+          { name: 'Top 10 DS programs', type: 'warning', link: '' },
+          { name: '#Don\'t go there', type: 'danger', link: '' }
         ]
       }
     },
@@ -69,12 +69,18 @@
       toggleFilter(e) {
         clicked = !clicked
         if (clicked) {
-          this.filterRowHeight = '40'
+          this.filter_row_height = '40'
           this.show_or_not = 'block'
         } else {
-          this.filterRowHeight = '5'
+          this.filter_row_height = '5'
           this.show_or_not = 'none'
         }
+      },
+      toggleTagSearch(s){
+        this.$message({
+          message: 'Going to send request and query ' + s,
+          type: 'success'
+        });
       }
 
     }

@@ -4,8 +4,8 @@
     <el-header>
       <Header></Header>
     </el-header>
-    <el-main id="index_title">
-      <Title :title_obj="title"></Title>
+    <el-main id="index_title" >
+      <Title :title_obj="title" ></Title>
     </el-main>
     <el-divider></el-divider>
     <el-footer>
@@ -24,6 +24,12 @@
       Title,
       Footer,
     },
+    props: {
+      schoolId: {
+        type: String,
+        required: true,
+      }
+    },
     data() {
       return {
         title: {
@@ -32,7 +38,12 @@
           desc: "some descriptive words some descriptive words some  <br> descriptive words some descriptive words some descriptive words some descriptive words"
         }
       }
-    }
+    },
+    methods: {
+      teststtt(){
+        console.log(this.schoolId)
+      }
+    },
   }
 </script>
 
@@ -60,6 +71,11 @@
     height: 100px !important;
   }
 
+  .el-footer {
+    height: 100% !important;
+    bottom: 0;
+  }
+
   .el-main {
     color: #333;
     text-align: center;
@@ -72,6 +88,7 @@
     margin-left: 4%;
     height: 2px;
   }
+
   #index_title {
     line-height: 120px;
   }

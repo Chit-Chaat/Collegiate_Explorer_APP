@@ -6,7 +6,8 @@
             class='school_name'>{{item.name}}</span>
         </div>
         <div style="display: inline;">
-          <el-button class="go_detail_btn" size="medium" type="text"><i class="el-icon-link"></i>Link</el-button>
+          <el-button class="go_detail_btn" size="medium" type="text" @click="$router.push({ name: 'Detail', params: { schoolId: item.id }})">
+            <i class="el-icon-link"></i>Link</el-button>
         </div>
       </div>
       <div class="location"><i class="el-icon-map-location"></i>{{item.address}} | <i
@@ -15,13 +16,13 @@
       <el-divider content-position="right">Other</el-divider>
       <div class="other">
         <div class="ratingA">Niche:
-          <el-rate v-model="item.rating.A" disabled void-icon-class="el-icon-medal" :icon-classes="iconClasses" :colors="iconColors" style="display: inline;"
-            :score-template="item.rating.A_val">
+          <el-rate v-model="item.rating.A" :icon-classes="iconClasses" void-icon-class="el-icon-medal"
+            :colors="iconColors" style="display: inline; pointer-events: none; cursor: default;">
           </el-rate>
         </div>
         <div class="ratingB">CC:
-          <el-rate v-model="item.rating.B" disabled void-icon-class="el-icon-medal" :icon-classes="iconClasses" :colors="iconColors" style="display: inline;"
-            :score-template="item.rating.B_val">
+          <el-rate v-model="item.rating.B" :icon-classes="iconClasses" void-icon-class="el-icon-medal"
+            :colors="iconColors" style="display: inline; pointer-events: none; cursor: default;">
           </el-rate>
         </div>
       </div>
@@ -39,13 +40,12 @@
     },
     data() {
       return {
-        currentDate: new Date(),
-        iconClasses: ["el-icon-medal-1","el-icon-medal-1", "el-icon-medal-1"],
+        iconClasses: ["el-icon-medal-1", "el-icon-medal-1", "el-icon-medal-1"],
         iconColors: ['#99A9BF', '#F7BA2A', '#FF9900']
       };
     },
     methods: {
-      
+
     },
   }
 </script>
@@ -90,26 +90,39 @@
     position: relative;
     padding-left: 10px;
     font-size: 20px;
-    top: -5px;
+    width: 72%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .location {
     margin-top: -15px;
     font-size: 14 px;
     color: darkgray;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .desc {
     margin-top: 5px;
     font-size: 14 px;
     color: rgb(105, 103, 103);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
   }
 
   .ratingA {
     display: inline;
   }
+
   .ratingB {
     padding-left: 5px;
     display: inline;
+
   }
 </style>

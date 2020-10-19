@@ -60,6 +60,11 @@
     height: 100px !important;
   }
 
+  .el-footer{
+    height: 100% !important;
+    bottom: 0;
+  }
+
   .el-main {
     color: #333;
     text-align: center;

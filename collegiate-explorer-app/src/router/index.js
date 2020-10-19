@@ -12,27 +12,28 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home page',
+      name: 'Home',
       component: Index
     }, {
       path: '/index',
-      name: 'Index page',
+      name: 'Index',
       component: Index
     }, {
       path: '/user_profile',
-      name: '3d user profile',
+      name: 'user_profile',
       component: UserProfile
     },{
-      path: '/detail',
-      name: 'Detail page',
-      component: Detail
+      path: '/detail/:schoolId',
+      name: 'Detail',
+      component: Detail,
+      props: true
     }, {
       path: '/sql',
-      name: 'SPARQL query page',
+      name: 'SPARQL',
       component: SPARQL
     }, {
       path: '/about',
-      name: 'about page',
+      name: 'About',
       component: About
     }
   ]

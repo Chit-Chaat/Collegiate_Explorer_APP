@@ -1,10 +1,18 @@
 <template>
   <div id="cc_footer">
     <el-row :gutter="20">
-      <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+      <el-col :span="6">
+        <div class="grid-content bg-purple"></div>
+      </el-col>
+      <el-col :span="6">
+        <div class="grid-content bg-purple"></div>
+      </el-col>
+      <el-col :span="6">
+        <div class="grid-content bg-purple"></div>
+      </el-col>
+      <el-col :span="6">
+        <div class="grid-content bg-purple"></div>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -21,9 +29,10 @@
   .el-row {
     margin-bottom: 20px;
 
-    &:last-child {
-      margin-bottom: 0;
-    }
+  }
+
+  .el-row :last-child {
+    margin-bottom: 0;
   }
 
   .el-col {
