@@ -1,7 +1,7 @@
 ## Guide
-> How to use connection -> search/views.py
+> How to use connection -> cc_admin/apps/search/views.py
 >
-> How to use JsonResponseResult -> recommendation/views.py
+> How to use JsonResponseResult -> cc_admin/apps/recommendation/views.py
 
 ## Steps:
 
