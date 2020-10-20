@@ -1,3 +1,8 @@
+## Guide
+> How to use connection -> search/views.py
+>
+> How to use JsonResponseResult -> recommendation/views.py
+
 ## Steps:
 
 1. based on the requirement.txt file, build an virtual env

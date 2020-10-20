@@ -53,4 +53,39 @@ def index(request):
             'address': '1420 22nd W St, Los Angeles, CA, 90007',
             'tuition': '$17,234'
         }]
-    return JsonResponseResult(code=200, data=data, msg="OK")
+    return JsonResponseResult().error(data=data)
+
+"""
+normally, u just initialize a JsonResponseResult obj and dot ok(). 
+and send back to the data you queried
+
+Api response will be like this:
+{
+  "code": 200,
+  "msg": "OK",
+  "data": .... (list, dict, or other thing)
+}
+
+statue code is important,
+
+
+if there is a mistake, no matter caused by user or server, you 
+also need to response a proper json, and tell front end, what happened.
+
+about this situation, you can use JsonResponseResult().error(data=data)
+
+{
+  "code": 404,
+  "msg": "ERROR",
+  "data": .... (list, dict, or null)
+}
+
+you can also specify the reason why this error happened.
+you can use JsonResponseResult().error(msg="balblabla")
+or even you can use other status code 
+JsonResponseResult().error(code=503, msg="balblabla")
+
+for you reference, the status code meaning can be found from this link:
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+
+"""
