@@ -4,9 +4,34 @@
     <el-header>
       <Header></Header>
     </el-header>
-    <el-main id="index_title" >
-      <Title :title_obj="title" ></Title>
+    <el-main id="index_title">
+      <Title :title_obj="title"></Title>
     </el-main>
+
+    <el-container>
+      <el-container style="height: 400px;" >
+        <el-main class="new-main">Images and DESC</el-main>
+        <el-aside width="40%">Table</el-aside>
+      </el-container>
+    </el-container>
+    <el-divider></el-divider>
+    <el-container>
+      <el-container style="height: 300px;" >
+        <el-aside width="300px">Chart</el-aside>
+        <el-main class="new-main">Desc</el-main>
+      </el-container>
+    </el-container>
+
+    <el-divider></el-divider>
+    <el-container>
+      <el-container style="height: 300px;" >
+        <el-aside width="300px">Chart</el-aside>
+        <el-main class="new-main">Desc</el-main>
+      </el-container>
+    </el-container>
+
+
+
     <el-divider></el-divider>
     <el-footer>
       <Footer></Footer>
@@ -16,7 +41,7 @@
 
 <script>
   import Header from '../components/header.vue'
-  import Title from '../components/title.vue'
+  import Title from '../components/detail_title.vue'
   import Footer from '../components/footer.vue'
   export default {
     components: {
@@ -40,7 +65,7 @@
       }
     },
     methods: {
-      teststtt(){
+      teststtt() {
         console.log(this.schoolId)
       }
     },
@@ -87,6 +112,27 @@
     width: 92%;
     margin-left: 4%;
     height: 2px;
+  }
+
+  .new-header {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+  }
+
+  .el-aside {
+    background-color: #D3DCE6;
+    color: #333;
+    text-align: center;
+    line-height: 200px;
+  }
+
+  .new-main {
+    background-color: #E9EEF3;
+    color: #333;
+    text-align: center;
+    line-height: 160px;
   }
 
   #index_title {

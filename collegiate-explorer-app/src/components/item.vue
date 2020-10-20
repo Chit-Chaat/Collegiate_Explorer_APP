@@ -25,6 +25,9 @@
             :colors="iconColors" style="display: inline; pointer-events: none; cursor: default;">
           </el-rate>
         </div>
+        <div>
+          <i class="el-icon-check" style="color: rgb(20, 212, 20);"></i>AAAAAAAAAA
+        </div>
       </div>
     </el-card>
   </div>
