@@ -9,4 +9,5 @@ from . import views
 urlpatterns = [
     path('index', views.index, name='index'),
     path('list', views.detail_list, name='detail_list'),
+    path('articles/<int:year>/', views.get_param)
 ]

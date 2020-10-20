@@ -1,8 +1,7 @@
-import json
 
 from django.http import HttpResponse
 
-# from .ResponseResult import ResponseResult
+from JsonResponseResult import JsonResponseResult
 
 
 def index(request):
@@ -19,19 +18,19 @@ def detail_list(request):
             {'id': "3",
              'name': "3",
              'gender': "3"}]
-    return HttpResponse(data)
+    return JsonResponseResult(code=404, data=data, msg="OK")
 
-# @api_view(['GET'])
-# def task_detail(request, pk):
-#     data = [{'id': str(pk),
-#              'name': "1",
-#              'gender': "1"},
-#             {'id': "2",
-#              'name': "2",
-#              'gender': "2"},
-#             {'id': "3",
-#              'name': "3",
-#              'gender': "3"}]
-#     return ResponseResult(data=json.dumps(data),
-#                           code=200, msg="success",
-#                           status=status.HTTP_200_OK)
+
+def get_param(request, year=2005):
+    data = [{'id': "1",
+             'name': "1",
+             'gender': "1"},
+            {'id': "2",
+             'name': "2",
+             'gender': "2"},
+            {'id': "3",
+             'name': "3",
+             'gender': "3"}, {
+                'year': str(year)
+            }]
+    return JsonResponseResult(code=200, data=data, msg="OK")
