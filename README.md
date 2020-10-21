@@ -25,4 +25,5 @@
 | 7 |Back-end Init   |   | Kevin, Ryan | not yet |  <ul><li>[ ] Init</li><li>[ ] item2</li></ul>
 
 ### ScreenShot
-![WeChat Screenshot_20201011195851](https://user-images.githubusercontent.com/24391143/95700627-5de6c100-0bfc-11eb-9cac-65c392357a17.png)
+![WeChat Screenshot_20201021161918](https://user-images.githubusercontent.com/24391143/96800006-32f92b80-13b9-11eb-991a-f42889a4c03c.png)
+)
