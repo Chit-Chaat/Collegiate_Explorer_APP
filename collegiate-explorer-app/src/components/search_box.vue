@@ -35,9 +35,9 @@
         <div style="visibility: hidden;">dont delete me</div>
       </el-col>
       <el-col :span="1.5" v-for="tag in recommend_search_tags" :key="tag.name">
-        <el-tag :type="tag.type" round @click="toggleTagSearch(tag.name)">
+        <el-button :type="tag.type" size="mini" plain @click="toggleTagSearch(tag.name)">
           {{tag.name}}
-        </el-tag>
+        </el-button>
       </el-col>
     </el-row>
   </div>

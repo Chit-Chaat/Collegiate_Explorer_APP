@@ -4,7 +4,6 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 import './assets/images/gray_64.png'
-import './assets/images/school_logo.jpg'
 import './assets/styles/global.css'
 import router from './router'
 

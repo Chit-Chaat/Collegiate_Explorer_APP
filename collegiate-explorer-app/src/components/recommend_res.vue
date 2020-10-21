@@ -32,16 +32,16 @@
         logo: 'school_logo.jpg',
         desc: 'this is desc this is this is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
         rating: {
-          A: 5,
-          B: 3,
-          A_val: '5',
-          B_val: '3'
+          Niche: 5,
+          CC: 3,
         },
         review: '3453',
         level: 'A',
-        detail: 'detail/school_id',
         address: '1420 22nd W St, Los Angeles, CA, 90007',
-        tuition: '$17,234'
+        tuition: '$17,234',
+        school_type: 'Private School',
+        ACT: '1500-1570',
+        acceptance_rate: '7.88%'
       },
       {
         id: '2',
@@ -49,16 +49,16 @@
         logo: 'school_logo2.jpg',
         desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
         rating: {
-          A: 2,
-          B: 3,
-          A_val: '2',
-          B_val: '3'
+          Niche: 2,
+          CC: 3,
         },
         review: '3453',
         level: 'A',
-        detail: 'detail/school_id',
         address: '1420 22nd W St, Los Angeles, CA, 90007',
-        tuition: '$17,234'
+        tuition: '$17,234',
+        school_type: 'Private School',
+        ACT: '1500-1570',
+        acceptance_rate: '7.88%'
       },
       {
         id: '3',
@@ -66,16 +66,67 @@
         logo: 'school_logo.jpg',
         desc: 'this is desc this is this is desc this isthis is des desc this isthis is des desc this isthis is des desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
         rating: {
-          A: 4,
-          B: 3,
-          A_val: '4',
-          B_val: '3'
+          Niche: 4,
+          CC: 3,
         },
         review: '3453',
         level: 'A',
-        detail: 'detail/school_id',
         address: '1420 22nd W St, Los Angeles, CA, 90007',
-        tuition: '$17,234'
+        tuition: '$17,234',
+        school_type: 'Private School',
+        ACT: '1500-1570',
+        acceptance_rate: '7.88%'
+      },
+      {
+        id: '4',
+        name: 'University of AAAAAA',
+        logo: 'school_logo.jpg',
+        desc: 'this is desc this is this is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
+        rating: {
+          Niche: 5,
+          CC: 3,
+        },
+        review: '3453',
+        level: 'A',
+        address: '1420 22nd W St, Los Angeles, CA, 90007',
+        tuition: '$17,234',
+        school_type: 'Private School',
+        ACT: '1500-1570',
+        acceptance_rate: '7.88%'
+      },
+      {
+        id: '5',
+        name: 'University of bbbbbbbb',
+        logo: 'school_logo2.jpg',
+        desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
+        rating: {
+          Niche: 2,
+          CC: 3,
+        },
+        review: '3453',
+        level: 'A',
+        address: '1420 22nd W St, Los Angeles, CA, 90007',
+        tuition: '$17,234',
+        school_type: 'Private School',
+        ACT: '1500-1570',
+        acceptance_rate: '7.88%'
+      },
+      {
+        id: '6',
+        name: 'University of cCCCCC',
+        logo: 'school_logo.jpg',
+        desc: 'this is desc this is this is desc this isthis is des desc this isthis is des desc this isthis is des desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
+        rating: {
+          Niche: 4,
+          CC: 3,
+        },
+        review: '3453',
+        level: 'A',
+        address: '1420 22nd W St, Los Angeles, CA, 90007',
+        tuition: '$17,234',
+        school_type: 'Private School',
+        ACT: '1500-1570',
+        acceptance_rate: '7.88%'
       }]
     },
     computed: {
