@@ -1,0 +1,229 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix schema: <http://schema.org/> .
+@prefix collegex: <http://collegex.org/collegiate-explorer-ns#> .
+
+#### University Class ####
+collegex:University a schema:Class ;
+    rdfs:subClassOf schema:EducationalOrganization ;
+    schema:logo schema:URL ;
+    schema:slogan schema:Text ;
+    schema:telephone schema:Text ;
+    schema:location schema:Text ;
+    schema:identifier schema:Text ;
+    schema:name schema:Text ;
+    schema:sameAs schema:URL ;
+
+    # USNews Property
+    collegex:usn_popularMajors schema:Text ;
+    collegex:categoryRank schema:Text ;
+    collegex:freshmanRetention xsd:float ;
+    collegex:studentFacultyRatio schema:Text ;
+    collegex:schoolType schema:Text ;
+    collegex:schoolSetting schema:Text ;
+    collegex:academicCalendar schema:Text ;
+    collegex:campusSize schema:Text ;
+
+    # College Confidential Property
+    collegex:cc_score xsd:float ;
+    collegex:avgACT xsd:int ;
+    collegex:avgMathSAT xsd:int ;
+    collegex:avgReadSAT xsd:int ;
+    collegex:avgWriteSAT xsd:int ;
+    collegex:avgGPA xsd:float ;
+    collegex:acceptRate xsd:float ;
+    collegex:undergradPop xsd:int ;
+    collegex:gradPop xsd:int ;
+    collegex:region schema:Text ;
+
+    # DBpedia Property
+    collegex:affiliation schema:Text ;
+    collegex:athletic schema:Text ;
+    collegex:president schema:Person ;
+    collegex:mascot schema:Text ;
+    collegex:schoolColor schema:Text ;
+    collegex:numberStudents xsd:int ;
+
+    # Niche Property
+    collegex:n_score schema:Text ;    
+    collegex:medianEarn6years xsd:int ;
+    collegex:graduationRate xsd:float ;
+    collegex:employmentRate xsd:int ;
+    collegex:averageAid xsd:int ;
+    collegex:applicationFee xsd:int ;
+    collegex:studentAthleticsPercentage xsd:float ;
+    collegex:applicationDeadline schema:Text ;
+    collegex:n_popularMajors schema:Text ;
+    collegex:applicationWebsite schema:URL ;
+
+    # QS Ranking Property
+    collegex:qs_score xsd:float ;
+    collegex:qs_rank xsd:int .
+
+#### USNews Properties ####
+#### USNews Popular Major Property ####
+collegex:usn_popularMajors a rdfs:Property ;
+    schema:name schema:Text .
+
+#### USNews Category Rank Property ####
+collegex:categoryRank a rdfs:Property ;
+    schema:name schema:Text .
+
+#### USNews Statistical Properties ####
+collegex:freshmanRetention a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:float .
+
+collegex:studentFacultyRatio a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range schema:Text .
+
+#### USNews School Attribute Properties ####
+collegex:schoolType a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range schema:Text .
+
+collegex:schoolSetting a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range schema:Text .
+
+collegex:academicCalendar a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range schema:Text .
+
+collegex:campusSize a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range schema:Text .
+
+#### College Confidential Properties ####
+#### College Confidential Rating Property ####
+collegex:cc_score a rdf:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:float .
+
+#### College Confidential Test Score Properties ####
+collegex:avgACT a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:int .
+
+collegex:avgMathSAT a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:int .
+
+collegex:avgReadSAT a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:int .
+
+collegex:avgWriteSAT a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:int .
+
+
+#### College Confidential Statistical Properties ####
+collegex:avgGPA a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:float .
+
+collegex:acceptRate a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:float .
+
+collegex:undergradPop a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:int .
+
+collegex:gradPop a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:int .
+
+#### College Confidential School Attribute Properties ####
+collegex:region a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range schema:Text .
+
+
+#### DBpedia Properties ####
+#### DBpedia Organization Properties ####
+collegex:affiliation a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range schema:Text .
+
+collegex:athletic a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range schema:Text .
+
+#### DBpedia School Attribute Properties ####
+collegex:president a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range schema:Person .
+
+collegex:mascot a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range schema:Text .
+
+collegex:schoolColor a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range schema:Text .
+
+collegex:numberStudents a rdfs:Property ; 
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:int .
+
+
+#### Niche Properties ####
+#### Niche Score Property ####
+collegex:n_score a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range schema:Text .
+
+#### Niche Statistical Properties ####
+collegex:medianEarn6years a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:int .
+
+collegex:graduationRate a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:float .
+
+collegex:employmentRate a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:int .
+
+collegex:averageAid a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:int .
+
+collegex:applicationFee a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:int .
+
+#### Niche Organizational Properties ####
+collegex:studentAthleticsPercentage a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:float .
+
+collegex:applicationDeadline a rdfs:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range schema:Text .
+
+#### Niche School Attribute Property ####
+collegex:n_popularMajors a rdfs:Property ;
+    schema:name schema:Text .
+
+collegex:applicationWebsite a rdfs:Property;
+    rdfs:domain collegex:University ;
+    rdfs:range schema:URL .
+
+#### QS Ranking Properties ####
+#### QS Ranking Score Property ####
+collegex:qs_score a rdf:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:float .
+
+#### QS Ranking Rank Property ####
+collegex:qs_rank a rdf:Property ;
+    rdfs:domain collegex:University ;
+    rdfs:range xsd:int .
