@@ -10,20 +10,24 @@
 
     <el-container style="height: 500px;">
       <el-main>
-        <el-carousel height="250px" direction="vertical" :autoplay="true">
+        <el-carousel height="245px" direction="vertical" :autoplay="true">
           <el-carousel-item v-for="img in head_imgs" :key="img">
             <img :src="require('../assets/images' + img)">
           </el-carousel-item>
         </el-carousel>
         <div class='ranking_chart'>
-          <g2-area :padding="['auto', 30]" :data="ranking_data" :axis-name="{name:'Years', value:'Ranking'}"
+          <div style="text-align: left; font-size: 17px; color: azure; padding-left: 20px;">Historical Ranking of
+            {{title_info.main_title}}</div>
+          <g2-area :padding="['auto', 30]" :data="ranking_data"
+            :axis-name="{name:'Years', value:'Ranking', type:'Site'}"
             :axisColor="{ lineColor: 'rgb(240, 255, 255)', labelColor: 'rgb(240, 255, 255)' }"
-            :single-color="{areaColor: 'l(270) 0:#855001 1:#FF9900', lineColor: '#FF9900'}"
-            style="height: 200px; width: 100%;">
+            style="height: 180px; width: 100%;">
           </g2-area>
         </div>
       </el-main>
-      <el-aside width="40%">Table</el-aside>
+      <el-aside width="40%" style="line-height: 200px;">
+        <HeadCard :desc_obj="desc_info"></HeadCard>
+      </el-aside>
     </el-container>
 
     <el-divider></el-divider>
@@ -53,12 +57,13 @@
   import Header from '../components/header.vue'
   import Title from '../components/detail_title.vue'
   import Footer from '../components/footer.vue'
-
+  import HeadCard from '../components/detail_head_card.vue'
   export default {
     components: {
       Header,
       Title,
       Footer,
+      HeadCard
     },
     props: {
       schoolId: {
@@ -70,11 +75,16 @@
       return {
         head_imgs: [],
         title_info: {},
+        desc_info: {},
         ranking_data: [
-          { name: '1997', value: 37 },
-          { name: '2007', value: 35 },
-          { name: '2017', value: 30 },
-          { name: '2020', value: 33 }
+          { name: '1997', value: 37, type: 'Niche' },
+          { name: '2007', value: 35, type: 'Niche' },
+          { name: '2017', value: 30, type: 'Niche' },
+          { name: '2020', value: 33, type: 'Niche' },
+          { name: '1997', value: 40, type: 'CollegeConfidential' },
+          { name: '2007', value: 36, type: 'CollegeConfidential' },
+          { name: '2017', value: 35, type: 'CollegeConfidential' },
+          { name: '2020', value: 39, type: 'CollegeConfidential' },
         ],
       }
     },
@@ -86,6 +96,31 @@
         school_type: "Private University",
         location: "Los Angeles, CA",
         school_link: "http://www.usc.edu",
+      }
+      this.desc_info = {
+        title: "University of Southern California",
+        location: "University Park Los Angeles, CA 90089",
+        avg_score: {
+          reading: "700",
+          math: "714",
+          composite: "32"
+        },
+        expected_salary: "74,000",
+        cost: {
+          net_price: '36,161',
+          national: "15,523",
+          financial_aid: "69%",
+          avg_aid_award: "35,953"
+        },
+        admission: {
+          acceptance_rate: '13%',
+          application_ddl: 'January 15th'
+        },
+        students: {
+          undergraduate: "20,048",
+          graduate: "27,970",
+          international: "2,499"
+        }
       }
     },
     methods: {
@@ -139,13 +174,6 @@
     width: 92%;
     margin-left: 4%;
     height: 2px;
-  }
-
-  .el-aside {
-    background-color: #D3DCE6;
-    color: #333;
-    text-align: center;
-    line-height: 200px;
   }
 
   #index_title {

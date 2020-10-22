@@ -168,6 +168,6 @@
   }
 
   .social_btn {
-    padding-left: 15px;
+    padding-left: 5px;
   }
 </style>
