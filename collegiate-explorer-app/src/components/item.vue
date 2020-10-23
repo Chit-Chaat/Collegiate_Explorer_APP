@@ -87,7 +87,6 @@
 <style scoped>
   .el-col {
     margin-bottom: 8px;
-
   }
 
   .el-col :last-child {
