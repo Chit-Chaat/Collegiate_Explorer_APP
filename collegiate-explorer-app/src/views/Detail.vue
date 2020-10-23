@@ -31,42 +31,23 @@
     </el-container>
 
     <el-divider></el-divider>
-    <el-container>
-      <el-container style="height: 300px;">
-        <div class="score_tab_chart_title">ACT&SAT</div>
-        <el-aside width="300px">
-          <g2-radar :is-show-area="true" :show-legend="true" :axis-name="{niche:'Niche', cc:'CollegeConfidential'}"
-            :axisColor="{ lineColor: 'rgb(240, 255, 255)', labelColor: 'rgb(240, 255, 255)' }" :data="score_data"
-            style="height: 260px; width: 100%;">
-          </g2-radar>
-        </el-aside>
-        <el-main style="width: 90%;">
-
-          <div class="score_tab_desc_title">
-            <img :src="require('../assets/images/niche-logo.png')" width="40px"> Niche Site said:</div>
-          <div class="niche_desc">For the student who got an offer from this school, their SAT score range is
-            {{score_desc.niche.sat_range}}, and their ACT score range is {{score_desc.niche.act_range}}.
-          </div>
-
-          <div class="score_tab_desc_title">
-            <img :src="require('../assets/images/cc-logo.jpg')" width="30px"> College Confidential said:</div>
-            <div class="niche_desc">For the student who got an offer from this school, their SAT score range is
-              {{score_desc.niche.sat_range}}.
-              For the student who got an offer from this school, their SAT score range is
-              {{score_desc.niche.sat_range}}.
-            </div>
-
-        </el-main>
-      </el-container>
-    </el-container>
+    <ScorePanel :score_obj="score_info"></ScorePanel>
 
     <el-divider></el-divider>
+    <FamePanel :fame_obj="fame_info"></FamePanel>
+
+    <el-divider></el-divider>
+    <SimilarSchoolPanel></SimilarSchoolPanel>
+
+    <el-divider></el-divider>
+    <PopularMajorPanel></PopularMajorPanel>
+    <!-- <el-divider></el-divider>
     <el-container>
       <el-container style="height: 300px;">
         <el-aside width="300px">Chart</el-aside>
         <el-main>Desc</el-main>
       </el-container>
-    </el-container>
+    </el-container> just in case, if group member wanna add other info in the detail page-->
 
     <el-divider></el-divider>
     <el-footer>
@@ -80,12 +61,20 @@
   import Title from '../components/detail_title.vue'
   import Footer from '../components/footer.vue'
   import HeadCard from '../components/detail_head_card.vue'
+  import ScorePanel from '../components/score_panel.vue'
+  import FamePanel from '../components/fame_panel.vue'
+  import SimilarSchoolPanel from '../components/similar_school_panel.vue'
+  import PopularMajorPanel from '../components/popular_major_panel.vue'
   export default {
     components: {
       Header,
       Title,
       Footer,
-      HeadCard
+      HeadCard,
+      ScorePanel,
+      FamePanel,
+      SimilarSchoolPanel,
+      PopularMajorPanel,
     },
     props: {
       schoolId: {
@@ -101,26 +90,22 @@
         ranking_data: [
           { name: '1997', value: 37, type: 'Niche' },
           { name: '2007', value: 35, type: 'Niche' },
-          { name: '2017', value: 30, type: 'Niche' },
+          { name: '2018', value: 30, type: 'Niche' },
           { name: '2020', value: 33, type: 'Niche' },
           { name: '1997', value: 40, type: 'CollegeConfidential' },
           { name: '2007', value: 36, type: 'CollegeConfidential' },
-          { name: '2017', value: 35, type: 'CollegeConfidential' },
+          { name: '2018', value: 35, type: 'CollegeConfidential' },
           { name: '2020', value: 39, type: 'CollegeConfidential' },
+          { name: '1997', value: 30, type: 'QS News' },
+          { name: '2007', value: 32, type: 'QS News' },
+          { name: '2018', value: 35, type: 'QS News' },
+          { name: '2020', value: 32, type: 'QS News' },
         ],
-        score_data: [
-          { item: 'SAT_reading', niche: 67.5, cc: 60.3 }, // div 10
-          { item: 'SAT_writing', niche: 64.6, cc: 50.6 }, // div 10
-          { item: 'SAT_math', niche: 71.0, cc: 70.1 }, // div 10
-          { item: 'ACT', niche: 64, cc: 68 }, // * 2
-          { item: 'GPA', niche: 76, cc: 74 } // * 20
-        ],
-        score_desc: {
-          niche: {
-            sat_range: '1390-1540',
-            act_range: '32-35',
-          },
-        }
+        score_info: {
+          score_data: [],
+          score_desc: {},
+        },
+        fame_info: {},
       }
     },
     mounted() {
@@ -157,6 +142,32 @@
           international: "2,499"
         }
       }
+      this.score_info = {
+        score_data: [
+          { item: 'SAT_reading', niche: 67.5, cc: 60.3 }, // div 10
+          { item: 'SAT_writing', niche: 64.6, cc: 50.6 }, // div 10
+          { item: 'SAT_math', niche: 71.0, cc: 70.1 }, // div 10
+          { item: 'ACT', niche: 64, cc: 68 }, // * 2
+          { item: 'GPA', niche: 76, cc: 74 } // * 20
+        ],
+        score_desc: {
+          niche: {
+            sat_range: '1390-1540',
+            act_range: '32-35',
+          },
+          cc: {
+            sat: {
+              reading: 731,
+              writing: 656,
+              math: 731,
+            },
+            act: 32,
+            gpa: 3.72
+          }
+        }
+      }
+      this.fame_info = {}
+
     },
     methods: {
     },
@@ -164,11 +175,6 @@
 </script>
 
 <style scoped>
-  .small {
-    max-width: 600px;
-    margin: 150px auto;
-  }
-
   #app {
     position: absolute;
     left: 0;
@@ -224,37 +230,5 @@
     height: 230px;
     padding-top: 10px;
     margin-top: 10px;
-  }
-
-  .score_tab_chart_title {
-    color: rgb(255, 255, 255);
-    text-align: left;
-    font-family: "microsoft yahei";
-    padding-left: 40px;
-    font-size: 25px;
-  }
-
-  .score_tab_desc_title {
-    color: rgb(255, 255, 255);
-    text-align: left;
-    font-family: "microsoft yahei";
-    font-size: 25px;
-    width: 90%;
-  }
-
-  .niche_desc {
-    float: left;
-    font-size: 18px;
-    color: azure;
-    padding-top: 10px;
-    padding-left: 40px;
-    width: 90%;
-    text-align: left;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    text-align: left;
-    margin-bottom: 20px;
   }
 </style>
