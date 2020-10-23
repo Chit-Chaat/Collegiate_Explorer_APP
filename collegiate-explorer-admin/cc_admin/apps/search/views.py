@@ -18,6 +18,9 @@ def top10(request):
     # http://127.0.0.1:8000/search/top10
 
 
+def test(request):
+    return JsonResponseResult().error(code=405, msg='sadasdasd',data="sssssss")
+
 """
 there are two way to do query(since this project mainly need us to do query not much update)
 the first way is to use $param, to change your query dynamically.
