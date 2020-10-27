@@ -34,20 +34,10 @@
     <ScorePanel :score_obj="score_info"></ScorePanel>
 
     <el-divider></el-divider>
-    <FamePanel :fame_obj="fame_info"></FamePanel>
+    <PopularMajorPanel :popular_major_obj="popular_major_info"></PopularMajorPanel>
 
     <el-divider></el-divider>
-    <SimilarSchoolPanel></SimilarSchoolPanel>
-
-    <el-divider></el-divider>
-    <PopularMajorPanel></PopularMajorPanel>
-    <!-- <el-divider></el-divider>
-    <el-container>
-      <el-container style="height: 300px;">
-        <el-aside width="300px">Chart</el-aside>
-        <el-main>Desc</el-main>
-      </el-container>
-    </el-container> just in case, if group member wanna add other info in the detail page-->
+    <SimilarSchoolPanel :similar_school_obj="similar_school_info"></SimilarSchoolPanel>
 
     <el-divider></el-divider>
     <el-footer>
@@ -62,7 +52,6 @@
   import Footer from '../components/footer.vue'
   import HeadCard from '../components/detail_head_card.vue'
   import ScorePanel from '../components/score_panel.vue'
-  import FamePanel from '../components/fame_panel.vue'
   import SimilarSchoolPanel from '../components/similar_school_panel.vue'
   import PopularMajorPanel from '../components/popular_major_panel.vue'
   export default {
@@ -72,7 +61,6 @@
       Footer,
       HeadCard,
       ScorePanel,
-      FamePanel,
       SimilarSchoolPanel,
       PopularMajorPanel,
     },
@@ -84,6 +72,9 @@
     },
     data() {
       return {
+        width: 500,
+        height: 220,
+        RADIUS: 200,
         head_imgs: [],
         title_info: {},
         desc_info: {},
@@ -105,7 +96,16 @@
           score_data: [],
           score_desc: {},
         },
-        fame_info: {},
+        similar_school_info: {},
+        popular_major_info: {},
+      }
+    },
+    computed: {
+      CX() {
+        return this.width / 2;
+      },
+      CY() {
+        return this.height / 2;
       }
     },
     mounted() {
@@ -166,10 +166,30 @@
           }
         }
       }
-      this.fame_info = {}
-
+      this.similar_school_info = [
+        { id: 1, name: 'University Of Southern California', similarity: '96%', link: '', rating: { Niche: 5, CC: 3, } },
+        { id: 2, name: 'University Of Southern California', similarity: '87%', link: '', rating: { Niche: 5, CC: 3, } },
+        { id: 3, name: 'University Of Southern California', similarity: '86%', link: '', rating: { Niche: 5, CC: 3, } },
+        { id: 4, name: 'University Of Southern California', similarity: '86%', link: '', rating: { Niche: 5, CC: 3, } },
+        { id: 5, name: 'University Of Southern California', similarity: '76%', link: '', rating: { Niche: 5, CC: 3, } },
+        { id: 6, name: 'University Of Southern California', similarity: '66%', link: '', rating: { Niche: 5, CC: 3, } },
+        { id: 7, name: 'University Of Southern California', similarity: '66%', link: '', rating: { Niche: 5, CC: 3, } }
+      ]
+      this.popular_major_info = [
+        { name: "AAAAAAAAAAAA", link: "/search/major='A'" },
+        { name: "BBBBBBBBBB", link: "/search/major='B'" },
+        { name: "CCCCCCCCC", link: "/search/major='C'" },
+        { name: "DDDDDDDDDDDDDDDDDD", link: "/search/major='D'" },
+        { name: "EEEEEEEEEEEEE", link: "/search/major='E'" },
+        { name: "FFFFFFFFFFFFF", link: "/search/major='F'" },
+        { name: "GGGGGGGGGGGGGG", link: "/search/major='G'" },
+        { name: "HHHHHHHHHHHHH", link: "/search/major='H'" },
+        { name: "IIIIIIIIIIII", link: "/search/major='I'" },
+        { name: "JJJJJJJJJJJJJJJJJ", link: "/search/major='J'" },
+      ]
     },
     methods: {
+      
     },
   }
 </script>

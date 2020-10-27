@@ -41,35 +41,49 @@
       <el-col :span="5">
         <div class="title">CONTACT</div>
         <el-row style="width: 100%; padding-right: 0px;">
-          <el-col >
-            <div class="grid-content bg-purple">Aaron Yang</div>
+          <el-col>
+            <div class="grid-content team">Aaron Yang <span class="highlighted_val">UI/UX + BackEnd</span></div>
           </el-col>
           <el-col>
-            <div class="grid-content bg-purple"></div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col>
-            <div class="grid-content bg-purple">Kevin Tran</div>
-          </el-col>
-          <el-col>
-            <div class="grid-content bg-purple"></div>
+            <div class="grid-content team">
+              <img :src="require('../assets/logo.png')" width="20px">
+              <img :src="require('../assets/images/element.png')" width="80px">
+              <img :src="require('../assets/images/scrapy.png')" width="25px">
+              <img :src="require('../assets/images/neo4j.png')" width="50x">
+            </div>
           </el-col>
         </el-row>
         <el-row>
           <el-col>
-            <div class="grid-content bg-purple">Ryan Ball</div>
+            <div class="grid-content team">Kevin Tran <span class="highlighted_val">BackEnd</span></div>
           </el-col>
           <el-col>
-            <div class="grid-content bg-purple"></div>
+            <div class="grid-content team">
+              <img :src="require('../assets/images/scrapy.png')" width="25px">
+              <img :src="require('../assets/images/django.png')" width="40px">
+              <img :src="require('../assets/images/neo4j.png')" width="50x">
+            </div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col>
+            <div class="grid-content team">Ryan Ball <span class="highlighted_val">BackEnd</span></div>
+          </el-col>
+          <el-col>
+            <div class="grid-content team">
+              <img :src="require('../assets/images/scrapy.png')" width="25px">
+              <img :src="require('../assets/images/django.png')" width="40px">
+              <img :src="require('../assets/images/neo4j.png')" width="50x">
+            </div>
           </el-col>
         </el-row>
 
       </el-col>
       <el-col :span="4">
         <div class='chit-chat-logo'>
-          <img :src="require('../assets/images/chit-chat-logo.png')"
-            width="180px; background-color: #999; opacity: 0.10;">
+          <a href="https://github.com/Chit-Chaat/Collegiate_Explorer_APP">
+            <img :src="require('../assets/images/chit-chat-logo.png')"
+              width="180px; background-color: #999; opacity: 0.10;"></a>
           <div class="social_btn">
             <el-row>
               <a href="https://github.com/Chit-Chaat/Collegiate_Explorer_APP"><img
@@ -86,17 +100,27 @@
 </template>
 
 <style scoped>
+  .team {
+    color: rgb(189, 187, 187);
+    width: 86%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
-.bg-purple {
-    background: #d3dce6;
+  .team img {
+    padding-left: 5px;
   }
-  .bg-purple-light {
-    background: #e5e9f2;
+
+  .team img:first-child {
+    padding-left: 0px;
   }
+
   .grid-content {
     border-radius: 4px;
-    min-height: 36px;
+    min-height: 30px;
   }
+
   #cc_footer {
     left: 0;
     right: 0;
@@ -164,10 +188,18 @@
   .el-link.el-link--default {
     color: rgb(204, 200, 200);
     font-size: 13px;
-
   }
 
   .social_btn {
     padding-left: 5px;
+  }
+
+  .highlighted_val {
+    line-height: 20px;
+    color: darkorange;
+    font-size: 16px;
+    font-weight: 600;
+    display: inline;
+    padding-left: 10px;
   }
 </style>

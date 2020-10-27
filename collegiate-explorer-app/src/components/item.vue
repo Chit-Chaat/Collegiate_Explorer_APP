@@ -16,7 +16,7 @@
       <div class="location"><i class="el-icon-map-location"></i>{{item.address}} | <i
           class="el-icon-chat-line-square"></i>{{item.review}} reviews</div>
       <div class="desc">{{item.desc}}</div>
-      <el-divider content-position="right">Other</el-divider>
+      <el-divider content-position="right">Facts</el-divider>
       <div class="other">
         <el-row>
           <el-col :sm="20" :lg="12">

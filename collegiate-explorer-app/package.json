@@ -13,6 +13,7 @@
     "@antv/data-set": "^0.9.6",
     "@antv/g2": "^3.5.15",
     "axios": "^0.20.0",
+    "better-scroll": "^2.0.5",
     "element-ui": "^2.12.0",
     "url-loader": "^0.5.8",
     "vue": "^2.5.11",
