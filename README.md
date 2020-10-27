@@ -21,9 +21,11 @@
 | 3 |Extract Data | Request, Scrapy  | Kevin, Ryan, Aaron | in progress|  <ul><li>[x] US News</li><li>[x] QS</li><li>[x] DBpedia</li><li>[x] College Confidential</li><li>[x] Niche</li></ul>
 | 4 |Entity Resolution | ER  | not yet | Kevin, Ryan |  <ul><li>[x] item1</li><li>[x] item2</li></ul>
 | 5 |Neo4J Init   | neo4j  | not yet | Kevin, Ryan |  <ul><li>[ ] item1</li><li>[ ] item2</li></ul>
-| 6 |Front-end Init   | Vue, Element  | Aaron | in progress |  <ul><li>[x] Init</li><li>[ ] item2</li></ul>
+| 6 |Front-end Init   | Vue, Element  | Aaron | in progress |  <ul><li>[x] Index</li><li>[x] Detail Page</li></ul>
 | 7 |Back-end Init   |   | Kevin, Ryan | not yet |  <ul><li>[ ] Init</li><li>[ ] item2</li></ul>
 
 ### ScreenShot
-![WeChat Screenshot_20201021161918](https://user-images.githubusercontent.com/24391143/96800006-32f92b80-13b9-11eb-991a-f42889a4c03c.png)
-)
+![index](https://user-images.githubusercontent.com/24391143/97255903-e35a9b80-17ce-11eb-9a92-6e16187376f9.png)
+
+
+![detail](https://user-images.githubusercontent.com/24391143/97255914-ec4b6d00-17ce-11eb-906a-80153f524ead.png)
