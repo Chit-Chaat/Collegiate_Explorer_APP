@@ -1,8 +1,8 @@
 <template>
 
-  <el-container style="height: 295px;">
+  <el-container style="height: 295px;" v-if="score_obj">
     <div class="score_tab_chart_title">ACT&SAT</div>
-    <el-aside width="300px">
+    <el-aside width="300px" v-if="score_obj.score_data">
       <g2-radar :is-show-area="true" :show-legend="true" :axis-name="{niche:'Niche', cc:'CollegeConfidential'}"
         :axisColor="{ lineColor: 'rgb(240, 255, 255)', labelColor: 'rgb(240, 255, 255)' }" :data="score_obj.score_data"
         style="height: 260px; width: 100%;">
@@ -11,14 +11,14 @@
     <el-main style="width: 90%; height: 100%; padding-bottom: 0px; padding-top: 0px;">
       <div class="score_tab_desc_title">
         <img :src="require('../assets/images/niche-logo2.png')" width="30px"> Niche Site said:</div>
-      <div class="niche_desc" v-if="score_obj.score_desc.niche">For the student who got an offer from this school,
+      <div class="niche_desc" v-if="score_obj.score_desc">For the student who got an offer from this school,
         their SAT score range is
         <span class="highlight_val">{{score_obj.score_desc.niche.sat_range}}</span>, and their ACT score range is
         <span class="highlight_val">{{score_obj.score_desc.niche.act_range}}</span>.
       </div>
       <div class="score_tab_desc_title">
         <img :src="require('../assets/images/cc-logo.jpg')" width="30px"> College Confidential said:</div>
-      <div class="niche_desc" v-if="score_obj.score_desc.cc">For the student who got an offer from this school, most
+      <div class="niche_desc" v-if="score_obj.score_desc">For the student who got an offer from this school, most
         of their SAT math score is
         <span class="highlight_val">{{score_obj.score_desc.cc.sat.math}}</span>, SAT reading is <span
           class="highlight_val">{{score_obj.score_desc.cc.sat.reading}}</span>

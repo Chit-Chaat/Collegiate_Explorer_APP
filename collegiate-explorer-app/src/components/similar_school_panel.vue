@@ -1,5 +1,5 @@
 <template>
-  <el-container style="height: 195px;">
+  <el-container style="height: 200px;">
     <el-header class="similar_tab_title">You may also fit for thses following schools</el-header>
     <el-main style="padding-top: 0px; overflow: hidden; margin-left: -20px;">
       <div class="recommand-wrap">
@@ -39,7 +39,7 @@
                   <el-col :sm="10" :lg="9">
                     <el-button class="go_detail_btn" size="medium" type="text"
                     @click="$router.push({ name: 'Detail', params: { schoolId: item.id }})">
-                    <i class="el-icon-bottom-right"></i>Link</el-button>
+                    <i class="el-icon-bottom-right"></i></el-button>
                   </el-col>
                 </el-row>
               </div>

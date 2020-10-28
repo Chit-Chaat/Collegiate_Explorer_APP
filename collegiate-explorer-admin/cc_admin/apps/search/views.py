@@ -1,5 +1,8 @@
 from JsonResponseResult import JsonResponseResult
 from Neo4jConnectionPool import ConnectionPool
+import logging
+
+logger = logging.getLogger('django')
 
 
 def index(request):
@@ -19,7 +22,8 @@ def top10(request):
 
 
 def test(request):
-    return JsonResponseResult().error(code=405, msg='sadasdasd',data="sssssss")
+    return JsonResponseResult().error(code=405, msg='sadasdasd', data="sssssss")
+
 
 """
 there are two way to do query(since this project mainly need us to do query not much update)

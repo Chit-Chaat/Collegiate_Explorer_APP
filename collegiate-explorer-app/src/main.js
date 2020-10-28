@@ -10,6 +10,7 @@ import router from './router'
 
 Vue.use(ElementUI, { size: 'small', zIndex: 3000 });
 Vue.config.productionTip = false
+Vue.prototype.$hostname = 'http://localhost:8000'
 
 new Vue({
   el: '#app',

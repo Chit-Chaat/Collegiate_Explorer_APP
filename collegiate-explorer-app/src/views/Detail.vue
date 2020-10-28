@@ -15,11 +15,11 @@
             <img :src="require('../assets/images' + img)">
           </el-carousel-item>
         </el-carousel>
-        <div class='ranking_chart'>
+        <div class='ranking_chart' v-if="ranking_data">
           <div style="text-align: left; font-size: 17px; color: azure; padding-left: 20px;">Historical Ranking of
             {{title_info.main_title}}</div>
           <g2-area :padding="['auto', 30]" :data="ranking_data"
-            :axis-name="{name:'Years', value:'Ranking', type:'Site'}"
+            :axis-name="{year:'Years', value:'Ranking', type:'Site'}"
             :axisColor="{ lineColor: 'rgb(240, 255, 255)', labelColor: 'rgb(240, 255, 255)' }"
             style="height: 180px; width: 100%;">
           </g2-area>
@@ -34,7 +34,7 @@
     <ScorePanel :score_obj="score_info"></ScorePanel>
 
     <el-divider></el-divider>
-    <PopularMajorPanel :popular_major_obj="popular_major_info"></PopularMajorPanel>
+    <PopularMajorPanel></PopularMajorPanel>
 
     <el-divider></el-divider>
     <SimilarSchoolPanel :similar_school_obj="similar_school_info"></SimilarSchoolPanel>
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+  import axios from "axios"
   import Header from '../components/header.vue'
   import Title from '../components/detail_title.vue'
   import Footer from '../components/footer.vue'
@@ -72,43 +73,26 @@
     },
     data() {
       return {
-        width: 500,
-        height: 220,
-        RADIUS: 200,
+        rankingHistoricalDataApiPrefix: "/detail/ranking/history/",
         head_imgs: [],
         title_info: {},
         desc_info: {},
-        ranking_data: [
-          { name: '1997', value: 37, type: 'Niche' },
-          { name: '2007', value: 35, type: 'Niche' },
-          { name: '2018', value: 30, type: 'Niche' },
-          { name: '2020', value: 33, type: 'Niche' },
-          { name: '1997', value: 40, type: 'CollegeConfidential' },
-          { name: '2007', value: 36, type: 'CollegeConfidential' },
-          { name: '2018', value: 35, type: 'CollegeConfidential' },
-          { name: '2020', value: 39, type: 'CollegeConfidential' },
-          { name: '1997', value: 30, type: 'QS News' },
-          { name: '2007', value: 32, type: 'QS News' },
-          { name: '2018', value: 35, type: 'QS News' },
-          { name: '2020', value: 32, type: 'QS News' },
-        ],
-        score_info: {
-          score_data: [],
-          score_desc: {},
-        },
-        similar_school_info: {},
+        ranking_data: [],
+        score_info: {},
         popular_major_info: {},
+        similar_school_info: {},
       }
     },
     computed: {
-      CX() {
-        return this.width / 2;
-      },
-      CY() {
-        return this.height / 2;
-      }
+      
+    },
+    created() {
+      this.getRankingData()
+      console.log("created ->", this.ranking_data)
     },
     mounted() {
+      // this.getRankingData()
+      console.log("mounted ->", this.ranking_data)
       this.head_imgs = ['/usc/1.png', '/usc/2.png', '/usc/3.png']
       this.title_info = {
         main_title: "University of Southern California (USC)",
@@ -189,7 +173,60 @@
       ]
     },
     methods: {
-      
+      getRankingData(){
+        axios({
+          method: "GET",
+          url: this.$hostname + this.rankingHistoricalDataApiPrefix + this.$route.params.schoolId
+        }).then(
+          result => {
+            if (result.data != null) {
+              if (result.data.data instanceof Array) {
+                this.ranking_data = result.data.data[0];
+                console.log("method -> ", this.ranking_data)
+              } else {
+                this.ranking_data = Object.values(result.data.data);
+              }
+              this.$options.methods.sendSuccessMsg.bind(this)(
+                "Load Ranking Historical Data Successfully."
+              );
+              
+            }
+          },
+          error => {
+            this.$options.methods.sendErrorMsg.bind(this)(
+              "Something wrong with the Ranking Historical Data."
+            );
+          }
+        );
+      },
+      sendTips(msg) {
+        const h = this.$createElement;
+        this.$notify.success({
+          title: 'Success',
+          message: h('p', { style: 'font-size:12px' }, msg),
+          duration: 1500
+        });
+      },
+      sendAlert(msg) {
+        this.$notify.warning({
+          title: 'Warning',
+          message: h('p', { style: 'font-size:12px' }, msg),
+          duration: 1500
+        });
+      },
+      sendSuccessMsg(msg) {
+        const h = this.$createElement;
+        this.$message.success({
+          type: 'Success',
+          message: msg
+        });
+      },
+      sendErrorMsg(msg) {
+        this.$message.warning({
+          type: 'Warning',
+          message: msg
+        });
+      },
     },
   }
 </script>

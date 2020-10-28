@@ -1,3 +1,21 @@
+## logger
+logger is using to find problem, and monitor what happened during the request
+
+```python
+import logging
+logger = logging.getLogger('django')
+
+logger.info('-------------------------')
+logger.error(str(id))
+logger.warn('warn')
+logger.debug('debug')
+
+```
+
+
+
+
+
 ## Guide
 > How to use connection -> cc_admin/apps/search/views.py
 >

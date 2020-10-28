@@ -7,7 +7,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('index', views.index, name='index'),
-    path('list', views.detail_list, name='detail_list'),
-    path('articles/<int:year>/', views.get_param)
+    path('<str:id>', views.get_basic_info),
+    path('popular_major/<str:id>', views.get_popular_major),
+    path('ranking/history/<str:id>', views.get_ranking_data)
 ]

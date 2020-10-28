@@ -20,114 +20,11 @@
     data() {
       return {
         result_list: [],
-        basicApi: "http://localhost:8000",
-        recommendationApi: "/recommendation/",
+        recommendationApiPrefix: "/recommendation/",
       }
     },
     mounted() {
-      // this.getRecommendation()
-      this.result_list = [{
-        id: '1',
-        name: 'University of AAAAAA',
-        logo: 'school_logo.jpg',
-        desc: 'this is desc this is this is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
-        rating: {
-          Niche: 5,
-          CC: 3,
-        },
-        review: '3453',
-        level: 'A',
-        address: '1420 22nd W St, Los Angeles, CA, 90007',
-        tuition: '$17,234',
-        school_type: 'Private School',
-        ACT: '1500-1570',
-        acceptance_rate: '7.88%'
-      },
-      {
-        id: '2',
-        name: 'University of bbbbbbbb',
-        logo: 'school_logo2.jpg',
-        desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
-        rating: {
-          Niche: 2,
-          CC: 3,
-        },
-        review: '3453',
-        level: 'A',
-        address: '1420 22nd W St, Los Angeles, CA, 90007',
-        tuition: '$17,234',
-        school_type: 'Private School',
-        ACT: '1500-1570',
-        acceptance_rate: '7.88%'
-      },
-      {
-        id: '3',
-        name: 'University of cCCCCC',
-        logo: 'school_logo.jpg',
-        desc: 'this is desc this is this is desc this isthis is des desc this isthis is des desc this isthis is des desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
-        rating: {
-          Niche: 4,
-          CC: 3,
-        },
-        review: '3453',
-        level: 'A',
-        address: '1420 22nd W St, Los Angeles, CA, 90007',
-        tuition: '$17,234',
-        school_type: 'Private School',
-        ACT: '1500-1570',
-        acceptance_rate: '7.88%'
-      },
-      {
-        id: '4',
-        name: 'University of AAAAAA',
-        logo: 'school_logo.jpg',
-        desc: 'this is desc this is this is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc  is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
-        rating: {
-          Niche: 5,
-          CC: 3,
-        },
-        review: '3453',
-        level: 'A',
-        address: '1420 22nd W St, Los Angeles, CA, 90007',
-        tuition: '$17,234',
-        school_type: 'Private School',
-        ACT: '1500-1570',
-        acceptance_rate: '7.88%'
-      },
-      {
-        id: '5',
-        name: 'University of bbbbbbbb',
-        logo: 'school_logo2.jpg',
-        desc: 'this is desc this is this is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
-        rating: {
-          Niche: 2,
-          CC: 3,
-        },
-        review: '3453',
-        level: 'A',
-        address: '1420 22nd W St, Los Angeles, CA, 90007',
-        tuition: '$17,234',
-        school_type: 'Private School',
-        ACT: '1500-1570',
-        acceptance_rate: '7.88%'
-      },
-      {
-        id: '6',
-        name: 'University of cCCCCC',
-        logo: 'school_logo.jpg',
-        desc: 'this is desc this is this is desc this isthis is des desc this isthis is des desc this isthis is des desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this isthis is desc this is',
-        rating: {
-          Niche: 4,
-          CC: 3,
-        },
-        review: '3453',
-        level: 'A',
-        address: '1420 22nd W St, Los Angeles, CA, 90007',
-        tuition: '$17,234',
-        school_type: 'Private School',
-        ACT: '1500-1570',
-        acceptance_rate: '7.88%'
-      }]
+      this.getRecommendation()
     },
     computed: {
       dividedList: function () {
@@ -149,7 +46,7 @@
       getRecommendation() {
         axios({
           method: "GET",
-          url: this.basicApi + this.recommendationApi
+          url: this.$hostname + this.recommendationApiPrefix
         }).then(
           result => {
             if (result.data != null) {
@@ -174,14 +71,14 @@
         const h = this.$createElement;
         this.$notify.success({
           title: 'Success',
-          message: h('plain', { style: 'font-size:12px' }, msg),
+          message: h('p', { style: 'font-size:12px' }, msg),
           duration: 1500
         });
       },
       sendAlert(msg) {
         this.$notify.warning({
           title: 'Warning',
-          message: h('plain', { style: 'font-size:12px' }, msg),
+          message: h('p', { style: 'font-size:12px' }, msg),
           duration: 1500
         });
       },
