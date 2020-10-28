@@ -137,14 +137,14 @@ MERGE (node_name) -[:HAS_APP_WEB_OF {app_web:"collegex:applicationWebsite"}] -> 
 
 
 LOAD CSV WITH HEADERS FROM "file:///college_explorer_n_ext.csv" AS line_n
-MERGE (node_name:school_node {name:line.school_name})
+MERGE (node_name:school_node {name:line_n.school_name})
 
 
 MERGE (node_n_category:n_category_node {name:line_n.n_category})
 MERGE (node_name) -[:HAS_GRADE {grade:line_n.n_grade}] -> (node_n_category);
 
 LOAD CSV WITH HEADERS FROM "file:///college_explorer_usn_ext.csv" AS line_usn
-MERGE (node_name:school_node {name:line.school_name})
+MERGE (node_name:school_node {name:line_usn.school_name})
 
 
 MERGE (node_usn_category:usn_category_node {name:line_usn.usn_category})
