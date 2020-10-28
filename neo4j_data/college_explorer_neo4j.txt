@@ -1,0 +1,147 @@
+:auto USING PERIODIC COMMIT
+
+LOAD CSV WITH HEADERS FROM "file:///college_explorer.csv" AS line
+
+MERGE (node_name:school_node {name:line.school_name})
+
+MERGE (node_tele:tele_node {name:line.telephone})
+MERGE (node_name) -[:HAS_TELEPHONE {telephone:"schema:telephone"}] -> (node_tele)
+
+MERGE (node_addr:addr_node {name:line.address})
+MERGE (node_name) -[:HAS_ADDRESS {address:"schema:location"}] -> (node_addr)
+
+MERGE (node_city:city_node {name:line.city})
+MERGE (node_name) -[:HAS_CITY {city:"city"}] -> (node_city)
+
+MERGE (node_state:state_node {name:line.state})
+MERGE (node_name) -[:HAS_STATE {state:"state"}] -> (node_state)
+
+MERGE (node_zip:tele_node {name:line.zip})
+MERGE (node_name) -[:HAS_ZIP {zip:"zip"}] -> (node_zip)
+
+MERGE (node_web:web_node {name:line.website})
+MERGE (node_name) -[:HAS_WEBSITE {website:"schema:sameAs"}] -> (node_web)
+
+MERGE (node_cc_score:cc_score_node {name:line.cc_score})
+MERGE (node_name) -[:HAS_CC_SCORE {cc_score:"collegex:cc_score"}] -> (node_cc_score)
+
+MERGE (node_avg_act:act_node {name:line.avg_ACT})
+MERGE (node_name) -[:AVG_ACT {avg_act:"collegex:avgACT"}] -> (node_avg_act)
+
+MERGE (node_avg_math_sat:math_sat_node {name:line.avg_math_SAT})
+MERGE (node_name) -[:AVG_MATH_SAT {telephone:"collegex:avgMathSAT"}] -> (node_avg_math_sat)
+
+MERGE (node_avg_read_sat:read_sat_node {name:line.avg_read_SAT})
+MERGE (node_name) -[:AVG_READ_SAT  {telephone:"collegex:avgReadSAT"}] -> (node_avg_read_sat)
+
+MERGE (node_avg_write_sat:write_sat_node {name:line.avg_write_SAT})
+MERGE (node_name) -[:AVG_WRITE_SAT  {telephone:"collegex:avgWriteSAT"}] -> (node_avg_write_sat)
+
+MERGE (node_avg_gpa:gpa_node {name:line.avg_GPA})
+MERGE (node_name) -[:AVG_GPA {avg_gpa:"collegex:avgGPA"}] -> (node_avg_gpa)
+
+MERGE (node_accept_rate:accept_rate_node {name:line.accept_rate})
+MERGE (node_name) -[:ACCEPT_RATE {accept_rate:"collegex:acceptRate"}] -> (node_accept_rate)
+
+MERGE (node_undergrad_pop:undergrad_pop_node {name:line.undergrad_population})
+MERGE (node_name) -[:UNDERGRAD_POP_OF {undergrad_population:"collegex:undergradPop"}] -> (node_undergrad_pop)
+
+MERGE (node_grad_pop:grad_pop_node {name:line.graduate_population})
+MERGE (node_name) -[:GRAD_POP_OF {grad_population:"collegex:gradPop"}] -> (node_grad_pop)
+
+MERGE (node_region:region_node {name:line.region})
+MERGE (node_name) -[:IN_REGION {region:"collegex:region"}] -> (node_region)
+
+WITH node_name, line
+UNWIND split(line.usn_popular_majors, ':') AS usn_popular_majors
+MERGE (node_usn_pop_majors:usn_pop_majors_node {name:usn_popular_majors})
+MERGE (node_name) -[:HAS_USN_POPULAR_MAJORS {region:"collegex:usn_popularMajors"}] -> (node_usn_pop_majors)
+
+MERGE (node_fresh_ret:fresh_ret_node {name:line.freshman_retention})
+MERGE (node_name) -[:HAS_FRESHMAN_RETENTION_OF {fresh_retention:"collegex:freshmanRetention"}] -> (node_fresh_ret)
+
+MERGE (node_stu_fac_ratio:stu_fac_ratio_node {name:line.student_faculty_ratio})
+MERGE (node_name) -[:HAS_STUDENT_FACULTY_RATIO_OF {student_faculty_ratio:"collegex:studentFacultyRatio"}] -> (node_stu_fac_ratio)
+
+MERGE (node_school_type:school_type_node {name:line.school_type})
+MERGE (node_name) -[:IS_TYPE {school_type:"collegex:schoolType"}] -> (node_school_type)
+
+MERGE (node_school_setting:school_setting_node {name:line.school_setting})
+MERGE (node_name) -[:HAS_SETTING {school_setting:"collegex:schoolSetting"}] -> (node_school_setting)
+
+MERGE (node_academic_calendar:academic_calendar_node {name:line.academic_calendar})
+MERGE (node_name) -[:HAS_ACADMEIC_CALENDAR_OF {academic_calendar:"collegex:academicCalendar"}] -> (node_academic_calendar)
+
+MERGE (node_campus_size:campus_size_node {name:line.campus_size})
+MERGE (node_name) -[:HAS_SIZE {campus_size:"collegex:campusSize"}] -> (node_campus_size)
+
+MERGE (node_motto:motto_node {name:line.motto})
+MERGE (node_name) -[:HAS_MOTTO {motto:"schema:slogan"}] -> (node_motto)
+
+WITH node_name, line
+UNWIND split(line.affiliation, ':') AS affiliation
+MERGE (node_affil:affil_node {name:affiliation})
+MERGE (node_name) -[:IS_AFFILIATED_WITH {affiliation:"collegex:affiliation"}] -> (node_affil)
+
+WITH node_name, line
+UNWIND split(line.athletics, ':') AS athletics
+MERGE (node_athletics:athletics_node {name:athletics})
+MERGE (node_name) -[:IS_PART_OF {athletics:"collegex:athletics"}] -> (node_athletics)
+
+MERGE (node_president:president_node {name:line.president})
+MERGE (node_name) -[:HAS_PRESIDENT {president:"collegex:president"}] -> (node_president)
+
+MERGE (node_mascot:mascot_node {name:line.mascot})
+MERGE (node_name) -[:HAS_MASCOT {mascot:"collegex:mascot"}] -> (node_mascot)
+
+MERGE (node_school_color:school_color_node {name:line.school_color})
+MERGE (node_name) -[:HAS_SCHOOL_COLOR {school_color:"collegex:schoolColor"}] -> (node_school_color)
+
+MERGE (node_num_stu:num_stu_node {name:line.number_of_students})
+MERGE (node_name) -[:HAS_NUMBER_OF_STUDENTS {number_students:"collegex:numberStudents"}] -> (node_num_stu)
+
+MERGE (node_logo:logo_node {name:line.logo})
+MERGE (node_name) -[:HAS_LOGO {logo:"collegex:logo"}] -> (node_logo)
+
+MERGE (node_qs_score:qs_score_node {name:line.qs_score})
+MERGE (node_name) -[:HAS_QS_SCORE {qs_score:"collegex:qs_score"}] -> (node_qs_score)
+
+MERGE (node_qs_rank:qs_rank_node {name:line.qs_rank})
+MERGE (node_name) -[:HAS_QS_RANK {qs_rank:"collegex:qs_rank"}] -> (node_qs_rank)
+
+WITH node_name, line
+UNWIND split(line.n_popular_majors, ':') AS n_popular_majors
+MERGE (node_n_pop_majors:n_pop_majors_node {name:n_popular_majors})
+MERGE (node_name) -[:HAS_N_POPULAR_MAJORS {region:"collegex:n_popularMajors"}] -> (node_n_pop_majors)
+
+MERGE (node_med_earn_6_years:med_earn_6_years_node {name:line.median_earn_6_years})
+MERGE (node_name) -[:HAS_MED_EARN_6_YEARS_OF {med_earn_6_years:"collegex:medianEarn6years"}] -> (node_med_earn_6_years)
+
+MERGE (node_grad_rate:grad_rate_node {name:line.graduation_rate})
+MERGE (node_name) -[:HAS_GRAD_RATE_OF {grad_rate:"collegex:graduationRate"}] -> (node_grad_rate)
+
+MERGE (node_average_aid:average_aid_node {name:line.average_aid})
+MERGE (node_name) -[:HAS_AVERAGE_AID_OF {average_aid:"collegex:averageAid"}] -> (node_average_aid)
+
+MERGE (node_app_fee:app_fee_node {name:line.application_fee})
+MERGE (node_name) -[:HAS_APP_FEE_OF {app_fee:"collegex:applicationFee"}] -> (node_app_fee)
+
+MERGE (node_stu_ath_per:app_fee_node {name:line.student_athletic_percentage})
+MERGE (node_name) -[:HAS_STUDENT_ATHLETIC_PERCENTAGE_OF {stu_ath_per:"collegex:studentAthleticsPercentage"}] -> (node_stu_ath_per)
+
+MERGE (node_app_dead:app_dead_node {name:line.application_deadline})
+MERGE (node_name) -[:HAS_APP_DEAD_OF {app_dead:"collegex:applicationDeadline"}] -> (node_app_dead)
+
+MERGE (node_app_web:app_web_node {name:line.application_website})
+MERGE (node_name) -[:HAS_APP_WEB_OF {app_web:"collegex:applicationWebsite"}] -> (node_app_web);
+
+
+LOAD CSV WITH HEADERS FROM "file:///college_explorer_n_ext.csv" AS line_n
+
+MERGE (node_n_category:n_category_node {name:line_n.n_category})
+MERGE (node_name) -[:HAS_GRADE {grade:line_n.n_grade}] -> (node_n_category);
+
+LOAD CSV WITH HEADERS FROM "file:///college_explorer_usn_ext.csv" AS line_usn
+
+MERGE (node_usn_category:usn_category_node {name:line_usn.usn_category})
+MERGE (node_name) -[:HAS_RANK {rank:line_usn.usn_rank}] -> (node_usn_category);
