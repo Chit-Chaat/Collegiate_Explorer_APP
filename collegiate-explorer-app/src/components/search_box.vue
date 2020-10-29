@@ -7,9 +7,10 @@
       <el-col :span="10">
         <div class="common_searchobox">
           <el-input placeholder="knowledge graph" v-model="content">
-            <el-select v-model="school_type" slot="prepend" placeholder="SCHOOL TYPE" style="width: 140px;">
+            <el-select v-model="search_type" slot="prepend" placeholder="SEARCH TYPE" style="width: 140px;">
               <el-option label="PRIVATE" value="private"></el-option>
               <el-option label="PUBLIC" value="public"></el-option>
+              <el-option label="PROGRAMS" value="public"></el-option>
               <el-option label="OTHER" value="other"></el-option>
             </el-select>
             <el-button slot="append" icon="el-icon-search" @click="advancedSearch">Search</el-button>
@@ -57,7 +58,7 @@
         searhApiPrefix: "/search/query",
         searchByTagApiPrefix: "/search/tag/",
         content: '',
-        school_type: 'private',
+        search_type: '',
         recommend_search_tags: [],
         filter_content: {},
         filter_row_height: '5',
@@ -102,7 +103,7 @@
       advancedSearch() {
         var params = new URLSearchParams();
         params.append('content', this.content);
-        params.append('school_type', this.school_type)
+        params.append('search_type', this.search_type)
         params.append('filter_content', JSON.stringify(this.filter_content))
         axios({
           method: "POST",

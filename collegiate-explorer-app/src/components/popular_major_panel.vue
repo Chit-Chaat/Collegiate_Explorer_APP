@@ -13,7 +13,7 @@
     </el-aside>
     <el-main class="main">
       <svg :width='width' :height='height' @mousemove='listener($event)' style="padding-left: 0px;">
-        <a :href="tag.href" v-for='tag in tags' :key='tag.text' style="color: darkorange;">
+        <a v-for='tag in tags' :key='tag.text' style="color: darkorange;" @click="handdleClickMajor(tag.text)">
           <text :x='tag.x' :y='tag.y' :font-size='20 * (600/(600-tag.z))'
             :fill-opacity='((400+tag.z)/600)'>{{tag.text}}</text>
         </a>
@@ -41,6 +41,7 @@
         height: 220,
         RADIUS: 200,
         popularMajorPrefix: "/detail/popular_major/",
+        searchByMajorApiPrefix: "/search/major/",
         speedX: Math.PI / 720,
         speedY: Math.PI / 720,
         tags: [],
@@ -62,7 +63,6 @@
           if (typeof this.majors[i] !== 'undefined') {
             let tag = this.tags[i]
             tag.text = this.majors[i].name
-            tag.href = this.majors[i].link
           }
         }
       }
@@ -79,7 +79,6 @@
         tag.x = this.CX + this.RADIUS * Math.sin(a) * Math.cos(b);
         tag.y = this.CY + this.RADIUS * Math.sin(a) * Math.sin(b);
         tag.z = this.RADIUS * Math.cos(a);
-        tag.href = 'https://github.com/Chit-Chaat/Collegiate_Explorer_APP';
         tags.push(tag);
       }
       this.tags = tags;
@@ -91,6 +90,28 @@
       }, 25)
     },
     methods: {
+      handdleClickMajor(major_val){
+        axios({
+          method: "GET",
+          url: this.$hostname + this.searchByMajorApiPrefix + major_val
+        }).then(
+          result => {
+            if (result.data != null) {
+              if (result.data.code == 200) {
+                this.$router.push('/index')
+                this.$store.commit("updateResultSolt", result.data.data);
+              } else {
+                this.$options.methods.sendAlert.bind(this)(result.data.msg);
+              }
+            }
+          },
+          error => {
+            this.$options.methods.sendAlert.bind(this)(
+              "Something wrong about the request"
+            );
+          }
+        );
+      },
       getPopularMajors() {
         axios({
           method: "GET",

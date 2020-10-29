@@ -235,8 +235,7 @@ def get_popular_major(request, id='asdas31asdada'):
     :return: you need to return a list of popular majors of this school
     10 tags will look good on the page.
     [{
-        'name': "Computer Science",
-        'link': "/search?major='Computer Science'"
+        'name': "Computer Science"
     },{},...]
     and use JsonResponseResult().ok(data=data) return
     if there is any exception raised,
@@ -245,16 +244,16 @@ def get_popular_major(request, id='asdas31asdada'):
 
     logger.info("func 'get_popular_major' get a param id -> " + id)
     data = [
-        {'name': "Computer Science", 'link': "/search?major='Computer Science'"},
-        {'name': "Data Science", 'link': "/search?major='Data Science'"},
-        {'name': "Business Administration", 'link': "/search/major='Business Administration'"},
-        {'name': "Biological Sciences", 'link': "/search/major='Biological Sciences'"},
-        {'name': "Chemistry", 'link': "/search/major='Chemistry'"},
-        {'name': "Environmental Engineering", 'link': "/search/major='Environmental Engineering'"},
-        {'name': "Social Sciences", 'link': "/search/major='Social Sciences'"},
-        {'name': "Human Development and Aging", 'link': "/search/major='Human Development and Aging'"},
-        {'name': "Biomedical Engineering", 'link': "/search/major='Biomedical Engineering'"},
-        {'name': "Natural Sciences", 'link': "/search/major='Natural Sciences'"}]
+        {'name': "Computer Science"},
+        {'name': "Data Science"},
+        {'name': "Business Administration"},
+        {'name': "Biological Sciences"},
+        {'name': "Chemistry"},
+        {'name': "Environmental Engineering"},
+        {'name': "Social Sciences"},
+        {'name': "Human Development and Aging"},
+        {'name': "Biomedical Engineering"},
+        {'name': "Natural Sciences"}]
     return JsonResponseResult().ok(data=data)
 
 

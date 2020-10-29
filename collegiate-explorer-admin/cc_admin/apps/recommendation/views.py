@@ -116,7 +116,126 @@ def index(request):
         },
         {
             'id': '3',
-            'name': 'University of cCCCCC',
+            'name': 'University of cCCCCC2',
+            'logo': 'school_logo.jpg',
+            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
+            'rating': {
+                'Niche': 4,
+                'CC': 3
+            },
+            'review': '3453',
+            'detail': 'detail/school_id',
+            'address': '1420 22nd W St, Los Angeles, CA, 90007',
+            'tuition': '$17,234',
+            'school_type': 'Private School',
+            'ACT': '1500-1570',
+            'acceptance_rate': '7.88%'
+        },
+        {
+            'id': '4',
+            'name': 'University of cCCCCC3',
+            'logo': 'school_logo.jpg',
+            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
+            'rating': {
+                'Niche': 4,
+                'CC': 3
+            },
+            'review': '3453',
+            'detail': 'detail/school_id',
+            'address': '1420 22nd W St, Los Angeles, CA, 90007',
+            'tuition': '$17,234',
+            'school_type': 'Private School',
+            'ACT': '1500-1570',
+            'acceptance_rate': '7.88%'
+        },
+        {
+            'id': '5',
+            'name': 'University of cCCCCC4',
+            'logo': 'school_logo.jpg',
+            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
+            'rating': {
+                'Niche': 4,
+                'CC': 3
+            },
+            'review': '3453',
+            'detail': 'detail/school_id',
+            'address': '1420 22nd W St, Los Angeles, CA, 90007',
+            'tuition': '$17,234',
+            'school_type': 'Private School',
+            'ACT': '1500-1570',
+            'acceptance_rate': '7.88%'
+        },
+        {
+            'id': '6',
+            'name': 'University of cCCCCC5',
+            'logo': 'school_logo.jpg',
+            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
+            'rating': {
+                'Niche': 4,
+                'CC': 3
+            },
+            'review': '3453',
+            'detail': 'detail/school_id',
+            'address': '1420 22nd W St, Los Angeles, CA, 90007',
+            'tuition': '$17,234',
+            'school_type': 'Private School',
+            'ACT': '1500-1570',
+            'acceptance_rate': '7.88%'
+        },
+        {
+            'id': '7',
+            'name': 'University of cCCCCC6',
+            'logo': 'school_logo.jpg',
+            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
+            'rating': {
+                'Niche': 4,
+                'CC': 3
+            },
+            'review': '3453',
+            'detail': 'detail/school_id',
+            'address': '1420 22nd W St, Los Angeles, CA, 90007',
+            'tuition': '$17,234',
+            'school_type': 'Private School',
+            'ACT': '1500-1570',
+            'acceptance_rate': '7.88%'
+        },
+        {
+            'id': '8',
+            'name': 'University of cCCCCC7',
+            'logo': 'school_logo.jpg',
+            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
+            'rating': {
+                'Niche': 4,
+                'CC': 3
+            },
+            'review': '3453',
+            'detail': 'detail/school_id',
+            'address': '1420 22nd W St, Los Angeles, CA, 90007',
+            'tuition': '$17,234',
+            'school_type': 'Private School',
+            'ACT': '1500-1570',
+            'acceptance_rate': '7.88%'
+        },
+        {
+            'id': '9',
+            'name': 'University of cCCCCC8',
+            'logo': 'school_logo.jpg',
+            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
+            'rating': {
+                'Niche': 4,
+                'CC': 3
+            },
+            'review': '3453',
+            'detail': 'detail/school_id',
+            'address': '1420 22nd W St, Los Angeles, CA, 90007',
+            'tuition': '$17,234',
+            'school_type': 'Private School',
+            'ACT': '1500-1570',
+            'acceptance_rate': '7.88%'
+        },
+        {
+            'id': '10',
+            'name': 'University of cCCCCC9',
             'logo': 'school_logo.jpg',
             'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
             'rating': {

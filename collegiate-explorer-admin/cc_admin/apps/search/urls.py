@@ -11,5 +11,6 @@ urlpatterns = [
     path('query', csrf_exempt(views.index)),
     path('test', views.testNeo4j, name='just_for_test'),
     path('init', views.init_filter_option),
-    path('tag/<str:tag>', views.search_by_tag)
+    path('tag/<str:tag>', views.search_by_tag),
+    path('major/<str:major>', views.search_by_major)
 ]

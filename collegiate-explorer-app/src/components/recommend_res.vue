@@ -5,8 +5,8 @@
         <Item :item="item" :key="item.id"></Item>
       </el-col>
     </el-row>
-    <el-pagination background layout="prev, pager, next" :current-page.sync="currentPage" :hide-on-single-page=true
-      :page-size="pageSize" :total="this.$store.state.results.length">
+    <el-pagination background layout="prev, pager, next" :current-page.sync="currentPage" 
+    :hide-on-single-page=true :page-size="pageSize" :total="this.$store.state.results.length">
     </el-pagination>
   </div>
 </template>
@@ -22,12 +22,18 @@
       return {
         result_list: [],
         currentPage: 1,
-        pageSize: 3,
+        pageSize: 6,
         recommendationApiPrefix: "/recommendation/",
       }
     },
+    created() {
+      if (this.$store.state.results.length == 0){
+        this.getRecommendation()
+      }
+      
+    },
     mounted() {
-      this.getRecommendation()
+      
     },
     computed: {
       dividedList: function () {
