@@ -5,7 +5,8 @@
         <Item :item="item" :key="item.id"></Item>
       </el-col>
     </el-row>
-    <el-pagination background layout="prev, pager, next" :page-size="10" :total="50">
+    <el-pagination background layout="prev, pager, next" :current-page.sync="currentPage" :hide-on-single-page=true
+      :page-size="pageSize" :total="this.$store.state.results.length">
     </el-pagination>
   </div>
 </template>
@@ -20,6 +21,8 @@
     data() {
       return {
         result_list: [],
+        currentPage: 1,
+        pageSize: 3,
         recommendationApiPrefix: "/recommendation/",
       }
     },
@@ -28,7 +31,7 @@
     },
     computed: {
       dividedList: function () {
-        var result_list = this.$store.state.results;
+        var result_list = this.splitArray(this.$store.state.results);
         var arrTemp = [];
         var index = 0;
         var sectionCount = 3;
@@ -66,6 +69,12 @@
             );
           }
         );
+      },
+      splitArray(arr) {
+        let whole_size = this.$store.state.results.length;
+        let start = Math.min((this.currentPage - 1) * this.pageSize, whole_size);
+        let end = Math.min(this.currentPage * this.pageSize, whole_size);
+        return arr.slice(start, end)
       },
       sendTips(msg) {
         const h = this.$createElement;
