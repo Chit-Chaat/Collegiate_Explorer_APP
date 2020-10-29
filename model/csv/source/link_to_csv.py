@@ -9,31 +9,31 @@ qsr_dict = {}
 n_dict = {}
 
 
-f = open('../data/collegeConfidential.jl', 'r')
+f = open('collegeConfidential.jl', 'r')
 for line in f.readlines():
     record = json.loads(line)
     cc_dict[record['url']] = record
 f.close()
 
-f = open('../data/usnews.jl', 'r')
+f = open('usnews.jl', 'r')
 for line in f.readlines():
     record = json.loads(line)
     usn_dict[record['url']] = record
 f.close()
 
-f = open('../data/dbpedia.jl', 'r')
+f = open('dbpedia.jl', 'r')
 for line in f.readlines():
     record = json.loads(line)
     dbp_dict[record['url']] = record
 f.close()
 
-f = open('../data/qsranking.jl', 'r')
+f = open('qsranking.jl', 'r')
 for line in f.readlines():
     record = json.loads(line)
     qsr_dict[record['url']] = record
 f.close()
 
-f = open('../data/niche.jl', 'r')
+f = open('niche.jl', 'r')
 for line in f.readlines():
     record = json.loads(line)
     n_dict[record['url']] = record
@@ -50,7 +50,7 @@ data_columns = ['id', 'school_name', 'telephone', 'address', 'city', 'state', 'z
            'athletics', 'president', 'mascot', 'school_color', 'number_of_students', 'logo',\
            'qs_score', 'qs_rank', 'n_popular_majors', 'median_earn_6_years',\
            'graduation_rate', 'employment_rate', 'average_aid', 'application_fee',\
-           'student_athletic_percentage', 'application_deadline', 'application_website'] 
+           'student_athletic_percentage', 'application_deadline', 'application_website', 'sat_range', 'act_range', 'tuition_fees'] 
 
 data_columns_usn = ['school_name', 'usn_category', 'usn_rank']
 data_columns_n = ['school_name', 'n_category', 'n_grade']
@@ -144,8 +144,12 @@ for item in entity_link:
         data.append(n_dict[n].get('varsity_athletes'))
         data.append(n_dict[n].get('application_deadline'))
         data.append(n_dict[n].get('application_website'))
+        data.append(n_dict[n].get('sat_range'))
+        data.append(n_dict[n].get('act_range'))
+        data.append(float(n_dict[n].get('tuitionFees').replace(',', '')))
+
     else:
-        for i in range(9):
+        for i in range(12):
             data.append('null')
     for i in range(len(data)):
         if data[i] is None or data[i] == "null" or data[i] == ' ' or data[i] == '':

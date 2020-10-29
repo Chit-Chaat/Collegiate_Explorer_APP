@@ -131,10 +131,16 @@ MERGE (node_app_dead:app_dead_node {name:line.application_deadline})
 MERGE (node_name) -[:HAS_APP_DEAD_OF {app_dead:"collegex:applicationDeadline"}] -> (node_app_dead)
 
 MERGE (node_app_web:app_web_node {name:line.application_website})
-MERGE (node_name) -[:HAS_APP_WEB_OF {app_web:"collegex:applicationWebsite"}] -> (node_app_web);
+MERGE (node_name) -[:HAS_APP_WEB_OF {app_web:"collegex:applicationWebsite"}] -> (node_app_web)
 
-MERGE (node_tuition:tuition_node {name:line.tuitionFees})
-MERGE (node_name) -[:HAS_TUITION_OF {tuition_fees:"collegex:tuitionFees"}] -> (node_tuition);
+MERGE (node_tuition:tuition_node {name:line.tuition})
+MERGE (node_name) -[:HAS_TUITION_OF {tuition_fees:"collegex:tuitionFees"}] -> (node_tuition)
+
+MERGE (node_sat_range:sat_range_node {name:line.sat_range})
+MERGE (node_name) -[:HAS_SAT_RANGE_OF {sat_range:"collegex:satRange"}] -> (node_sat_range)
+
+MERGE (node_act_range:act_range_node {name:line.act_range})
+MERGE (node_name) -[:HAS_ACT_RANGE_OF {act_range:"collegex:actRange"}] -> (node_act_range);
 
 LOAD CSV WITH HEADERS FROM "file:///college_explorer_n_ext.csv" AS line_n
 
