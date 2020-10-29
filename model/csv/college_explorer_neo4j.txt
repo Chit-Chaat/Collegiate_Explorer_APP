@@ -1,5 +1,3 @@
-:auto USING PERIODIC COMMIT
-
 LOAD CSV WITH HEADERS FROM "file:///college_explorer.csv" AS line
 
 MERGE (node_name:school_node {name:line.school_name})
@@ -135,17 +133,15 @@ MERGE (node_name) -[:HAS_APP_DEAD_OF {app_dead:"collegex:applicationDeadline"}] 
 MERGE (node_app_web:app_web_node {name:line.application_website})
 MERGE (node_name) -[:HAS_APP_WEB_OF {app_web:"collegex:applicationWebsite"}] -> (node_app_web);
 
+MERGE (node_tuition:tuition_node {name:line.tuitionFees})
+MERGE (node_name) -[:HAS_TUITION_OF {tuition_fees:"collegex:tuitionFees"}] -> (node_tuition);
 
 LOAD CSV WITH HEADERS FROM "file:///college_explorer_n_ext.csv" AS line_n
-MERGE (node_name:school_node {name:line_n.school_name})
-
 
 MERGE (node_n_category:n_category_node {name:line_n.n_category})
 MERGE (node_name) -[:HAS_GRADE {grade:line_n.n_grade}] -> (node_n_category);
 
 LOAD CSV WITH HEADERS FROM "file:///college_explorer_usn_ext.csv" AS line_usn
-MERGE (node_name:school_node {name:line_usn.school_name})
-
 
 MERGE (node_usn_category:usn_category_node {name:line_usn.usn_category})
 MERGE (node_name) -[:HAS_RANK {rank:line_usn.usn_rank}] -> (node_usn_category);
