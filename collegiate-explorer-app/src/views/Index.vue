@@ -35,7 +35,6 @@
       SearchBox,
       Recommend,
       Footer,
-
     },
     data() {
       return {

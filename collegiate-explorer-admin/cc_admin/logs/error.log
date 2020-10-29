@@ -1,1 +1,51 @@
 [2020-10-27 22:52:26,187][Thread-1:6572][task_id:django][views.py:35][ERROR][1]
+[2020-10-28 11:28:14,216][Thread-4:12984][task_id:django.request][log.py:230][ERROR][Internal Server Error: /recommendation/]
+Traceback (most recent call last):
+  File "D:\Projects\Collegiate_Explorer_APP\collegiate-explorer-admin\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Projects\Collegiate_Explorer_APP\collegiate-explorer-admin\venv\lib\site-packages\django\core\handlers\base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Projects\Collegiate_Explorer_APP\collegiate-explorer-admin\cc_admin\apps\recommendation\views.py", line 78, in index
+    logger.info("func 'index' get a param id -> " + id)
+TypeError: must be str, not builtin_function_or_method
+[2020-10-28 11:28:14,222][Thread-4:12984][task_id:django.server][basehttp.py:157][ERROR]["GET /recommendation/ HTTP/1.1" 500 73639]
+[2020-10-28 12:29:56,906][Thread-1:12172][task_id:django.request][log.py:230][ERROR][Internal Server Error: /search]
+Traceback (most recent call last):
+  File "D:\Projects\Collegiate_Explorer_APP\collegiate-explorer-admin\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Projects\Collegiate_Explorer_APP\collegiate-explorer-admin\venv\lib\site-packages\django\utils\deprecation.py", line 113, in __call__
+    response = self.process_request(request)
+  File "D:\Projects\Collegiate_Explorer_APP\collegiate-explorer-admin\venv\lib\site-packages\django\middleware\common.py", line 54, in process_request
+    path = self.get_full_path_with_slash(request)
+  File "D:\Projects\Collegiate_Explorer_APP\collegiate-explorer-admin\venv\lib\site-packages\django\middleware\common.py", line 94, in get_full_path_with_slash
+    'url': request.get_host() + new_path,
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to localhost:8000/search/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+[2020-10-28 12:29:56,912][Thread-1:12172][task_id:django.server][basehttp.py:157][ERROR]["POST /search HTTP/1.1" 500 78790]
+[2020-10-28 16:51:00,218][Thread-3:11272][task_id:django.request][log.py:230][ERROR][Internal Server Error: /search/query]
+Traceback (most recent call last):
+  File "D:\Projects\Collegiate_Explorer_APP\collegiate-explorer-admin\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Projects\Collegiate_Explorer_APP\collegiate-explorer-admin\venv\lib\site-packages\django\core\handlers\base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Projects\Collegiate_Explorer_APP\collegiate-explorer-admin\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Projects\Collegiate_Explorer_APP\collegiate-explorer-admin\cc_admin\apps\search\views.py", line 82, in index
+    selected_tags = json.load(filter_content)
+  File "C:\Users\AARON-PREDATOR\AppData\Local\Programs\Python\Python36\lib\json\__init__.py", line 296, in load
+    return loads(fp.read(),
+AttributeError: 'str' object has no attribute 'read'
+[2020-10-28 16:51:00,226][Thread-3:11272][task_id:django.server][basehttp.py:157][ERROR]["POST /search/query HTTP/1.1" 500 84971]
+[2020-10-28 16:57:38,542][Thread-1:10500][task_id:django.request][log.py:230][ERROR][Internal Server Error: /search/query]
+Traceback (most recent call last):
+  File "D:\Projects\Collegiate_Explorer_APP\collegiate-explorer-admin\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\Projects\Collegiate_Explorer_APP\collegiate-explorer-admin\venv\lib\site-packages\django\core\handlers\base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Projects\Collegiate_Explorer_APP\collegiate-explorer-admin\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Projects\Collegiate_Explorer_APP\collegiate-explorer-admin\cc_admin\apps\search\views.py", line 82, in index
+    selected_tags = json.load(filter_content)
+  File "C:\Users\AARON-PREDATOR\AppData\Local\Programs\Python\Python36\lib\json\__init__.py", line 296, in load
+    return loads(fp.read(),
+AttributeError: 'str' object has no attribute 'read'
+[2020-10-28 16:57:38,550][Thread-1:10500][task_id:django.server][basehttp.py:157][ERROR]["POST /search/query HTTP/1.1" 500 84993]

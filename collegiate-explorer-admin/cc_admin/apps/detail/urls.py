@@ -9,5 +9,7 @@ from . import views
 urlpatterns = [
     path('<str:id>', views.get_basic_info),
     path('popular_major/<str:id>', views.get_popular_major),
-    path('ranking/history/<str:id>', views.get_ranking_data)
+    path('ranking/history/<str:id>', views.get_ranking_data),
+    path('score/<str:id>', views.get_score_data),
+    path('similar/<str:id>', views.get_similar_school_data),
 ]

@@ -16,7 +16,10 @@
             {{this.selectTags.tuition}}
           </el-tag>
           <el-tag v-if="this.selectTags.act !== ''" closable size="small" @close="handle_close(3)">
-            {{this.selectTags.act}}
+            ACT: {{this.selectTags.act}}
+          </el-tag>
+          <el-tag v-if="this.selectTags.sat !== ''" closable size="small" @close="handle_close(4)">
+            SAT: {{this.selectTags.sat}}
           </el-tag>
         </el-col>
       </el-row>
@@ -75,7 +78,7 @@
           </el-slider>
         </el-col>
         <el-col :span="8" style="color:  darkgray; padding-left: 15px;">
-          <el-button type="text" @click="select_key(act_score,3)" style="font-size: 15px; text-decoration: underline;">
+          <el-button type="text" @click="select_key(sat_score,4)" style="font-size: 15px; text-decoration: underline;">
             SAT Range: {{sat_score}}
           </el-button>
         </el-col>
@@ -93,39 +96,17 @@
 </template>
 
 <script>
+  import axios from "axios"
   export default {
     data() {
       return {
-        areas: [
-          'New England', 'Mid East', 'Great Lakes',
-          'Plains', 'Southeast', 'Southwest',
-          'Rocky Mountains', 'Far West', 'Outlying areas'],
-
-        marjors: [
-          'Humanities',
-          'Natural sciences or mathematics',
-          'Social sciences ',
-          'Architecture or urban planning',
-          'Art and design',
-          'Business',
-          'Dentistry',
-          'Education',
-          'Engineering',
-          'Law',
-          'Medicine',
-          'Music, theatre, or dance',
-          'Nursing',
-          'Pharmacy',
-          'Public health',
-          'Public policy',
-          'Social work',
-          'Other'],
-
-        tuitions: ['>= $5k', '>= $10k', '>= $15k'],
-
+        initFilterApiPrefix: "/search/init",
+        areas: [],
+        marjors: [],
+        tuitions: [],
         selectTags: {
           area: '',
-          major: 'Engineering',
+          major: '',
           tuition: '',
           act: '',
           sat: '',
@@ -152,7 +133,61 @@
         }
       }
     },
+    mounted() {
+      this.getFilterData()
+    },
     methods: {
+      getFilterData() {
+        axios({
+          method: "GET",
+          url: this.$hostname + this.initFilterApiPrefix
+        }).then(
+          result => {
+            if (result.data != null) {
+              if (result.data.code == 200) {
+                this.areas = result.data.data.areas;
+                this.marjors = result.data.data.marjors;
+                this.tuitions = result.data.data.tuitions;
+              } else {
+                this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
+              }
+            }
+          },
+          error => {
+            this.$options.methods.sendErrorMsg.bind(this)(
+              "Something wrong with initialize the filter option."
+            );
+          }
+        );
+      },
+      sendTips(msg) {
+        const h = this.$createElement;
+        this.$notify.success({
+          title: 'Success',
+          message: h('p', { style: 'font-size:12px' }, msg),
+          duration: 1500
+        });
+      },
+      sendAlert(msg) {
+        this.$notify.warning({
+          title: 'Warning',
+          message: h('p', { style: 'font-size:12px' }, msg),
+          duration: 1500
+        });
+      },
+      sendSuccessMsg(msg) {
+        const h = this.$createElement;
+        this.$message.success({
+          type: 'Success',
+          message: msg
+        });
+      },
+      sendErrorMsg(msg) {
+        this.$message.warning({
+          type: 'Warning',
+          message: msg
+        });
+      },
       select_key(tag, key) {
         if (key === 0)
           this.selectTags.area = tag
@@ -161,9 +196,9 @@
         else if (key === 2)
           this.selectTags.tuition = tag
         else if (key === 3)
-          this.selectTags.act = 'ACT: [' + tag + ']'
+          this.selectTags.act = tag
         else if (key === 4)
-          this.selectTags.sat = 'SAT: [' + tag + ']'
+          this.selectTags.sat = tag
       },
       handle_close(tag) {
         if (tag === 0)
@@ -172,9 +207,9 @@
           this.selectTags.major = ''
         else if (tag === 2)
           this.selectTags.tuition = ''
-        else if (key === 3)
+        else if (tag === 3)
           this.selectTags.act = ''
-        else if (key === 4)
+        else if (tag === 4)
           this.selectTags.sat = ''
       },
       reset(e) {
@@ -190,12 +225,7 @@
         e.target.blur() // auto unfocused
       },
       go_search() {
-        let text = this.selectTags.area + '/' + this.selectTags.major + '/' + this.selectTags.tuition
-        console.log(text)
-        this.$message({
-          message: 'Going to send request.',
-          type: 'success'
-        });
+        this.$emit('toggle', this.selectTags)
       }
     }
   }

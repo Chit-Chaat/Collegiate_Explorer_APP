@@ -8,11 +8,11 @@
         <div class="common_searchobox">
           <el-input placeholder="knowledge graph" v-model="content">
             <el-select v-model="school_type" slot="prepend" placeholder="SCHOOL TYPE" style="width: 140px;">
-              <el-option label="PRIVATE" value="1"></el-option>
-              <el-option label="PUBLIC" value="2"></el-option>
-              <el-option label="COMMUNITY" value="3"></el-option>
+              <el-option label="PRIVATE" value="private"></el-option>
+              <el-option label="PUBLIC" value="public"></el-option>
+              <el-option label="OTHER" value="other"></el-option>
             </el-select>
-            <el-button slot="append" icon="el-icon-search">Search</el-button>
+            <el-button slot="append" icon="el-icon-search" @click="advancedSearch">Search</el-button>
           </el-input>
         </div>
       </el-col>
@@ -27,7 +27,7 @@
         <div style="visibility: hidden;">dont delete me</div>
       </el-col>
       <el-col :span="15">
-        <Advanced_Search_Filter v-bind:style="{ display: show_or_not  }"></Advanced_Search_Filter>
+        <Advanced_Search_Filter v-bind:style="{ display: show_or_not  }" @toggle="filterSearch"></Advanced_Search_Filter>
       </el-col>
     </el-row>
     <el-row id="recommend_search_tag" :gutter="10">
@@ -46,24 +46,25 @@
 <script>
   let clicked = false
   import Advanced_Search_Filter from './advanced_search_filter.vue'
+  import axios from "axios"
   export default {
     components: {
       Advanced_Search_Filter,
     },
     data() {
       return {
+        recommendTagListApiPrefix: "/recommendation/tags/",
+        searhApiPrefix: "/search/query",
         content: '',
-        school_type: '',
+        school_type: 'private',
+        recommend_search_tags: [],
+        filter_content: {},
         filter_row_height: '5',
         show_or_not: 'none',
-        recommend_search_tags: [
-          { name: 'USC', type: 'primary', link: '' },
-          { name: 'Best CS in LA', type: 'success', link: '' },
-          { name: 'xxxxxxxxxxx', type: 'info', link: '' },
-          { name: 'Top 10 DS programs', type: 'warning', link: '' },
-          { name: '#Don\'t go there', type: 'danger', link: '' }
-        ]
       }
+    },
+    created() {
+      this.getTagList()
     },
     methods: {
       toggleFilter(e) {
@@ -76,12 +77,99 @@
           this.show_or_not = 'none'
         }
       },
-      toggleTagSearch(s){
+      toggleTagSearch(s) {
         this.$message({
           message: 'Going to send request and query ' + s,
           type: 'success'
         });
-      }
+      },
+      advancedSearch() {
+        var params = new URLSearchParams();
+        params.append('content', this.content);
+        params.append('school_type', this.school_type)
+        params.append('filter_content', JSON.stringify(this.filter_content))
+        axios({
+          method: "POST",
+          url: this.$hostname + this.searhApiPrefix,
+          data: params
+        }).then(
+          result => {
+            if (result.data != null) {
+              if (result.data.code == 200) {
+                console.log(result.data.data);
+              } else {
+                this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
+              }
+              this.$options.methods.sendSuccessMsg.bind(this)(
+                "Load Recommend Tag List Successfully."
+              );
+            }
+
+          },
+          error => {
+            this.$options.methods.sendErrorMsg.bind(this)(
+              "Something wrong with the Ranking Historical Data."
+            );
+          }
+        );
+      },
+      filterSearch(tags){
+        this.filter_content = tags
+        this.advancedSearch()
+      },
+      getTagList() {
+        axios({
+          method: "GET",
+          url: this.$hostname + this.recommendTagListApiPrefix
+        }).then(
+          result => {
+            if (result.data != null) {
+              if (result.data.code == 200) {
+                this.recommend_search_tags = result.data.data;
+              } else {
+                this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
+              }
+              this.$options.methods.sendSuccessMsg.bind(this)(
+                "Load Recommend Tag List Successfully."
+              );
+            }
+
+          },
+          error => {
+            this.$options.methods.sendErrorMsg.bind(this)(
+              "Something wrong with the Ranking Historical Data."
+            );
+          }
+        );
+      },
+      sendTips(msg) {
+        const h = this.$createElement;
+        this.$notify.success({
+          title: 'Success',
+          message: h('p', { style: 'font-size:12px' }, msg),
+          duration: 1500
+        });
+      },
+      sendAlert(msg) {
+        this.$notify.warning({
+          title: 'Warning',
+          message: h('p', { style: 'font-size:12px' }, msg),
+          duration: 1500
+        });
+      },
+      sendSuccessMsg(msg) {
+        const h = this.$createElement;
+        this.$message.success({
+          type: 'Success',
+          message: msg
+        });
+      },
+      sendErrorMsg(msg) {
+        this.$message.warning({
+          type: 'Warning',
+          message: msg
+        });
+      },
 
     }
   }

@@ -76,7 +76,13 @@
     },
     methods: {
       verScroll() {
-        let width = this.similar_school_obj.length * 300
+        var temp_obj = JSON.parse(JSON.stringify(this.similar_school_obj))
+        let width = 0
+        if (null === temp_obj || temp_obj.length == 0){
+          width = 2100
+        }else{
+          width = this.similar_school_obj.length * 300
+        }
         this.$refs.cont.style.width = width + 'px'
         this.$nextTick(() => {
           if (!this.scroll) {
@@ -102,7 +108,8 @@
           }
         }, 0)
       })
-    }
+    },
+  
   }
 </script>
 
