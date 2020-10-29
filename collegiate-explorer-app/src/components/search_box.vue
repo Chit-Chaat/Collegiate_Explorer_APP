@@ -55,6 +55,7 @@
       return {
         recommendTagListApiPrefix: "/recommendation/tags/",
         searhApiPrefix: "/search/query",
+        searchByTagApiPrefix: "/search/tag/",
         content: '',
         school_type: 'private',
         recommend_search_tags: [],
@@ -77,11 +78,26 @@
           this.show_or_not = 'none'
         }
       },
-      toggleTagSearch(s) {
-        this.$message({
-          message: 'Going to send request and query ' + s,
-          type: 'success'
-        });
+      toggleTagSearch(tag_name) {
+        axios({
+          method: "GET",
+          url: this.$hostname + this.searchByTagApiPrefix + tag_name
+        }).then(
+          result => {
+            if (result.data != null) {
+              if (result.data.code == 200) {
+                this.$store.commit("updateResultSolt", result.data.data);
+              } else {
+                this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
+              }
+            }
+          },
+          error => {
+            this.$options.methods.sendErrorMsg.bind(this)(
+              "Something wrong with the Ranking Historical Data."
+            );
+          }
+        );
       },
       advancedSearch() {
         var params = new URLSearchParams();
@@ -96,15 +112,11 @@
           result => {
             if (result.data != null) {
               if (result.data.code == 200) {
-                console.log(result.data.data);
+                this.$store.commit("updateResultSolt", result.data.data);
               } else {
                 this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
               }
-              this.$options.methods.sendSuccessMsg.bind(this)(
-                "Load Recommend Tag List Successfully."
-              );
             }
-
           },
           error => {
             this.$options.methods.sendErrorMsg.bind(this)(
@@ -129,11 +141,7 @@
               } else {
                 this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
               }
-              this.$options.methods.sendSuccessMsg.bind(this)(
-                "Load Recommend Tag List Successfully."
-              );
             }
-
           },
           error => {
             this.$options.methods.sendErrorMsg.bind(this)(

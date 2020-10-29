@@ -1,6 +1,6 @@
 <template>
   <div id="cc_detail_title">
-    <div id="detail_main_title">{{title_obj.main_title}} <i class="el-icon-medal-1" style="color: #FF9900;"></i></div>
+    <div id="detail_main_title">{{title_obj.main_title}}<i class="el-icon-medal-1" style="color: #FF9900;"></i></div>
     <div id="detail_sub_title">{{title_obj.duration}} {{title_obj.school_type}} | {{title_obj.location}} |
       <i class="el-icon-link"></i><el-link :href="title_obj.school_link" :underline='false' style="padding-bottom: 4px;">
         {{title_obj.school_link}}</el-link>

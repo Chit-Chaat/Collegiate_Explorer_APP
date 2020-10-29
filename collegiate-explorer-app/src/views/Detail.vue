@@ -112,9 +112,6 @@
               } else {
                 this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
               }
-              this.$options.methods.sendSuccessMsg.bind(this)(
-                "Load Ranking Historical Data Successfully."
-              );
             }
           },
           error => {
@@ -136,9 +133,6 @@
               } else {
                 this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
               }
-              this.$options.methods.sendSuccessMsg.bind(this)(
-                "Load Score Data Successfully."
-              );
             }
 
           },
@@ -161,9 +155,6 @@
               } else {
                 this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
               }
-              this.$options.methods.sendSuccessMsg.bind(this)(
-                "Load Score Data Successfully."
-              );
             }
           },
           error => {
@@ -185,9 +176,6 @@
               } else {
                 this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
               }
-              this.$options.methods.sendSuccessMsg.bind(this)(
-                "Load Similar School Data Successfully."
-              );
             }
 
           },

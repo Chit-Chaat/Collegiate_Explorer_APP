@@ -98,14 +98,11 @@
         }).then(
           result => {
             if (result.data != null) {
-              if (result.data.data instanceof Array) {
+              if (result.data.code == 200) {
                 this.majors = result.data.data;
               } else {
-                this.majors = Object.values(result.data.data);
+                this.$options.methods.sendAlert.bind(this)(result.data.msg);
               }
-              this.$options.methods.sendTips.bind(this)(
-                "Load Popular major Data Successfully."
-              );
             }
           },
           error => {

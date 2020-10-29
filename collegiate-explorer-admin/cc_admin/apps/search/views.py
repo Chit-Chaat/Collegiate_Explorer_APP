@@ -86,6 +86,7 @@ def index(request):
             # user did not use filter
             print("filert is null")
         else:
+            # user used filter
             selected_tags = json.loads(filter_content)
             print(selected_tags['area'])
     return JsonResponseResult().ok(data="asdasdas")
@@ -127,6 +128,88 @@ def init_filter_option(request):
     return JsonResponseResult().ok(data=data)
 
 
+def search_by_tag(request, tag="tag_str"):
+    """
+     user clicked tag label.
+     :param request: Nothing send here.
+     :return: no matter what happened you need to return a dict_list (element in list is dict)
+     [{
+         'id': '1',                      # -> school_id (str)
+         'name': 'University of AAAAAA', # -> school name (str)
+         'logo': 'school_logo.jpg',      # -> school-name.jpg (str) e.g. university-of-southern-california.jpg
+         'desc': '',                     # -> school description (str)
+         'rating': {
+             'Niche': 5,                 # -> niche score  (float)
+             'CC': 3,                    # -> college confidential score  (float)
+         },
+         'review': '3453',               # -> # of review (str)
+         'detail': 'detail/1',           # -> its detail link, just combine detail + "/" + school_id
+         'address': '1420 22nd W St, Los Angeles, CA, 90007',
+         'tuition': '$17,234',           # -> tuition (str)
+         'school_type': 'Private School',# -> school type
+         'ACT': '1500-1570',             # -> ACT score range
+         'acceptance_rate': '7.88%'
+     }, {}, ...]
+     and use JsonResponseResult().ok(data=data) return
+     if there is any exception raised,
+     use JsonResponseResult().error(data=[], msg="explain your error", code="500") return
+     """
+    logger.info("revoked func search/views.py 'search_by_tag' func. tag -> " + tag)
+    data = [
+        {
+            'id': '6',
+            'name': 'University of DDDDDD',
+            'logo': 'school_logo.jpg',
+            'desc': 'this is dessc this isthis is desc this isthis is desc this isthis is desc this is',
+            'rating': {
+                'Niche': 5,
+                'CC': 3
+            },
+            'review': '3453',
+            'detail': 'detail/school_id',
+            'address': '1420 22nd W St, Los Angeles, CA, 90007',
+            'tuition': '$17,234',
+            'school_type': 'Private School',
+            'ACT': '1500-1570',
+            'acceptance_rate': '7.88%'
+        },
+        {
+            'id': '7',
+            'name': 'University of EEEEE',
+            'logo': 'school_logo2.jpg',
+            'desc': 't is desc this isthis is desc this isthis is desc this is',
+            'rating': {
+                'Niche': 2,
+                'CC': 3
+            },
+            'review': '3453',
+            'detail': 'detail/school_id',
+            'address': '1420 22nd W St, Los Angeles, CA, 90007',
+            'tuition': '$17,234',
+            'school_type': 'Private School',
+            'ACT': '1500-1570',
+            'acceptance_rate': '7.88%'
+        },
+        {
+            'id': '9',
+            'name': 'University of FFFFF',
+            'logo': 'school_logo.jpg',
+            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
+            'rating': {
+                'Niche': 4,
+                'CC': 3
+            },
+            'review': '3453',
+            'detail': 'detail/school_id',
+            'address': '1420 22nd W St, Los Angeles, CA, 90007',
+            'tuition': '$17,234',
+            'school_type': 'Private School',
+            'ACT': '1500-1570',
+            'acceptance_rate': '7.88%'
+        }
+    ]
+    return JsonResponseResult().ok(data=data)
+
 def testNeo4j(request):
     """
     This func just tell you how to connect to neo4j and do the search
@@ -136,8 +219,8 @@ def testNeo4j(request):
     connection = ConnectionPool()
     # result = connection.executeQuery(
     #     "MATCH (cloudAtlas2 {title: $param, tagline: $param1}) RETURN cloudAtlas2",
-    #     param="Cloud Atlas",
-    #     param1="Everything is connected")
+    #         param="Cloud Atlas",
+    #         param1="Everything is connected")
     result2 = connection.executeQuery(
         "MATCH (tom:Person {name: \"Tom Hanks\"})-[:ACTED_IN]->(tomHanksMovies) RETURN tom,tomHanksMovies")
     return JsonResponseResult().ok(data=result2)

@@ -28,7 +28,7 @@
     },
     computed: {
       dividedList: function () {
-        var result_list = this.result_list;
+        var result_list = this.$store.state.results;
         var arrTemp = [];
         var index = 0;
         var sectionCount = 3;
@@ -50,13 +50,13 @@
         }).then(
           result => {
             if (result.data != null) {
-              if (result.data.data instanceof Array) {
-                this.result_list = result.data.data;
+              if (result.data.code == 200) {
+                this.$store.commit("updateResultSolt", result.data.data);
               } else {
-                this.result_list = Object.values(result.data.data);
+                this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
               }
               this.$options.methods.sendTips.bind(this)(
-                "Load Recommendation Data Successfully."
+                "Everythong looks good now."
               );
             }
           },
@@ -72,17 +72,29 @@
         this.$notify.success({
           title: 'Success',
           message: h('p', { style: 'font-size:12px' }, msg),
-          duration: 1500
+          duration: 2000
         });
       },
       sendAlert(msg) {
         this.$notify.warning({
           title: 'Warning',
           message: h('p', { style: 'font-size:12px' }, msg),
-          duration: 1500
+          duration: 2000
         });
       },
-
+      sendSuccessMsg(msg) {
+        const h = this.$createElement;
+        this.$message.success({
+          type: 'Success',
+          message: msg
+        });
+      },
+      sendErrorMsg(msg) {
+        this.$message.warning({
+          type: 'Warning',
+          message: msg
+        });
+      },
     },
 
   }

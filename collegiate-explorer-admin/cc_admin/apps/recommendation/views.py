@@ -69,7 +69,10 @@ def index(request):
         'review': '3453',               # -> # of review (str)
         'detail': 'detail/1',           # -> its detail link, just combine detail + "/" + school_id
         'address': '1420 22nd W St, Los Angeles, CA, 90007',
-        'tuition': '$17,234'            # -> tuition (str)
+        'tuition': '$17,234',           # -> tuition (str)
+        'school_type': 'Private School',# -> school type
+        'ACT': '1500-1570',             # -> ACT score range
+        'acceptance_rate': '7.88%'
     }, {}, ...]
     and use JsonResponseResult().ok(data=data) return
     if there is any exception raised,
@@ -129,7 +132,7 @@ def index(request):
             'acceptance_rate': '7.88%'
         }
     ]
-    return JsonResponseResult().error(data=data)
+    return JsonResponseResult().ok(data=data)
 
 
 def get_recommend_tags(request):
