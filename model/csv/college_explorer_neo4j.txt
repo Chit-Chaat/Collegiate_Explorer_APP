@@ -2,6 +2,9 @@ LOAD CSV WITH HEADERS FROM "file:///college_explorer.csv" AS line
 
 MERGE (node_name:school_node {name:line.school_name})
 
+MERGE (node_id:id_node {name:line.id})
+MERGE (node_name) -[:ID {telephone:"schema:identifier"}] -> (node_id)
+
 MERGE (node_tele:tele_node {name:line.telephone})
 MERGE (node_name) -[:HAS_TELEPHONE {telephone:"schema:telephone"}] -> (node_tele)
 
