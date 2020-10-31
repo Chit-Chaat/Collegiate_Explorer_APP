@@ -133,7 +133,7 @@ MERGE (node_name) -[:HAS_APP_DEAD_OF {app_dead:"collegex:applicationDeadline"}] 
 MERGE (node_app_web:app_web_node {name:line.application_website})
 MERGE (node_name) -[:HAS_APP_WEB_OF {app_web:"collegex:applicationWebsite"}] -> (node_app_web)
 
-MERGE (node_tuition:tuition_node {name:line.tuition})
+MERGE (node_tuition:tuition_node {name:line.tuition_fees})
 MERGE (node_name) -[:HAS_TUITION_OF {tuition_fees:"collegex:tuitionFees"}] -> (node_tuition)
 
 MERGE (node_sat_max:sat_max_node {name:line.sat_max})
