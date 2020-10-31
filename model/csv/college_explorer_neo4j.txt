@@ -17,7 +17,7 @@ MERGE (node_name) -[:HAS_CITY {city:"city"}] -> (node_city)
 MERGE (node_state:state_node {name:line.state})
 MERGE (node_name) -[:HAS_STATE {state:"state"}] -> (node_state)
 
-MERGE (node_zip:zip_node {name:line.zip})
+MERGE (node_zip:tele_node {name:line.zip})
 MERGE (node_name) -[:HAS_ZIP {zip:"zip"}] -> (node_zip)
 
 MERGE (node_web:web_node {name:line.website})
@@ -127,7 +127,7 @@ MERGE (node_name) -[:HAS_AVERAGE_AID_OF {average_aid:"collegex:averageAid"}] -> 
 MERGE (node_app_fee:app_fee_node {name:line.application_fee})
 MERGE (node_name) -[:HAS_APP_FEE_OF {app_fee:"collegex:applicationFee"}] -> (node_app_fee)
 
-MERGE (node_stu_ath_per:app_fee_node {name:line.student_athletic_percentage})
+MERGE (node_stu_ath_per:stu_ath_per_node {name:line.student_athletic_percentage})
 MERGE (node_name) -[:HAS_STUDENT_ATHLETIC_PERCENTAGE_OF {stu_ath_per:"collegex:studentAthleticsPercentage"}] -> (node_stu_ath_per)
 
 MERGE (node_app_dead:app_dead_node {name:line.application_deadline})
@@ -136,7 +136,7 @@ MERGE (node_name) -[:HAS_APP_DEAD_OF {app_dead:"collegex:applicationDeadline"}] 
 MERGE (node_app_web:app_web_node {name:line.application_website})
 MERGE (node_name) -[:HAS_APP_WEB_OF {app_web:"collegex:applicationWebsite"}] -> (node_app_web)
 
-MERGE (node_tuition:tuition_node {name:line.tuition_fees})
+MERGE (node_tuition:tuition_node {name:line.tuition})
 MERGE (node_name) -[:HAS_TUITION_OF {tuition_fees:"collegex:tuitionFees"}] -> (node_tuition)
 
 MERGE (node_sat_max:sat_max_node {name:line.sat_max})
