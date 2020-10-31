@@ -74,7 +74,7 @@
           SAT:
         </el-col>
         <el-col :span="14">
-          <el-slider v-model="sat_score" range :marks="sat_marks" :min="1400" :max="1600" style="padding-left: 10px;">
+          <el-slider v-model="sat_score" range :marks="sat_marks" :min="1000" :max="1600" style="padding-left: 10px;">
           </el-slider>
         </el-col>
         <el-col :span="8" style="color:  darkgray; padding-left: 15px;">
