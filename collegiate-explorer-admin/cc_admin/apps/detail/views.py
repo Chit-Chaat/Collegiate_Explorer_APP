@@ -141,7 +141,7 @@ def get_basic_info(request, id='2005'):
 
 
 def get_fame_property(request, id="asdasda"):
-    logger.info("func 'get_basic_info' get a param id -> " + id)
+    logger.info("func 'get_fame_property' get a param id -> " + id)
     data = {
         "affiliations": [
             {
@@ -172,15 +172,16 @@ def get_fame_property(request, id="asdasda"):
         "color": [
             {
                 'name': " Green",
-                'rgb': ""
+                'rgb': "#40FF50"
             }, {
                 'name': "White",
-                'rgb': ""
+                'rgb': "#1e90ff"
             }
         ],
         "mascot": {
             'name': "Grizzly Bear",
-            'logo': ""
+            'logo': "",
+            'link': ""
         }
 
     }

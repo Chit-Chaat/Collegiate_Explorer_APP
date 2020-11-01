@@ -8,9 +8,11 @@
         </div>
         <div class="text item" v-if="fame_obj.president">
           <div style="display: inline;">President: </div>
-          <el-avatar class="avatar_img" :size="20" @error="errorImgHandler" :src="fame_obj.president.profile">
-          </el-avatar>
-          {{fame_obj.president.name}}
+          <el-link :href="fame_obj.president.link" :underline="false">
+            <el-avatar class="avatar_img" :size="20" @error="errorImgHandler" :src="fame_obj.president.profile">
+            </el-avatar>
+            {{fame_obj.president.name}}
+          </el-link>
         </div>
         <div class="text item" v-if="fame_obj.motto">
           <div style="display: inline; padding-right: 22px;">Motto: </div> <span class="highlight_val">
@@ -18,8 +20,9 @@
         </div>
         <div class="text item" v-if="fame_obj.mascot">
           <div style="display: inline; padding-right: 12px;">Mascot: </div>
+            <el-link :href="fame_obj.mascot.link" :underline="false">
           <el-avatar class="avatar_img" :size="20" @error="errorImgHandler" :src="fame_obj.mascot.logo"></el-avatar>
-          {{fame_obj.mascot.name}}
+          {{fame_obj.mascot.name}}</el-link>
         </div>
         <div class="text item" v-if="fame_obj.color">
           <div style="display: inline; padding-right: 23px;vertical-align: middle;">Color: </div>
@@ -37,7 +40,7 @@
           <span><i class="el-icon-office-building"></i> Affiliations</span>
         </div>
         <div class="text item" v-for="org in fame_obj.affiliations" :key="org.name">
-          <el-link :href="org.link">
+          <el-link :href="org.link" :underline="false">
             <el-avatar class="avatar_img" :size="20" icon="el-icon-house">
             </el-avatar>
             {{org.name}}
@@ -50,7 +53,7 @@
           <span><i class="el-icon-user"></i> Athletics</span>
         </div>
         <div class="text item" v-for="person in fame_obj.athletics" :key="person.name">
-          <el-link :href="person.link">
+          <el-link :href="person.link" :underline="false">
             <el-avatar class="avatar_img" :size="20" icon="el-icon-user-solid">
             </el-avatar>
             {{person.name}}
