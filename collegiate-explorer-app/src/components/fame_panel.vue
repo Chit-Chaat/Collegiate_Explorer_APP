@@ -1,5 +1,5 @@
 <template>
-  <el-container style="height: 295px;">
+  <el-container style="height: 255px;">
     <div class="fame_tab_chart_title">Hall of Fame</div>
     <el-aside width="300px">
 
@@ -16,7 +16,7 @@
     props: {
       fame_obj: {
         type: Object,
-        required: true,
+        required: false,
       }
     }
   }

@@ -13,8 +13,8 @@
             <i class="el-icon-link"></i>Detail</el-button>
         </div>
       </div>
-      <div class="location"><i class="el-icon-map-location"></i>{{item.address}} | <i
-          class="el-icon-chat-line-square"></i>{{item.review}} reviews</div>
+      <div class="location"><i class="el-icon-map-location"></i>{{item.address}} </div>
+      <div class="phone_and_review"><i class="el-icon-phone-outline"></i> {{item.telephone}} | </div>
       <div class="desc">{{item.desc}}</div>
       <el-divider content-position="right">Facts</el-divider>
       <div class="other">
@@ -142,6 +142,14 @@
 
   .location {
     margin-top: -15px;
+    font-size: 14 px;
+    color: darkgray;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .phone_and_review{
     font-size: 14 px;
     color: darkgray;
     overflow: hidden;

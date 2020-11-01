@@ -13,7 +13,7 @@
               {{desc_obj.admission.acceptance_rate}}</div>
           </el-col>
           <el-col :span="6">
-            <div style="line-height: 20px; margin-left: -35px; margin-right: 20px;"> Apply DDL:</div>
+            <div class="ddl_title"> Apply DeadLine:</div>
           </el-col>
           <el-col :span="6" v-if="desc_obj.admission">
             <div class="acceptance_ddl">{{desc_obj.admission.application_ddl}}</div>
@@ -21,25 +21,31 @@
         </el-row>
         <el-row :gutter="10" style="margin-bottom: 15px;">
           <el-col :span="7">
-            <div class="acceptance_title">Except Salary:</div>
+            <div class="acceptance_title">Application Fee:</div>
           </el-col>
           <el-col :span="8">
+            <div class="salary_val">
+              ${{desc_obj.app_fee}} 30 <span style="color: darkgray; font-size: 12px; font-weight: 400;">
+                /program</span></div>
+          </el-col>
+          <el-col :span="7"></el-col>
+        </el-row>
+        <el-row :gutter="10" style="margin-bottom: 15px;">
+          <el-col :span="7">
+            <div class="acceptance_title">Except Salary:</div>
+          </el-col>
+          <el-col :span="7">
             <div class="salary_val">
               ${{desc_obj.expected_salary}} <span style="color: darkgray; font-size: 12px; font-weight: 400;">
                 /year</span></div>
           </el-col>
-          <el-col :span="7"></el-col>
-        </el-row>
-        <el-row :gutter="10">
-          <el-col :span="7">
-            <div class="acceptance_title">Tuition:</div>
+          <el-col :span="3">
+            <div class="tuition_title">Tuition:</div>
           </el-col>
-          <el-col :span="12" v-if="desc_obj.cost">
-            <div class="salary_val">
-              ${{desc_obj.cost.net_price}} <span class="hidden_val">/year (National: {{desc_obj.cost.national}} /
-                year)</span></div>
+          <el-col :span="6" v-if="desc_obj.cost">
+            <div class="tuition_val">
+              ${{desc_obj.cost.net_price}} <span class="hidden_val">/year </span></div>
           </el-col>
-          <el-col :span="5"> </el-col>
         </el-row>
       </div>
     </div>
@@ -48,25 +54,28 @@
         <el-collapse-item title="Required Score" name="1">
           <div class='text_item'>Average SAT Score:</div>
           <div class='text_item' v-if="desc_obj.avg_score" style="padding-left: 10px;">
-            Reading: <span class="tab_val"> {{desc_obj.avg_score.reading}}</span> | Math: <span class="tab_val"> {{desc_obj.avg_score.math}}</span> | ACT Composite: <span class="tab_val"> {{desc_obj.avg_score.composite}}</span>
+            Reading: <span class="tab_val"> {{desc_obj.avg_score.reading}}</span> | Math: <span class="tab_val">
+              {{desc_obj.avg_score.math}}</span> | ACT Composite: <span class="tab_val">
+              {{desc_obj.avg_score.composite}}</span>
           </div>
         </el-collapse-item>
         <el-collapse-item title="Students" name="2">
           <div class='text_item'>This university has</div>
           <div class='text_item' v-if="desc_obj.students" style="padding-left: 10px;">
-            Undergraduate: <span class="tab_val"> {{desc_obj.students.undergraduate}}</span> | Graduate: <span class="tab_val"> {{desc_obj.students.graduate}}</span> | International: <span class="tab_val"> {{desc_obj.students.international}}</span>
+            Undergraduate: <span class="tab_val"> {{desc_obj.students.undergraduate}}</span> | Graduate: <span
+              class="tab_val"> {{desc_obj.students.graduate}}</span>
           </div>
         </el-collapse-item>
-        <el-collapse-item title="Tuition & Cost" name="3">
-          <div class='text_item'>Stusy here may cost</div>
-          <div class='text_item' v-if="desc_obj.cost" style="padding-left: 10px;">
-            Net Price: <span class="tab_val"> ${{desc_obj.cost.net_price}}</span> <span class="hidden_val">/ year</span> | National Price: <span class="tab_val"> ${{desc_obj.cost.national}}</span>  <span class="hidden_val">/ year</span> 
+        <el-collapse-item title="Statistics" name="3">
+          <div class='text_item' v-if="desc_obj.stat" style="padding-left: 10px;">
+            Graduation Rate: <span class="tab_val"> ${{desc_obj.stat.graduation_rate}}</span>
+            | Freshman Retention: <span class="tab_val"> ${{desc_obj.stat.freshman_rentention}} </span>
           </div>
-        </el-collapse-item>
-        <el-collapse-item title="Aid & Salary" name="4">
-          <div class='text_item'>You may also receive aid</div>
-          <div class='text_item' v-if="desc_obj.cost" style="padding-left: 10px;">
-            The Porb. of need apply Aid: <span class="tab_val"> {{desc_obj.cost.financial_aid}}</span> | Avg. of Aid you got: <span class="tab_val"> ${{desc_obj.cost.avg_aid_award}}</span>  <span class="hidden_val">/ year</span> 
+          <div class='text_item' v-if="desc_obj.stat" style="padding-left: 10px;">
+            Employment Rate: <span class="tab_val"> ${{desc_obj.stat.employment_rate}} </span>
+          </div>
+          <div class='text_item' v-if="desc_obj.stat" style="padding-left: 10px;">
+            Median Of Salary: <span class="tab_val"> ${{desc_obj.stat.median_salary}} </span> <span class="hidden_val">/ year (after 6 years)</span>
           </div>
         </el-collapse-item>
       </el-collapse>
@@ -164,6 +173,26 @@
     white-space: nowrap;
   }
 
+  .tuition_title{
+    line-height: 20px;
+    margin-left: -40px;
+    width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ddl_title {
+    padding-left: 45px;
+    width: 90%;
+    line-height: 20px;
+    margin-left: -35px;
+    margin-right: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .acceptance_val {
     line-height: 20px;
     color: darkorange;
@@ -173,12 +202,16 @@
   }
 
   .acceptance_ddl {
+    width: 100%;
     line-height: 20px;
     color: darkorange;
     font-size: 20px;
     margin-top: -3px;
     font-weight: 600;
-    margin-left: -60%;
+    margin-left: -15%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .salary_tip {
@@ -195,6 +228,15 @@
     color: darkorange;
     font-size: 20px;
     margin-top: -3px;
+    font-weight: 600;
+  }
+
+  .tuition_val{
+    line-height: 20px;
+    color: darkorange;
+    font-size: 20px;
+    margin-top: -3px;
+    margin-left: -33px;
     font-weight: 600;
   }
 

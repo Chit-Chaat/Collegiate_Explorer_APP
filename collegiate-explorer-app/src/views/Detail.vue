@@ -31,6 +31,9 @@
     </el-container>
 
     <el-divider></el-divider>
+    <FamePanel :fame_obj="fame_info"></FamePanel>
+
+    <el-divider></el-divider>
     <ScorePanel :score_obj="score_info"></ScorePanel>
 
     <el-divider></el-divider>
@@ -55,6 +58,7 @@
   import ScorePanel from '../components/score_panel.vue'
   import SimilarSchoolPanel from '../components/similar_school_panel.vue'
   import PopularMajorPanel from '../components/popular_major_panel.vue'
+  import FamePanel from "../components/fame_panel.vue"
   export default {
     components: {
       Header,
@@ -64,6 +68,7 @@
       ScorePanel,
       SimilarSchoolPanel,
       PopularMajorPanel,
+      FamePanel,
     },
     props: {
       schoolId: {
@@ -77,6 +82,7 @@
         basicInfoApiPrefix: "/detail/",
         scoreInfoApiPrefix: "/detail/score/",
         similarSchoolApiPrefix: "/detail/similar/",
+        fameInfoApiPrefix: "/detail/fame/",
         head_imgs: [],
         title_info: {},
         desc_info: {},
@@ -84,6 +90,7 @@
         score_info: {},
         popular_major_info: {},
         similar_school_info: [],
+        fame_info: {},
       }
     },
     computed: {
@@ -94,6 +101,7 @@
       this.getBasicInfo()
       this.getScoreData()
       this.getSimilarSchoolList()
+      this.getFameInfo()
     },
     mounted() {
       this.head_imgs = ['/usc/1.png', '/usc/2.png', '/usc/3.png']
@@ -116,7 +124,28 @@
           },
           error => {
             this.$options.methods.sendErrorMsg.bind(this)(
-              "Something wrong with the Ranking Historical Data."
+              "Something wrong with the basic deatil info."
+            );
+          }
+        );
+      },
+      getFameInfo() {
+        axios({
+          method: "GET",
+          url: this.$hostname + this.fameInfoApiPrefix + this.$route.params.schoolId
+        }).then(
+          result => {
+            if (result.data != null) {
+              if (result.data.code == 200) {
+                this.fame_info = result.data.data;
+              } else {
+                this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
+              }
+            }
+          },
+          error => {
+            this.$options.methods.sendErrorMsg.bind(this)(
+              "Something wrong with the fame info."
             );
           }
         );
@@ -159,7 +188,7 @@
           },
           error => {
             this.$options.methods.sendErrorMsg.bind(this)(
-              "Something wrong with the Ranking Historical Data."
+              "Something wrong with the score Data."
             );
           }
         );
@@ -181,7 +210,7 @@
           },
           error => {
             this.$options.methods.sendErrorMsg.bind(this)(
-              "Something wrong with the Ranking Historical Data."
+              "Something wrong with the similar school list."
             );
           }
         );

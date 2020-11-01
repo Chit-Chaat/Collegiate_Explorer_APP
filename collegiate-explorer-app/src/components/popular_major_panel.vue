@@ -2,13 +2,9 @@
   <el-container style="height: 230px;">
     <el-aside width="50%">
       <div class="popular_major_tab_title">Popular Major</div>
-      <div class="popular_major_tab_desc">This university has
-        <span class="highlight_val">{{majors.length}}</span> majors.<br />
-        I dont know what to say, just use some text to filling the blank.<br />
-        Hopefully, you guys can figure out what content could be set here. This is
-        so annoying, since we dont have enought time to finish this project.
-        Now, you can click right tag cloud, which will guide to search related
-        major, and explore which university is suit for you.
+      <div class="popular_major_tab_desc">This university has 
+        <span class="highlight_val">{{majors.length}}</span> popular majors.<br />
+        Most of them have 
       </div>
     </el-aside>
     <el-main class="main">

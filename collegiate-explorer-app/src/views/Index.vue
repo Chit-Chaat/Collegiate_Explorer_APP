@@ -39,9 +39,9 @@
     data() {
       return {
         title: {
-          main_title: "Your Collegiate Explorer",
+          main_title: "Collegiate Explorer",
           sub_title: "Knowledge Graph",
-          desc: "some descriptive words some descriptive words some  <br> descriptive words some descriptive words some descriptive words some descriptive words"
+          desc: "Using Knowledge Graph techniques help you find the most suitable school, and start your new life."
         }
       }
     }
