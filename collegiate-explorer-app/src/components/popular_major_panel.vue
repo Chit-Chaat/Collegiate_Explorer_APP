@@ -4,7 +4,11 @@
       <div class="popular_major_tab_title">Popular Major</div>
       <div class="popular_major_tab_desc">This university has 
         <span class="highlight_val">{{majors.length}}</span> popular majors.<br />
-        Most of them have 
+        An academic major is an academic discipline to which an <br>
+        <u>undergraduate</u> student formally commits. Many well-known and <br>
+        talented people get into these major and got success. <br>
+        If you can join one of them, the probability of living a great life <br>
+        will be boosted.
       </div>
     </el-aside>
     <el-main class="main">
