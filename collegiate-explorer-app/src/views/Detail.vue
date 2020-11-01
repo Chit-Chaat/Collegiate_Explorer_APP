@@ -31,7 +31,7 @@
     </el-container>
 
     <el-divider></el-divider>
-    <FamePanel :fame_obj="fame_info"></FamePanel>
+    <FamePanel :fame_obj="fame_info" :title="title_info.main_title"></FamePanel>
 
     <el-divider></el-divider>
     <ScorePanel :score_obj="score_info"></ScorePanel>

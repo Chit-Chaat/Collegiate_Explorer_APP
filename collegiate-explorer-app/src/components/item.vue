@@ -10,11 +10,11 @@
         <div style="display: inline;">
           <el-button class="go_detail_btn" size="medium" type="text"
             @click="$router.push({ name: 'Detail', params: { schoolId: item.id }})">
-            <i class="el-icon-link"></i>Detail</el-button>
+            Detail<i class="el-icon-more-outline"></i></el-button>
         </div>
       </div>
       <div class="location"><i class="el-icon-map-location"></i>{{item.address}} </div>
-      <div class="phone_and_review"><i class="el-icon-phone-outline"></i> {{item.telephone}} | </div>
+      <div class="phone_and_review"><i class="el-icon-phone-outline"></i> {{item.telephone}} 213-477-5744 | <i class="el-icon-thumb"></i> <el-link :href="item.link">{{item.link}}</el-link></div>
       <div class="desc">{{item.desc}}</div>
       <el-divider content-position="right">Facts</el-divider>
       <div class="other">

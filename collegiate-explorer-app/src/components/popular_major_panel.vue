@@ -2,12 +2,12 @@
   <el-container style="height: 230px;">
     <el-aside width="50%">
       <div class="popular_major_tab_title">Popular Major</div>
-      <div class="popular_major_tab_desc">This university has 
+      <div class="popular_major_tab_desc">This university has
         <span class="highlight_val">{{majors.length}}</span> popular majors.<br />
-        An academic major is an academic discipline to which an <br>
-        <u>undergraduate</u> student formally commits. Many well-known and <br>
-        talented people get into these major and got success. <br>
-        If you can join one of them, the probability of living a great life <br>
+        An academic major is an academic discipline to which an
+        <u>undergraduate</u> student formally commits. Many well-known and
+        talented people get into these major and got success.
+        If you can join one of them, the probability of living a great life
         will be boosted.
       </div>
     </el-aside>
@@ -90,7 +90,7 @@
       }, 25)
     },
     methods: {
-      handdleClickMajor(major_val){
+      handdleClickMajor(major_val) {
         axios({
           method: "GET",
           url: this.$hostname + this.searchByMajorApiPrefix + major_val
