@@ -120,9 +120,15 @@ def get_basic_info(request, id='2005'):
                 'financial_aid': "69%",
                 'avg_aid_award': "35,953"
             },
+            'stat': {
+                'graduation_rate': "69%",
+                'freshman_rentention': "69%",
+                'employment_rate': "69%",
+                'median_salary': "120,000",
+            },
             'admission': {
                 'acceptance_rate': '13%',
-                'application_ddl': 'January 15th'
+                'application_ddl': 'Jan. 15th'
             },
             'students': {
                 'undergraduate': "20,048",
@@ -130,6 +136,53 @@ def get_basic_info(request, id='2005'):
                 'international': "2,499"
             }
         }
+    }
+    return JsonResponseResult(data=data, code=200, msg='success')
+
+
+def get_fame_property(request, id="asdasda"):
+    logger.info("func 'get_basic_info' get a param id -> " + id)
+    data = {
+        "affiliations": [
+            {
+                'name': "University System of Georgia",
+                'link': "",  # for now, we dont have url,
+                # but we might have it later or at leasr we need to pretend we have
+                # i'd like to call it extendibility. hahah
+            }, {
+                'name': "Southern Intercollegiate Athletics Conference",
+                'link': "",
+            }
+        ],
+        "athletics": [
+            {
+                'name': "NCAA Division II",
+                'link': ""
+            },
+        ],
+        "president": {
+            "name": "Joe Biden",
+            'profile': "",
+            'link': ""
+        },
+        "motto": {
+            'words': "Let there be light",
+            'by': ""
+        },
+        "color": [
+            {
+                'name': " Green",
+                'rgb': ""
+            }, {
+                'name': "White",
+                'rgb': ""
+            }
+        ],
+        "mascot": {
+            'name': "Grizzly Bear",
+            'logo': ""
+        }
+
     }
     return JsonResponseResult(data=data, code=200, msg='success')
 
