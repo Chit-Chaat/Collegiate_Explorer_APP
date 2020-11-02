@@ -340,9 +340,20 @@ def get_score_data(request, id="asdasdasdsadas"):
     detail = {}
     for item in result:
        if item['c'][0] == "read_sat_node":
-           detail['read_sat'] = item['c.name']
+           if item['c.name'] != 'N/A':
+               detail['read_sat'] = item['c.name']
+               detail['read'] = item['c.name']
+           else:
+               detail['read_sat'] = '0'
+               detail['read'] = 'N/A'
+
        if item['c'][0] == "math_sat_node":
-           detail['math_sat'] = item['c.name']
+           if item['c.name'] != 'N/A':
+               detail['math_sat'] = item['c.name']
+               detail['math'] = item['c.name']
+           else:
+               detail['math_sat'] = '0'
+               detail['math'] = 'N/A'
        if item['c'][0] == "write_sat_node":
            if item['c.name'] != 'N/A':
                detail['write_sat'] = item['c.name']
@@ -351,7 +362,12 @@ def get_score_data(request, id="asdasdasdsadas"):
                detail['write_sat'] = '0'
                detail['write'] = 'N/A'
        if item['c'][0] == "act_node":
-           detail['act'] = item['c.name']
+           if item['c.name'] != 'N/A':
+               detail['act'] = item['c.name']
+               detail['ACT'] = item['c.name']
+           else:
+               detail['act'] = '0'
+               detail['ACT'] = 'N/A'
        if item['c'][0] == "gpa_node":
            if item['c.name'] != 'N/A':
                detail['gpa'] = item['c.name']
@@ -371,11 +387,11 @@ def get_score_data(request, id="asdasdasdsadas"):
         "score_desc": {
             'cc': {
                 'sat': {
-                    'reading': detail['read_sat'],
+                    'reading': detail['read'],
                     'writing': detail['write'],
-                    'math': detail['math_sat'],
+                    'math': detail['math'],
                 },
-                'act': detail['act'],
+                'act': detail['ACT'],
                 'gpa': detail['GPA']
             }
         }
