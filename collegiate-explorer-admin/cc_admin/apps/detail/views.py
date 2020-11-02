@@ -346,12 +346,19 @@ def get_score_data(request, id="asdasdasdsadas"):
        if item['c'][0] == "write_sat_node":
            if item['c.name'] != 'N/A':
                detail['write_sat'] = item['c.name']
+               detail['write'] = item['c.name']
            else:
                detail['write_sat'] = '0'
+               detail['write'] = 'N/A'
        if item['c'][0] == "act_node":
            detail['act'] = item['c.name']
        if item['c'][0] == "gpa_node":
-           detail['gpa'] = item['c.name']
+           if item['c.name'] != 'N/A':
+               detail['gpa'] = item['c.name']
+               detail['GPA'] = item['c.name']
+           else:
+               detail['gpa'] = '0'
+               detail['GPA'] = 'N/A'
 
     data = {
         "score_data": [
@@ -365,11 +372,11 @@ def get_score_data(request, id="asdasdasdsadas"):
             'cc': {
                 'sat': {
                     'reading': detail['read_sat'],
-                    'writing': detail['write_sat'],
+                    'writing': detail['write'],
                     'math': detail['math_sat'],
                 },
                 'act': detail['act'],
-                'gpa': detail['gpa']
+                'gpa': detail['GPA']
             }
         }
     }
