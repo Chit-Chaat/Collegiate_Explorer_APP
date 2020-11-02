@@ -70,9 +70,6 @@ MERGE (node_name) -[:IS_TYPE {school_type:"collegex:schoolType"}] -> (node_schoo
 MERGE (node_school_setting:school_setting_node {name:line.school_setting})
 MERGE (node_name) -[:HAS_SETTING {school_setting:"collegex:schoolSetting"}] -> (node_school_setting)
 
-MERGE (node_academic_calendar:academic_calendar_node {name:line.academic_calendar})
-MERGE (node_name) -[:HAS_ACADMEIC_CALENDAR_OF {academic_calendar:"collegex:academicCalendar"}] -> (node_academic_calendar)
-
 MERGE (node_campus_size:campus_size_node {name:line.campus_size})
 MERGE (node_name) -[:HAS_SIZE {campus_size:"collegex:campusSize"}] -> (node_campus_size)
 
