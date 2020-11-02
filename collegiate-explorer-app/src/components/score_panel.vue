@@ -3,7 +3,7 @@
   <el-container style="height: 295px;" v-if="score_obj">
     <div class="score_tab_chart_title">Score Statistics</div>
     <el-aside width="300px" v-if="score_obj.score_data">
-      <g2-radar :is-show-area="true" :show-legend="true" :axis-name="{niche:'Niche', cc:'CollegeConfidential'}"
+      <g2-radar :is-show-area="true" :show-legend="true" :axis-name="{score:'Score'}"
         :axisColor="{ lineColor: 'rgb(240, 255, 255)', labelColor: 'rgb(240, 255, 255)' }" :data="score_obj.score_data"
         style="height: 260px; width: 100%;">
       </g2-radar>

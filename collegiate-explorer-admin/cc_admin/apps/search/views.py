@@ -89,7 +89,101 @@ def index(request):
             # user used filter
             selected_tags = json.loads(filter_content)
             print(selected_tags['area'])
-    return JsonResponseResult().ok(data="asdasdas")
+
+    filter_content = eval(filter_content)
+    connection = ConnectionPool()
+    majors = area = act = s_type = sat_max = sat_min = tuition = ""
+    if 'major' in filter_content:
+        major = filter_content['major'].split(',')
+        if len(major[0]) != 0:
+            for item in major:
+                majors += "match (node_school)-[:HAS_N_POPULAR_MAJORS]->(node_popular_major {name: '" + str(item) + "'})         "
+        else:
+            majors = " "
+
+    if search_type != '':
+        s_type = "match (node_school)-[:IS_TYPE]->(node_school_type {name:'" + search_type + "'})"
+
+    for key, value in filter_content.items():
+        if key == 'area' and value != '':
+            area = "match (node_school)-[:IN_REGION]->(node_region {name: '" + value + "'})" + " "
+        if key == 'act' and value != '':
+            act = "where " + str(filter_content['act'][0]) + " <= toInteger(node_avg_act.name) <= " + str(filter_content['act'][1]) + " "
+        if key == 'sat' and value != '':
+            sat_max = "where " + str(filter_content['sat'][0])  + "<= toInteger(node_sat_max.name) <= " + str(filter_content['sat'][1]) + " "
+            sat_min = "where " + str(filter_content['sat'][0]) + " <= toInteger(node_sat_min.name)<= " + str(filter_content['sat'][1]) + " "
+
+        if key == 'tuition' and value != '':
+            tuition = "where toInteger(node_tuition.name) <= " +  str(int(''.join([i for i in filter_content['tuition'] if i.isdigit()])) * 1000) + " "
+
+    result = connection.executeQuery(
+         area + \
+         s_type + "\
+         match (node_school)-[:AVG_ACT]->(node_avg_act) "\
+         + act + "\
+         match (node_school)-[:HAS_TUITION_OF]->(node_tuition) " +\
+         tuition + majors + "\
+         match (node_school)-[:HAS_SAT_MAX_OF]->(node_sat_max) " +\
+         sat_max + "\
+         match (node_school)-[:HAS_SAT_MIN_OF]->(node_sat_min) " +\
+         sat_min + "\
+         match (node_school)-[:ID]->(node_id)\
+         match (node_school)-[:HAS_LOGO]->(node_logo)\
+         match (node_school)-[:HAS_CC_SCORE]->(node_cc_score)\
+         match (node_school)-[:HAS_ADDRESS]->(node_address)\
+         match (node_school)-[:HAS_STATE]->(node_state)\
+         match (node_school)-[:HAS_CITY]->(node_city)\
+         match (node_school)-[:HAS_ZIP]->(node_zip)\
+         match (node_school)-[:HAS_WEBSITE]->(node_web)\
+         match (node_school)-[:IS_TYPE]->(node_type)\
+         match (node_school)-[:ACCEPT_RATE]->(node_accept_rate)\
+         match (node_school)-[:HAS_TELEPHONE]->(node_telephone)\
+         return node_id.name, node_school.name, node_logo.name,\
+         node_cc_score.name, node_address.name, node_state.name,\
+         node_city.name, node_zip.name, node_tuition.name, node_web.name,\
+         node_type.name, node_accept_rate.name, node_sat_max.name,\
+         node_sat_min.name, node_telephone.name, node_avg_act.name LIMIT 60\
+         ")
+
+    data = []
+    for school in result:
+        if school['node_accept_rate.name'] != 'N/A':
+            school['node_accept_rate.name']  = str(round(float(school['node_accept_rate.name'])*100, 2)) + '%'
+        cc_score = float(school['node_cc_score.name'])
+        cc_min = 0
+        cc_max = 400
+        cc_rating = 0
+        for i in range(5):
+            if cc_min <= cc_score <= cc_max:
+                cc_rating = i
+            else:
+                cc_min = cc_max
+                cc_max += 500
+
+        obj = {
+            'id': school['node_id.name'] ,
+            'name': school['node_school.name'],
+            'logo': 'school_logo.jpg',
+            'desc': 'desc',
+            'rating': {
+                'Niche': 5,
+                'CC': cc_rating
+            },
+            'detail': 'detail/' + school['node_id.name'],
+            'address': school['node_address.name'] + ' ' +
+                       school['node_city.name'] + ' ' +
+                       school['node_state.name'] + ', ' +
+                       school['node_zip.name'],
+            'tuition':'$' + school['node_tuition.name'],
+            'school_type': school['node_type.name'].capitalize(),
+            'ACT': school['node_sat_min.name'] + '-' +
+                   school['node_sat_max.name'],
+            'acceptance_rate': school['node_accept_rate.name'],
+            'link': school['node_web.name']
+        }
+        data.append(obj)
+
+    return JsonResponseResult().ok(data=data)
 
 
 def init_filter_option(request):
@@ -105,26 +199,45 @@ def init_filter_option(request):
             'Plains', 'Southeast', 'Southwest',
             'Rocky Mountains', 'Far West', 'Outlying areas'],
         "marjors": [
-            'Humanities',
-            'Natural sciences or mathematics',
-            'Social sciences ',
-            'Architecture or urban planning',
-            'Art and design',
+            'Liberal Arts and Humanities',
+            'Kinesiology and Exercise',
             'Business',
-            'Dentistry',
-            'Education',
-            'Engineering',
-            'Law',
-            'Medicine',
-            'Music, theatre, or dance',
+            'Psychology',
+            'Marketing',
             'Nursing',
-            'Pharmacy',
-            'Public health',
-            'Public policy',
-            'Social work',
-            'Other'],
+            'Sport and Fitness',
+            'Agriculture',
+            'Managerial',
+            'Biology',
+            'International Business',
+            'Healthcare',
+            'Social Science',
+            'Public Health',
+            'Mathematics',
+            'Creative',
+            'Criminal Justice and Safety',
+            'Radiation',
+            'Painting',
+            'Photography',
+            'Design and Visual',
+            'Biblical Studies',
+            'Finance',
+            'International',
+            'Accounting',
+            'Economics',
+            'Computer Science',
+            'English',
+            'Electrical Engineering',
+            'Mechanical Engineering',
+            'Chemical Engineering',
+            'Aerospace Engineering',
+            'Environmental Engineering',
+            'Criminal Justice and Safety Studies',
+            'Human Services',
+            'Sociology'],
         "tuitions": ['>= $5k', '>= $10k', '>= $15k']
     }
+
     return JsonResponseResult().ok(data=data)
 
 

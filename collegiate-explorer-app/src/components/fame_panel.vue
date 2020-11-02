@@ -1,5 +1,5 @@
 <template>
-  <el-container style="height: 255px;">
+  <el-container style="height: 300px;">
     <div class="fame_tab_title">Hall of Fame</div>
     <el-aside width="320px">
       <el-card class="box-card">

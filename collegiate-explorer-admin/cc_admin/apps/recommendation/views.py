@@ -1,4 +1,5 @@
 from JsonResponseResult import JsonResponseResult
+from Neo4jConnectionPool import ConnectionPool
 import logging
 
 logger = logging.getLogger('django')
@@ -79,178 +80,73 @@ def index(request):
     use JsonResponseResult().error(data=[], msg="explain your error", code="500") return
     """
     logger.info("revoked func 'index'")
-    data = [
-        {
-            'id': '1',
-            'name': 'University of AAAAAA',
+    connection = ConnectionPool()
+    result = connection.executeQuery(
+        "\
+        match (node_school)-[r:HAS_QS_RANK]->(node_qs_rank)\
+        where 1 <=toInteger(node_qs_rank.name) <= 15\
+        match (node_school)-[:AVG_ACT]->(node_avg_act)\
+        match (node_school)-[:HAS_SAT_MAX_OF]->(node_sat_max)\
+        where node_sat_max.name is not null\
+        match (node_school)-[:HAS_SAT_MIN_OF]->(node_sat_min)\
+        where node_sat_min.name is not null\
+        match (node_school)-[:HAS_TUITION_OF]->(node_tuition)\
+        match (node_school)-[:ID]->(node_id)\
+        match (node_school)-[:HAS_LOGO]->(node_logo)\
+        match (node_school)-[:HAS_WEBSITE]->(node_web)\
+        match (node_school)-[:HAS_CC_SCORE]->(node_cc_score)\
+        match (node_school)-[:HAS_ADDRESS]->(node_address)\
+        match (node_school)-[:HAS_STATE]->(node_state)\
+        match (node_school)-[:HAS_CITY]->(node_city)\
+        match (node_school)-[:HAS_ZIP]->(node_zip)\
+        match (node_school)-[:HAS_TUITION_OF]->(node_tuition)\
+        match (node_school)-[:IS_TYPE]->(node_type)\
+        match (node_school)-[:ACCEPT_RATE]->(node_accept_rate)\
+        match (node_school)-[:HAS_TELEPHONE]->(node_telephone)\
+        match (node_school)-[:AVG_GPA]->(node_gpa)\
+        return node_id.name, node_school.name, node_logo.name,\
+        node_cc_score.name, node_address.name, node_state.name,\
+        node_city.name, node_zip.name, node_tuition.name,\
+        node_type.name, node_accept_rate.name, node_sat_max.name,\
+        node_sat_min.name, node_telephone.name, node_avg_act.name,\
+        node_qs_rank.name, node_gpa.name, node_web.name\
+        order by toInteger(node_qs_rank.name)\
+        limit 24\
+        ")
+
+    data = []
+    for school in result:
+        cc_score = float(school['node_cc_score.name'])
+        cc_min = 0
+        cc_max = 400
+        cc_rating = 0
+        for i in range(5):
+            if cc_min <= cc_score <= cc_max:
+                cc_rating = i
+            else:
+                cc_min = cc_max
+                cc_max += 500 
+        obj =  {
+            'id': school['node_id.name'],
+            'name': school['node_school.name'],
             'logo': 'school_logo.jpg',
-            'desc': 'this is dessc this isthis is desc this isthis is desc this isthis is desc this is',
-            'rating': {
-                'Niche': 5,
-                'CC': 3
-            },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
-        },
-        {
-            'id': '2',
-            'name': 'University of bbbbbbbb',
-            'logo': 'school_logo2.jpg',
-            'desc': 't is desc this isthis is desc this isthis is desc this is',
-            'rating': {
-                'Niche': 2,
-                'CC': 3
-            },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
-        },
-        {
-            'id': '3',
-            'name': 'University of cCCCCC2',
-            'logo': 'school_logo.jpg',
-            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
+            'desc': 'desc',
             'rating': {
                 'Niche': 4,
-                'CC': 3
+                'CC': cc_rating
             },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
-        },
-        {
-            'id': '4',
-            'name': 'University of cCCCCC3',
-            'logo': 'school_logo.jpg',
-            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
-            'rating': {
-                'Niche': 4,
-                'CC': 3
-            },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
-        },
-        {
-            'id': '5',
-            'name': 'University of cCCCCC4',
-            'logo': 'school_logo.jpg',
-            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
-            'rating': {
-                'Niche': 4,
-                'CC': 3
-            },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
-        },
-        {
-            'id': '6',
-            'name': 'University of cCCCCC5',
-            'logo': 'school_logo.jpg',
-            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
-            'rating': {
-                'Niche': 4,
-                'CC': 3
-            },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
-        },
-        {
-            'id': '7',
-            'name': 'University of cCCCCC6',
-            'logo': 'school_logo.jpg',
-            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
-            'rating': {
-                'Niche': 4,
-                'CC': 3
-            },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
-        },
-        {
-            'id': '8',
-            'name': 'University of cCCCCC7',
-            'logo': 'school_logo.jpg',
-            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
-            'rating': {
-                'Niche': 4,
-                'CC': 3
-            },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
-        },
-        {
-            'id': '9',
-            'name': 'University of cCCCCC8',
-            'logo': 'school_logo.jpg',
-            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
-            'rating': {
-                'Niche': 4,
-                'CC': 3
-            },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
-        },
-        {
-            'id': '10',
-            'name': 'University of cCCCCC9',
-            'logo': 'school_logo.jpg',
-            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
-            'rating': {
-                'Niche': 4,
-                'CC': 3
-            },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
+            'detail': 'detail/' + school['node_id.name'],
+            'address': school['node_address.name'] + ' ' +
+                       school['node_city.name'] + ', ' +
+                       school['node_state.name'] + ' ' +
+                       school['node_zip.name'],
+            'tuition': '$' + str(int(float(school['node_tuition.name']))),
+            'school_type': school['node_type.name'].capitalize(),
+            'ACT': school['node_sat_min.name'] + '-' + school['node_sat_max.name'],
+            'acceptance_rate': str(round(float(school['node_accept_rate.name'])*100, 2)) + '%',
+            'link': school['node_web.name']
         }
-    ]
+        data.append(obj)
     return JsonResponseResult().ok(data=data)
 
 

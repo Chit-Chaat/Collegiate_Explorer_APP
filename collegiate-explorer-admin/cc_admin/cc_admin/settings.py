@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'cc_admin.wsgi.application'
 
 DATABASES = {
     'default': {
-        'NAME': 'neo4j_db',
+        'NAME': 'collegiate_explorer',
         'USER': 'neo4j',
         'PASSWORD': '123456',
         'URL': 'bolt://localhost:7687'

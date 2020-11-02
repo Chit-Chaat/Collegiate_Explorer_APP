@@ -1,7 +1,7 @@
 import logging
 
 from JsonResponseResult import JsonResponseResult
-
+from Neo4jConnectionPool import ConnectionPool
 logger = logging.getLogger('django')
 
 """
@@ -98,88 +98,162 @@ def get_basic_info(request, id='2005'):
     use JsonResponseResult().error(data=[], msg="explain your error", code="500") return
     """
     logger.info("func 'get_basic_info' get a param id -> " + id)
+    connection = ConnectionPool()
+    result = connection.executeQuery(
+        "\
+        match(n)-[]-(m {name: '" + id + "'})\
+        return n.name\
+        "
+    )
+    name = result[0]['n.name']
+    result = connection.executeQuery(
+        "\
+        match(n)-[]-(m {name: '" + id + "'})\
+        match(n)-[]-(c)\
+        return labels(c) as c, c.name\
+        "
+        )
+    detail = {}
+    for item in result:
+       if item['c'][0] == "school_type_node":
+           detail['setting'] = item['c.name'].capitalize()
+       if item['c'][0] == "web_node":
+           detail['website'] = item['c.name']
+       if item['c'][0] == "read_sat_node":
+           detail['read_sat'] = item['c.name']
+       if item['c'][0] == "math_sat_node":
+           detail['math_sat'] = item['c.name']
+       if item['c'][0] == "act_node":
+           detail['act'] = item['c.name']
+       if item['c'][0] == "addr_node":
+           detail['address'] = item['c.name']
+       if item['c'][0] == "city_node":
+           detail['city'] = item['c.name']
+       if item['c'][0] == "state_node":
+           detail['state'] = item['c.name']
+       if item['c'][0] == "zip_node":
+           detail['zip'] = item['c.name']
+       if item['c'][0] == "med_earn_6_years_node":
+           detail['med_earn'] = item['c.name']
+       if item['c'][0] == "tuition_node":
+           detail['tuition'] = item['c.name']
+       if item['c'][0] == "average_aid_node":
+           detail['avg_aid'] = item['c.name']
+       if item['c'][0] == "accept_rate_node":
+           if item['c.name'] != 'N/A':
+               detail['accept_rate'] = str(int(float(item['c.name'])*100)) + '%'
+           else:
+               detail['accept_rate'] = item['c.name']
+       if item['c'][0] == "app_dead_node":
+           detail['app_dead'] = item['c.name']
+       if item['c'][0] == "app_fee_node":
+           detail['app_fee'] = item['c.name']
+       if item['c'][0] == "undergrad_pop_node":
+           detail['undergrad_pop'] = item['c.name']
+       if item['c'][0] == "grad_pop_node":
+           detail['grad_pop'] = item['c.name']
+       if item['c'][0] == 'grad_rate_node':
+           detail['grad_rate'] = item['c.name']
+       if item['c'][0] == 'fresh_ret_node':
+           detail['fresh_ret_rate'] = item['c.name']
+       if item['c'][0] == 'emp_rate_node':
+           detail['emp_rate'] = item['c.name']
+
     data = {
         "title_info": {
-            'main_title': "University of Southern California (USC)",
+            'main_title': name,
             'duration': '4-Years',
-            'school_type': "Private University",
-            'location': "Los Angeles, CA",
-            'school_link': "http://www.usc.edu"},
+            'school_type': detail['setting'] + " University",
+            'location': detail['city'] + ', ' + detail['state'],
+            'school_link': detail['website']},
         "desc_info": {
-            'title': "University of Southern California",
-            'location': "University Park Los Angeles, CA 90089",
+            'title': name,
+            'location': detail['address'] + ' ' + detail['city'] + ', ' + detail['state'] + ' ' + detail['zip'],
             'avg_score': {
-                'reading': "700",
-                'math': "714",
-                'composite': "32"
+                'reading': detail['read_sat'],
+                'math': detail['math_sat'],
+                'composite': detail['act']
             },
-            'expected_salary': "74,000",
+            'app_fee': detail['app_fee'],
+            'expected_salary': detail['med_earn'],
             'cost': {
-                'net_price': '36,161',
-                'national': "15,523",
-                'financial_aid': "69%",
-                'avg_aid_award': "35,953"
-            },
-            'stat': {
-                'graduation_rate': "69%",
-                'freshman_rentention': "69%",
-                'employment_rate': "69%",
-                'median_salary': "120,000",
+                'net_price': detail['tuition'],
+                'avg_aid_award': detail['avg_aid']
             },
             'admission': {
-                'acceptance_rate': '13%',
-                'application_ddl': 'Jan. 15th'
+                'acceptance_rate': detail['accept_rate'],
+                'application_ddl': detail['app_dead']
             },
             'students': {
-                'undergraduate': "20,048",
-                'graduate': "27,970",
-                'international': "2,499"
+                'undergraduate': detail['undergrad_pop'],
+                'graduate': detail['grad_pop'],
+            },
+            'stat': {
+                'graduation_rate': detail['grad_rate'],
+                'freshman_retention': detail['fresh_ret_rate'],
+                'employment_rate': detail['emp_rate'],
+                'median_salary': detail['med_earn']
             }
         }
     }
+
+
+
+
     return JsonResponseResult(data=data, code=200, msg='success')
 
 
 def get_fame_property(request, id="asdasda"):
     logger.info("func 'get_fame_property' get a param id -> " + id)
+    connection = ConnectionPool()
+    result = connection.executeQuery(
+        "\
+        match(n)-[]-(m {name: '" + id + "'})\
+        match(n)-[]-(c)\
+        return labels(c) as c, c.name\
+        "
+        )
+    detail = {}
+    affil = []
+    athle = []
+    for item in result:
+        if item['c'][0] == "president_node":
+            detail['president'] = item['c.name']
+        if item['c'][0] == "motto_node":
+            detail['motto'] = item['c.name']
+        if item['c'][0] == 'affil_node':
+            affil.append({'name': item['c.name'], 'link':"https://www.dbpedia.org/page/" + '_'.join(item['c.name'].split())})
+        if item['c'][0] == 'athletics_node':
+            athle.append({'name': item['c.name'], 'link':"https://www.dbpedia.org/page/" + '_'.join(item['c.name'].split())})
+        if item['c'][0] == 'mascot_node':
+            detail['mascot'] = item['c.name']
+    import requests
+    url = 'https://www.colorhexa.com/color.php'
+    data = {'c': 'red', 'h': 'h'}
+    #print(requests.post(url, data).text)
     data = {
-        "affiliations": [
-            {
-                'name': "University System of Georgia",
-                'link': "",  # for now, we dont have url,
-                # but we might have it later or at leasr we need to pretend we have
-                # i'd like to call it extendibility. hahah
-            }, {
-                'name': "Southern Intercollegiate Athletics Conference",
-                'link': "",
-            }
-        ],
-        "athletics": [
-            {
-                'name': "NCAA Division II",
-                'link': ""
-            },
-        ],
+        "affiliations": affil,
+        "athletics": athle,
         "president": {
-            "name": "Joe Biden",
+            "name": detail['president'],
             'profile': "",
-            'link': ""
+            'link': 'https://www.dbpedia.org/page/' + '_'.join(detail['president'].split())
         },
         "motto": {
-            'words': "Let there be light",
+            'words': detail['motto'],
             'by': ""
         },
         "color": [
             {
                 'name': " Green",
-                'rgb': "#40FF50"
+                'rgb': "#008000"
             }, {
-                'name': "White",
-                'rgb': "#1e90ff"
+                'name': "Red",
+                'rgb': "#ff0000"
             }
         ],
         "mascot": {
-            'name': "Grizzly Bear",
+            'name': detail['mascot'],
             'logo': "",
             'link': ""
         }
@@ -254,27 +328,48 @@ def get_score_data(request, id="asdasdasdsadas"):
        use JsonResponseResult().error(data=[], msg="explain your error", code="500") return
        """
     logger.info("func 'get_score_data' get a param id -> " + id)
+    connection = ConnectionPool()
+    result = connection.executeQuery(
+        "\
+        match(n)-[]-(m {name: '" + id + "'})\
+        match(n)-[]-(c)\
+        return labels(c) as c, c.name\
+        "
+        )
+
+    detail = {}
+    for item in result:
+       if item['c'][0] == "read_sat_node":
+           detail['read_sat'] = item['c.name']
+       if item['c'][0] == "math_sat_node":
+           detail['math_sat'] = item['c.name']
+       if item['c'][0] == "write_sat_node":
+           if item['c.name'] != 'N/A':
+               detail['write_sat'] = item['c.name']
+           else:
+               detail['write_sat'] = '0'
+       if item['c'][0] == "act_node":
+           detail['act'] = item['c.name']
+       if item['c'][0] == "gpa_node":
+           detail['gpa'] = item['c.name']
+
     data = {
         "score_data": [
-            {'item': 'SAT_reading', 'niche': 67.5, 'cc': 60.3},  # div 10
-            {'item': 'SAT_writing', 'niche': 64.6, 'cc': 50.6},  # div 10
-            {'item': 'SAT_math', 'niche': 71.0, 'cc': 70.1},  # div 10
-            {'item': 'ACT', 'niche': 64, 'cc': 68},  # * 2
-            {'item': 'GPA', 'niche': 76, 'cc': 74}  # * 20
+            {'item': 'SAT_reading', 'score': int(detail['read_sat'])/10},  # div 10
+            {'item': 'SAT_writing', 'score': int(detail['write_sat'])/10},  # div 10
+            {'item': 'SAT_math', 'score': int(detail['math_sat'])/10},  # div 10
+            {'item': 'ACT', 'score': int(detail['act'])*2},  # * 2
+            {'item': 'GPA', 'score': int(float(detail['gpa'])*20)}  # * 20
         ],
         "score_desc": {
-            'niche': {
-                'sat_range': '1390-1540',
-                'act_range': '32-35',
-            },
             'cc': {
                 'sat': {
-                    'reading': 731,
-                    'writing': 656,
-                    'math': 731,
+                    'reading': detail['read_sat'],
+                    'writing': detail['write_sat'],
+                    'math': detail['math_sat'],
                 },
-                'act': 32,
-                'gpa': 3.72
+                'act': detail['act'],
+                'gpa': detail['gpa']
             }
         }
     }
@@ -297,17 +392,23 @@ def get_popular_major(request, id='asdas31asdada'):
     """
 
     logger.info("func 'get_popular_major' get a param id -> " + id)
-    data = [
-        {'name': "Computer Science"},
-        {'name': "Data Science"},
-        {'name': "Business Administration"},
-        {'name': "Biological Sciences"},
-        {'name': "Chemistry"},
-        {'name': "Environmental Engineering"},
-        {'name': "Social Sciences"},
-        {'name': "Human Development and Aging"},
-        {'name': "Biomedical Engineering"},
-        {'name': "Natural Sciences"}]
+    connection = ConnectionPool()
+    result = connection.executeQuery(
+        "\
+        match(n)-[]-(m {name: '" + id + "'})\
+        match(n)-[]-(c)\
+        return labels(c) as c, c.name\
+        "
+        )
+
+    detail = []
+    for item in result:
+       if item['c'][0] == "n_pop_majors_node":
+           detail.append(item['c.name'])
+    data = []
+    for major in detail:
+        data.append({'name': major})
+
     return JsonResponseResult().ok(data=data)
 
 

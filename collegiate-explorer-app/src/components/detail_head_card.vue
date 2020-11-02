@@ -23,21 +23,10 @@
           <el-col :span="7">
             <div class="acceptance_title">Application Fee:</div>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="7">
             <div class="salary_val">
-              ${{desc_obj.app_fee}} 30 <span style="color: darkgray; font-size: 12px; font-weight: 400;">
+              ${{desc_obj.app_fee}} <span style="color: darkgray; font-size: 12px; font-weight: 400;">
                 /program</span></div>
-          </el-col>
-          <el-col :span="7"></el-col>
-        </el-row>
-        <el-row :gutter="10" style="margin-bottom: 15px;">
-          <el-col :span="7">
-            <div class="acceptance_title">Except Salary:</div>
-          </el-col>
-          <el-col :span="7">
-            <div class="salary_val">
-              ${{desc_obj.expected_salary}} <span style="color: darkgray; font-size: 12px; font-weight: 400;">
-                /year</span></div>
           </el-col>
           <el-col :span="3">
             <div class="tuition_title">Tuition:</div>
@@ -46,12 +35,15 @@
             <div class="tuition_val">
               ${{desc_obj.cost.net_price}} <span class="hidden_val">/year </span></div>
           </el-col>
+
+          <el-col :span="7"></el-col>
         </el-row>
+
       </div>
     </div>
     <div class="lower_part">
       <el-collapse v-model="default_open_tab" accordion class="lower_collapse">
-        <el-collapse-item title="Required Score" name="1">
+        <el-collapse-item title="Scores" name="1">
           <div class='text_item'>Average SAT Score:</div>
           <div class='text_item' v-if="desc_obj.avg_score" style="padding-left: 10px;">
             Reading: <span class="tab_val"> {{desc_obj.avg_score.reading}}</span> | Math: <span class="tab_val">
@@ -68,14 +60,14 @@
         </el-collapse-item>
         <el-collapse-item title="Statistics" name="3">
           <div class='text_item' v-if="desc_obj.stat" style="padding-left: 10px;">
-            Graduation Rate: <span class="tab_val"> ${{desc_obj.stat.graduation_rate}}</span>
-            | Freshman Retention: <span class="tab_val"> ${{desc_obj.stat.freshman_rentention}} </span>
+            Graduation Rate: <span class="tab_val"> {{desc_obj.stat.graduation_rate}}</span>
+            | Freshman Retention: <span class="tab_val"> {{desc_obj.stat.freshman_retention}} </span>
           </div>
           <div class='text_item' v-if="desc_obj.stat" style="padding-left: 10px;">
-            Employment Rate: <span class="tab_val"> ${{desc_obj.stat.employment_rate}} </span>
+            Employment Rate: <span class="tab_val"> {{desc_obj.stat.employment_rate}} </span>
           </div>
           <div class='text_item' v-if="desc_obj.stat" style="padding-left: 10px;">
-            Median Of Salary: <span class="tab_val"> ${{desc_obj.stat.median_salary}} </span> <span class="hidden_val">/ year (after 6 years)</span>
+            Median Of Salary: <span class="tab_val"> {{desc_obj.stat.median_salary}} </span> <span class="hidden_val">/ year (after 6 years)</span>
           </div>
         </el-collapse-item>
       </el-collapse>

@@ -5,16 +5,17 @@
       <div class="popular_major_tab_desc">This university has
         <span class="highlight_val">{{majors.length}}</span> popular majors.<br />
         An academic major is an academic discipline to which an
-        <u>undergraduate</u> student formally commits. Many well-known and
-        talented people get into these major and got success.
-        If you can join one of them, the probability of living a great life
-        will be boosted.
+        <u>undergraduate</u> student formally commits during their time in college. 
+        The majority of the student population at this university have chosen
+        these majors to pursue a career in. Because they are popular it means
+        there is a high selectivity and so it is best to center your studies and
+        prepare accordingly to enhance your application.
       </div>
     </el-aside>
     <el-main class="main">
       <svg :width='width' :height='height' @mousemove='listener($event)' style="padding-left: 0px;">
         <a v-for='tag in tags' :key='tag.text' style="color: darkorange;" @click="handdleClickMajor(tag.text)">
-          <text :x='tag.x' :y='tag.y' :font-size='20 * (600/(600-tag.z))'
+          <text :x='tag.x' :y='tag.y' :font-size='20 * (500/(500-tag.z))'
             :fill-opacity='((400+tag.z)/600)'>{{tag.text}}</text>
         </a>
       </svg>
