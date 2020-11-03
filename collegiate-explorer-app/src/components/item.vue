@@ -20,8 +20,8 @@
       <div class="other">
         <el-row>
           <el-col :sm="20" :lg="12">
-            <div class="ratingNiche"><img :src="require('../assets/images/niche-logo.png')" width="20px"> Niche:
-              <el-rate v-model="item.rating.Niche" :icon-classes="iconClasses" void-icon-class="el-icon-medal"
+            <div class="ratingNiche"><img :src="require('../assets/images/qs_logo.png')" width="20px"> QS:
+              <el-rate v-model="item.rating.QS" :icon-classes="iconClasses" void-icon-class="el-icon-medal"
                 :colors="iconColors" style="display: inline; pointer-events: none; cursor: default;">
               </el-rate>
             </div>
@@ -48,7 +48,7 @@
               <i class="el-icon-bank-card" style="color: slategrey;font-size: 18px;"></i><span class="num_info_val">
                 {{item.tuition}}</span></div>
           </el-col>
-          <el-col :sm="17" :lg="11">
+          <el-col :sm="17" :lg="13">
             <div class="num_info">ACT Range:
               <i class="el-icon-finished" style="color: lightgreen; font-size: 18px;"></i><span class="num_info_val">
                 {{item.ACT}}</span></div>

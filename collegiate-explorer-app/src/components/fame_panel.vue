@@ -3,8 +3,8 @@
     <div class="fame_tab_title">Hall of Fame</div>
     <el-aside width="320px">
       <el-card class="box-card">
-        <div slot="header" v-if="title">
-          <span>{{title}}</span>
+        <div slot="header">
+          <span><i class="el-icon-warning-outline"></i> Basic Property</span>
         </div>
         <div class="text item" v-if="fame_obj.president">
           <div style="display: inline;">President: </div>
@@ -40,7 +40,7 @@
           <span><i class="el-icon-office-building"></i> Affiliations</span>
         </div>
         <div class="text item" v-for="org in fame_obj.affiliations" :key="org.name">
-          <el-link :href="org.link" :underline="false">
+          <el-link :href="org.link" target="blank" :underline="false">
             <el-avatar class="avatar_img" :size="20" icon="el-icon-house">
             </el-avatar>
             {{org.name}}
@@ -53,7 +53,7 @@
           <span><i class="el-icon-user"></i> Athletics</span>
         </div>
         <div class="text item" v-for="person in fame_obj.athletics" :key="person.name">
-          <el-link :href="person.link" :underline="false">
+          <el-link :href="person.link" target="blank" :underline="false">
             <el-avatar class="avatar_img" :size="20" icon="el-icon-user-solid">
             </el-avatar>
             {{person.name}}
@@ -72,11 +72,8 @@
       fame_obj: {
         type: Object,
         required: false,
-      },
-      title: {
-        type: String,
-        required: true,
       }
+      
     },
     methods: {
       errorImgHandler() {
