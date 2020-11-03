@@ -297,3 +297,56 @@ Traceback (most recent call last):
     {'item': 'SAT_reading', 'score': int(detail['read_sat'])/10},  # div 10
 ValueError: invalid literal for int() with base 10: 'N/A'
 [2020-11-02 07:29:42,465][Thread-6:140308273694464][task_id:django.server][basehttp.py:157][ERROR]["GET /detail/score/d9b90eb1-d6dd-4115-87fc-95a5a6b5340a HTTP/1.1" 500 70395]
+[2020-11-03 02:21:37,604][Thread-2:140492316608256][task_id:django.request][log.py:224][ERROR][Internal Server Error: /recommendation/]
+Traceback (most recent call last):
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 929, in _connect
+    s.connect(resolved_address)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kptran/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/kptran/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/kptran/Collegiate_Explorer_APP/collegiate-explorer-admin/cc_admin/apps/recommendation/views.py", line 85, in index
+    connection = ConnectionPool()
+  File "/home/kptran/Collegiate_Explorer_APP/collegiate-explorer-admin/cc_admin/common/Neo4jConnectionPool.py", line 17, in __init__
+    self.driver = GraphDatabase.driver(uri, auth=(user, pwd))
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/__init__.py", line 183, in driver
+    return cls.bolt_driver(parsed.netloc, auth=auth, **config)
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/__init__.py", line 196, in bolt_driver
+    return BoltDriver.open(target, auth=auth, **config)
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/__init__.py", line 359, in open
+    pool = BoltPool.open(address, auth=auth, pool_config=pool_config, workspace_config=default_workspace_config)
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 531, in open
+    seeds = [pool.acquire() for _ in range(pool_config.init_size)]
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 531, in <listcomp>
+    seeds = [pool.acquire() for _ in range(pool_config.init_size)]
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 545, in acquire
+    return self._acquire(self.address, timeout)
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 409, in _acquire
+    connection = self.opener(address, timeout)
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 528, in opener
+    return Bolt.open(addr, auth=auth, timeout=timeout, routing_context=routing_context, **pool_config)
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 193, in open
+    s, pool_config.protocol_version, handshake, data = connect(
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 1049, in connect
+    raise last_error
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 1039, in connect
+    s = _connect(resolved_address, timeout, keep_alive)
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 943, in _connect
+    raise ServiceUnavailable("Failed to establish connection to {!r} (reason {})".format(resolved_address, error))
+neo4j.exceptions.ServiceUnavailable: Failed to establish connection to IPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connection refused)
+[2020-11-03 02:21:37,622][Thread-2:140492316608256][task_id:django.server][basehttp.py:157][ERROR]["GET /recommendation/ HTTP/1.1" 500 135064]
+[2020-11-03 18:20:44,612][Thread-2:139676069070592][task_id:django.request][log.py:224][ERROR][Internal Server Error: /recommendation/]
+Traceback (most recent call last):
+  File "/home/kptran/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/kptran/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/kptran/Collegiate_Explorer_APP/collegiate-explorer-admin/cc_admin/apps/recommendation/views.py", line 134, in index
+    schoolo.get('node_zip.name', ''),
+NameError: name 'schoolo' is not defined
+[2020-11-03 18:20:44,632][Thread-2:139676069070592][task_id:django.server][basehttp.py:157][ERROR]["GET /recommendation/ HTTP/1.1" 500 71779]

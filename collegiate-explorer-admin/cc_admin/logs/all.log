@@ -3356,3 +3356,179 @@ ValueError: invalid literal for int() with base 10: 'N/A'
 [2020-11-02 19:09:00,686][Thread-1:140412785788672][task_id:django.server][basehttp.py:157][INFO]["GET /detail/ed273f56-08d8-4792-9286-2e60e2e94c66 HTTP/1.1" 200 779]
 [2020-11-02 19:09:00,766][Thread-4:140412760164096][task_id:django.server][basehttp.py:157][INFO]["GET /detail/popular_major/ed273f56-08d8-4792-9286-2e60e2e94c66 HTTP/1.1" 200 333]
 [2020-11-02 19:09:01,310][Thread-2:140412777334528][task_id:django.server][basehttp.py:157][INFO]["GET /detail/fame/ed273f56-08d8-4792-9286-2e60e2e94c66 HTTP/1.1" 200 1205]
+[2020-11-03 02:20:27,287][MainThread:140492457903936][task_id:django.utils.autoreload][autoreload.py:613][INFO][Watching for file changes with StatReloader]
+[2020-11-03 02:21:36,640][Thread-1:140492325062400][task_id:django][views.py:161][INFO][revoked func 'get_recommend_tags']
+[2020-11-03 02:21:36,640][Thread-2:140492316608256][task_id:django][views.py:84][INFO][revoked func 'index']
+[2020-11-03 02:21:36,643][Thread-3:140492308154112][task_id:django.server][basehttp.py:157][INFO]["GET /search/init HTTP/1.1" 200 903]
+[2020-11-03 02:21:36,645][Thread-1:140492325062400][task_id:django.server][basehttp.py:157][INFO]["GET /recommendation/tags/ HTTP/1.1" 200 317]
+[2020-11-03 02:21:37,604][Thread-2:140492316608256][task_id:django.request][log.py:224][ERROR][Internal Server Error: /recommendation/]
+Traceback (most recent call last):
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 929, in _connect
+    s.connect(resolved_address)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kptran/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/kptran/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/kptran/Collegiate_Explorer_APP/collegiate-explorer-admin/cc_admin/apps/recommendation/views.py", line 85, in index
+    connection = ConnectionPool()
+  File "/home/kptran/Collegiate_Explorer_APP/collegiate-explorer-admin/cc_admin/common/Neo4jConnectionPool.py", line 17, in __init__
+    self.driver = GraphDatabase.driver(uri, auth=(user, pwd))
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/__init__.py", line 183, in driver
+    return cls.bolt_driver(parsed.netloc, auth=auth, **config)
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/__init__.py", line 196, in bolt_driver
+    return BoltDriver.open(target, auth=auth, **config)
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/__init__.py", line 359, in open
+    pool = BoltPool.open(address, auth=auth, pool_config=pool_config, workspace_config=default_workspace_config)
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 531, in open
+    seeds = [pool.acquire() for _ in range(pool_config.init_size)]
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 531, in <listcomp>
+    seeds = [pool.acquire() for _ in range(pool_config.init_size)]
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 545, in acquire
+    return self._acquire(self.address, timeout)
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 409, in _acquire
+    connection = self.opener(address, timeout)
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 528, in opener
+    return Bolt.open(addr, auth=auth, timeout=timeout, routing_context=routing_context, **pool_config)
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 193, in open
+    s, pool_config.protocol_version, handshake, data = connect(
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 1049, in connect
+    raise last_error
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 1039, in connect
+    s = _connect(resolved_address, timeout, keep_alive)
+  File "/home/kptran/.local/lib/python3.8/site-packages/neo4j/io/__init__.py", line 943, in _connect
+    raise ServiceUnavailable("Failed to establish connection to {!r} (reason {})".format(resolved_address, error))
+neo4j.exceptions.ServiceUnavailable: Failed to establish connection to IPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connection refused)
+[2020-11-03 02:21:37,622][Thread-2:140492316608256][task_id:django.server][basehttp.py:157][ERROR]["GET /recommendation/ HTTP/1.1" 500 135064]
+[2020-11-03 02:22:57,962][Thread-2:140492316608256][task_id:django][views.py:161][INFO][revoked func 'get_recommend_tags']
+[2020-11-03 02:22:57,964][Thread-1:140492325062400][task_id:django][views.py:84][INFO][revoked func 'index']
+[2020-11-03 02:22:57,967][Thread-3:140492308154112][task_id:django.server][basehttp.py:157][INFO]["GET /search/init HTTP/1.1" 200 903]
+[2020-11-03 02:22:57,980][Thread-2:140492316608256][task_id:django.server][basehttp.py:157][INFO]["GET /recommendation/tags/ HTTP/1.1" 200 317]
+[2020-11-03 02:23:09,837][Thread-1:140492325062400][task_id:django.server][basehttp.py:157][INFO]["GET /recommendation/ HTTP/1.1" 200 5947]
+[2020-11-03 02:23:29,015][Thread-1:140492325062400][task_id:django][views.py:289][INFO][func 'get_ranking_data' get a param id -> 693d3ce3-484d-4cdb-97c9-c96d56ca4636]
+[2020-11-03 02:23:29,024][Thread-2:140492316608256][task_id:django][views.py:100][INFO][func 'get_basic_info' get a param id -> 693d3ce3-484d-4cdb-97c9-c96d56ca4636]
+[2020-11-03 02:23:29,027][Thread-3:140492308154112][task_id:django][views.py:339][INFO][func 'get_score_data' get a param id -> 693d3ce3-484d-4cdb-97c9-c96d56ca4636]
+[2020-11-03 02:23:29,032][Thread-1:140492325062400][task_id:django.server][basehttp.py:157][INFO]["GET /detail/ranking/history/693d3ce3-484d-4cdb-97c9-c96d56ca4636 HTTP/1.1" 200 652]
+[2020-11-03 02:23:29,050][Thread-1:140492325062400][task_id:django][views.py:467][INFO][func 'get_similar_school_data' get a param id -> 693d3ce3-484d-4cdb-97c9-c96d56ca4636]
+[2020-11-03 02:23:29,075][Thread-1:140492325062400][task_id:django.server][basehttp.py:157][INFO]["GET /detail/similar/693d3ce3-484d-4cdb-97c9-c96d56ca4636 HTTP/1.1" 200 897]
+[2020-11-03 02:23:29,085][Thread-1:140492325062400][task_id:django][views.py:207][INFO][func 'get_fame_property' get a param id -> 693d3ce3-484d-4cdb-97c9-c96d56ca4636]
+[2020-11-03 02:23:29,406][Thread-5:140492298913536][task_id:django][views.py:426][INFO][func 'get_popular_major' get a param id -> 693d3ce3-484d-4cdb-97c9-c96d56ca4636]
+[2020-11-03 02:23:30,332][Thread-3:140492308154112][task_id:django.server][basehttp.py:157][INFO]["GET /detail/score/693d3ce3-484d-4cdb-97c9-c96d56ca4636 HTTP/1.1" 200 340]
+[2020-11-03 02:23:30,626][Thread-2:140492316608256][task_id:django.server][basehttp.py:157][INFO]["GET /detail/693d3ce3-484d-4cdb-97c9-c96d56ca4636 HTTP/1.1" 200 740]
+[2020-11-03 02:23:30,635][Thread-5:140492298913536][task_id:django.server][basehttp.py:157][INFO]["GET /detail/popular_major/693d3ce3-484d-4cdb-97c9-c96d56ca4636 HTTP/1.1" 200 340]
+[2020-11-03 02:23:34,114][Thread-1:140492325062400][task_id:django.server][basehttp.py:157][INFO]["GET /detail/fame/693d3ce3-484d-4cdb-97c9-c96d56ca4636 HTTP/1.1" 200 610]
+[2020-11-03 02:23:35,879][Thread-1:140492325062400][task_id:django][views.py:161][INFO][revoked func 'get_recommend_tags']
+[2020-11-03 02:23:35,881][Thread-5:140492298913536][task_id:django.server][basehttp.py:157][INFO]["GET /search/init HTTP/1.1" 200 903]
+[2020-11-03 02:23:35,884][Thread-1:140492325062400][task_id:django.server][basehttp.py:157][INFO]["GET /recommendation/tags/ HTTP/1.1" 200 317]
+[2020-11-03 02:23:45,353][Thread-1:140492325062400][task_id:django.server][basehttp.py:157][INFO]["POST /search/query HTTP/1.1" 200 10075]
+[2020-11-03 02:24:18,143][Thread-1:140492325062400][task_id:django][views.py:289][INFO][func 'get_ranking_data' get a param id -> d93c9f84-705b-4421-8539-9052490a5400]
+[2020-11-03 02:24:18,145][Thread-5:140492298913536][task_id:django][views.py:100][INFO][func 'get_basic_info' get a param id -> d93c9f84-705b-4421-8539-9052490a5400]
+[2020-11-03 02:24:18,147][Thread-2:140492316608256][task_id:django][views.py:339][INFO][func 'get_score_data' get a param id -> d93c9f84-705b-4421-8539-9052490a5400]
+[2020-11-03 02:24:18,148][Thread-3:140492308154112][task_id:django][views.py:467][INFO][func 'get_similar_school_data' get a param id -> d93c9f84-705b-4421-8539-9052490a5400]
+[2020-11-03 02:24:18,149][Thread-6:140492289541888][task_id:django][views.py:207][INFO][func 'get_fame_property' get a param id -> d93c9f84-705b-4421-8539-9052490a5400]
+[2020-11-03 02:24:18,150][Thread-7:140492281087744][task_id:django][views.py:426][INFO][func 'get_popular_major' get a param id -> d93c9f84-705b-4421-8539-9052490a5400]
+[2020-11-03 02:24:18,203][Thread-1:140492325062400][task_id:django.server][basehttp.py:157][INFO]["GET /detail/ranking/history/d93c9f84-705b-4421-8539-9052490a5400 HTTP/1.1" 200 652]
+[2020-11-03 02:24:18,299][Thread-3:140492308154112][task_id:django.server][basehttp.py:157][INFO]["GET /detail/similar/d93c9f84-705b-4421-8539-9052490a5400 HTTP/1.1" 200 897]
+[2020-11-03 02:24:18,794][Thread-2:140492316608256][task_id:django.server][basehttp.py:157][INFO]["GET /detail/score/d93c9f84-705b-4421-8539-9052490a5400 HTTP/1.1" 200 336]
+[2020-11-03 02:24:19,061][Thread-6:140492289541888][task_id:django.server][basehttp.py:157][INFO]["GET /detail/fame/d93c9f84-705b-4421-8539-9052490a5400 HTTP/1.1" 200 386]
+[2020-11-03 02:24:19,101][Thread-7:140492281087744][task_id:django.server][basehttp.py:157][INFO]["GET /detail/popular_major/d93c9f84-705b-4421-8539-9052490a5400 HTTP/1.1" 200 393]
+[2020-11-03 02:24:19,109][Thread-5:140492298913536][task_id:django.server][basehttp.py:157][INFO]["GET /detail/d93c9f84-705b-4421-8539-9052490a5400 HTTP/1.1" 200 758]
+[2020-11-03 02:24:23,147][Thread-5:140492298913536][task_id:django][views.py:161][INFO][revoked func 'get_recommend_tags']
+[2020-11-03 02:24:23,151][Thread-7:140492281087744][task_id:django.server][basehttp.py:157][INFO]["GET /search/init HTTP/1.1" 200 903]
+[2020-11-03 02:24:23,156][Thread-5:140492298913536][task_id:django.server][basehttp.py:157][INFO]["GET /recommendation/tags/ HTTP/1.1" 200 317]
+[2020-11-03 02:24:25,640][Thread-5:140492298913536][task_id:django][views.py:289][INFO][func 'get_ranking_data' get a param id -> bda7cb4b-9782-46d6-89ba-370d3ba976fb]
+[2020-11-03 02:24:25,642][Thread-7:140492281087744][task_id:django][views.py:100][INFO][func 'get_basic_info' get a param id -> bda7cb4b-9782-46d6-89ba-370d3ba976fb]
+[2020-11-03 02:24:25,644][Thread-6:140492289541888][task_id:django][views.py:339][INFO][func 'get_score_data' get a param id -> bda7cb4b-9782-46d6-89ba-370d3ba976fb]
+[2020-11-03 02:24:25,646][Thread-2:140492316608256][task_id:django][views.py:467][INFO][func 'get_similar_school_data' get a param id -> bda7cb4b-9782-46d6-89ba-370d3ba976fb]
+[2020-11-03 02:24:25,648][Thread-3:140492308154112][task_id:django][views.py:207][INFO][func 'get_fame_property' get a param id -> bda7cb4b-9782-46d6-89ba-370d3ba976fb]
+[2020-11-03 02:24:25,659][Thread-1:140492325062400][task_id:django][views.py:426][INFO][func 'get_popular_major' get a param id -> bda7cb4b-9782-46d6-89ba-370d3ba976fb]
+[2020-11-03 02:24:25,701][Thread-5:140492298913536][task_id:django.server][basehttp.py:157][INFO]["GET /detail/ranking/history/bda7cb4b-9782-46d6-89ba-370d3ba976fb HTTP/1.1" 200 652]
+[2020-11-03 02:24:25,737][Thread-2:140492316608256][task_id:django.server][basehttp.py:157][INFO]["GET /detail/similar/bda7cb4b-9782-46d6-89ba-370d3ba976fb HTTP/1.1" 200 897]
+[2020-11-03 02:24:26,058][Thread-6:140492289541888][task_id:django.server][basehttp.py:157][INFO]["GET /detail/score/bda7cb4b-9782-46d6-89ba-370d3ba976fb HTTP/1.1" 200 341]
+[2020-11-03 02:24:26,223][Thread-1:140492325062400][task_id:django.server][basehttp.py:157][INFO]["GET /detail/popular_major/bda7cb4b-9782-46d6-89ba-370d3ba976fb HTTP/1.1" 200 357]
+[2020-11-03 02:24:26,249][Thread-7:140492281087744][task_id:django.server][basehttp.py:157][INFO]["GET /detail/bda7cb4b-9782-46d6-89ba-370d3ba976fb HTTP/1.1" 200 779]
+[2020-11-03 02:24:28,615][Thread-3:140492308154112][task_id:django.server][basehttp.py:157][INFO]["GET /detail/fame/bda7cb4b-9782-46d6-89ba-370d3ba976fb HTTP/1.1" 200 1022]
+[2020-11-03 02:24:41,185][Thread-3:140492308154112][task_id:django][views.py:161][INFO][revoked func 'get_recommend_tags']
+[2020-11-03 02:24:41,189][Thread-7:140492281087744][task_id:django.server][basehttp.py:157][INFO]["GET /search/init HTTP/1.1" 200 903]
+[2020-11-03 02:24:41,192][Thread-3:140492308154112][task_id:django.server][basehttp.py:157][INFO]["GET /recommendation/tags/ HTTP/1.1" 200 317]
+[2020-11-03 02:25:07,937][Thread-3:140492308154112][task_id:django.server][basehttp.py:157][INFO]["POST /search/query HTTP/1.1" 200 23817]
+[2020-11-03 18:05:42,197][MainThread:139811896166208][task_id:django.utils.autoreload][autoreload.py:613][INFO][Watching for file changes with StatReloader]
+[2020-11-03 18:07:46,491][Thread-1:139811763193600][task_id:django][views.py:161][INFO][revoked func 'get_recommend_tags']
+[2020-11-03 18:07:46,492][Thread-2:139811754739456][task_id:django][views.py:84][INFO][revoked func 'index']
+[2020-11-03 18:07:46,497][Thread-3:139811746285312][task_id:django.server][basehttp.py:157][INFO]["GET /search/init HTTP/1.1" 200 903]
+[2020-11-03 18:07:46,500][Thread-1:139811763193600][task_id:django.server][basehttp.py:157][INFO]["GET /recommendation/tags/ HTTP/1.1" 200 317]
+[2020-11-03 18:08:02,171][Thread-2:139811754739456][task_id:django.server][basehttp.py:157][INFO]["GET /recommendation/ HTTP/1.1" 200 5947]
+[2020-11-03 18:11:53,247][MainThread:139811896166208][task_id:django.utils.autoreload][autoreload.py:236][INFO][/home/kptran/Collegiate_Explorer_APP/collegiate-explorer-admin/cc_admin/apps/search/views.py changed, reloading.]
+[2020-11-03 18:11:54,182][MainThread:140585053259584][task_id:django.utils.autoreload][autoreload.py:613][INFO][Watching for file changes with StatReloader]
+[2020-11-03 18:20:32,593][MainThread:140585053259584][task_id:django.utils.autoreload][autoreload.py:236][INFO][/home/kptran/Collegiate_Explorer_APP/collegiate-explorer-admin/cc_admin/apps/recommendation/views.py changed, reloading.]
+[2020-11-03 18:20:33,455][MainThread:139676210366272][task_id:django.utils.autoreload][autoreload.py:613][INFO][Watching for file changes with StatReloader]
+[2020-11-03 18:20:43,191][Thread-1:139676077524736][task_id:django][views.py:161][INFO][revoked func 'get_recommend_tags']
+[2020-11-03 18:20:43,191][Thread-2:139676069070592][task_id:django][views.py:84][INFO][revoked func 'index']
+[2020-11-03 18:20:43,200][Thread-1:139676077524736][task_id:django.server][basehttp.py:157][INFO]["GET /recommendation/tags/ HTTP/1.1" 200 317]
+[2020-11-03 18:20:43,202][Thread-3:139676060354304][task_id:django.server][basehttp.py:157][INFO]["GET /search/init HTTP/1.1" 200 903]
+[2020-11-03 18:20:44,612][Thread-2:139676069070592][task_id:django.request][log.py:224][ERROR][Internal Server Error: /recommendation/]
+Traceback (most recent call last):
+  File "/home/kptran/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/kptran/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/kptran/Collegiate_Explorer_APP/collegiate-explorer-admin/cc_admin/apps/recommendation/views.py", line 134, in index
+    schoolo.get('node_zip.name', ''),
+NameError: name 'schoolo' is not defined
+[2020-11-03 18:20:44,632][Thread-2:139676069070592][task_id:django.server][basehttp.py:157][ERROR]["GET /recommendation/ HTTP/1.1" 500 71779]
+[2020-11-03 18:21:10,869][MainThread:139676210366272][task_id:django.utils.autoreload][autoreload.py:236][INFO][/home/kptran/Collegiate_Explorer_APP/collegiate-explorer-admin/cc_admin/apps/recommendation/views.py changed, reloading.]
+[2020-11-03 18:21:11,778][MainThread:140378560923456][task_id:django.utils.autoreload][autoreload.py:613][INFO][Watching for file changes with StatReloader]
+[2020-11-03 18:21:15,864][Thread-1:140378428081920][task_id:django][views.py:161][INFO][revoked func 'get_recommend_tags']
+[2020-11-03 18:21:15,864][Thread-2:140378419627776][task_id:django][views.py:84][INFO][revoked func 'index']
+[2020-11-03 18:21:15,867][Thread-3:140378411173632][task_id:django.server][basehttp.py:157][INFO]["GET /search/init HTTP/1.1" 200 903]
+[2020-11-03 18:21:15,871][Thread-1:140378428081920][task_id:django.server][basehttp.py:157][INFO]["GET /recommendation/tags/ HTTP/1.1" 200 317]
+[2020-11-03 18:21:17,109][Thread-2:140378419627776][task_id:django.server][basehttp.py:157][INFO]["GET /recommendation/ HTTP/1.1" 200 5947]
+[2020-11-03 18:26:50,884][MainThread:140378560923456][task_id:django.utils.autoreload][autoreload.py:236][INFO][/home/kptran/Collegiate_Explorer_APP/collegiate-explorer-admin/cc_admin/apps/detail/views.py changed, reloading.]
+[2020-11-03 18:26:51,851][MainThread:140247898326848][task_id:django.utils.autoreload][autoreload.py:613][INFO][Watching for file changes with StatReloader]
+[2020-11-03 18:26:55,185][Thread-1:140247832659712][task_id:django][views.py:289][INFO][func 'get_ranking_data' get a param id -> e19cb127-23b1-4100-bfdc-59c0789c58db]
+[2020-11-03 18:26:55,186][Thread-4:140247807297280][task_id:django][views.py:207][INFO][func 'get_fame_property' get a param id -> e19cb127-23b1-4100-bfdc-59c0789c58db]
+[2020-11-03 18:26:55,186][Thread-3:140247815751424][task_id:django][views.py:467][INFO][func 'get_similar_school_data' get a param id -> e19cb127-23b1-4100-bfdc-59c0789c58db]
+[2020-11-03 18:26:55,187][Thread-5:140247459366656][task_id:django][views.py:426][INFO][func 'get_popular_major' get a param id -> e19cb127-23b1-4100-bfdc-59c0789c58db]
+[2020-11-03 18:26:55,187][Thread-2:140247824205568][task_id:django][views.py:100][INFO][func 'get_basic_info' get a param id -> e19cb127-23b1-4100-bfdc-59c0789c58db]
+[2020-11-03 18:26:55,188][Thread-6:140247450912512][task_id:django][views.py:339][INFO][func 'get_score_data' get a param id -> e19cb127-23b1-4100-bfdc-59c0789c58db]
+[2020-11-03 18:26:55,197][Thread-1:140247832659712][task_id:django.server][basehttp.py:157][INFO]["GET /detail/ranking/history/e19cb127-23b1-4100-bfdc-59c0789c58db HTTP/1.1" 200 652]
+[2020-11-03 18:26:55,204][Thread-3:140247815751424][task_id:django.server][basehttp.py:157][INFO]["GET /detail/similar/e19cb127-23b1-4100-bfdc-59c0789c58db HTTP/1.1" 200 897]
+[2020-11-03 18:26:56,543][Thread-5:140247459366656][task_id:django.server][basehttp.py:157][INFO]["GET /detail/popular_major/e19cb127-23b1-4100-bfdc-59c0789c58db HTTP/1.1" 200 399]
+[2020-11-03 18:26:56,571][Thread-6:140247450912512][task_id:django.server][basehttp.py:157][INFO]["GET /detail/score/e19cb127-23b1-4100-bfdc-59c0789c58db HTTP/1.1" 200 340]
+[2020-11-03 18:26:56,661][Thread-2:140247824205568][task_id:django.server][basehttp.py:157][INFO]["GET /detail/e19cb127-23b1-4100-bfdc-59c0789c58db HTTP/1.1" 200 747]
+[2020-11-03 18:27:01,135][Thread-4:140247807297280][task_id:django.server][basehttp.py:157][INFO]["GET /detail/fame/e19cb127-23b1-4100-bfdc-59c0789c58db HTTP/1.1" 200 1042]
+[2020-11-03 18:27:59,963][MainThread:140247898326848][task_id:django.utils.autoreload][autoreload.py:236][INFO][/home/kptran/Collegiate_Explorer_APP/collegiate-explorer-admin/cc_admin/apps/detail/views.py changed, reloading.]
+[2020-11-03 18:28:01,275][MainThread:140117796456256][task_id:django.utils.autoreload][autoreload.py:613][INFO][Watching for file changes with StatReloader]
+[2020-11-03 18:28:16,662][Thread-1:140117663680256][task_id:django][views.py:289][INFO][func 'get_ranking_data' get a param id -> e19cb127-23b1-4100-bfdc-59c0789c58db]
+[2020-11-03 18:28:16,663][Thread-3:140117646771968][task_id:django][views.py:339][INFO][func 'get_score_data' get a param id -> e19cb127-23b1-4100-bfdc-59c0789c58db]
+[2020-11-03 18:28:16,664][Thread-5:140117629863680][task_id:django][views.py:207][INFO][func 'get_fame_property' get a param id -> e19cb127-23b1-4100-bfdc-59c0789c58db]
+[2020-11-03 18:28:16,664][Thread-4:140117638317824][task_id:django][views.py:467][INFO][func 'get_similar_school_data' get a param id -> e19cb127-23b1-4100-bfdc-59c0789c58db]
+[2020-11-03 18:28:16,665][Thread-2:140117655226112][task_id:django][views.py:100][INFO][func 'get_basic_info' get a param id -> e19cb127-23b1-4100-bfdc-59c0789c58db]
+[2020-11-03 18:28:16,665][Thread-6:140117621409536][task_id:django][views.py:426][INFO][func 'get_popular_major' get a param id -> e19cb127-23b1-4100-bfdc-59c0789c58db]
+[2020-11-03 18:28:16,667][Thread-1:140117663680256][task_id:django.server][basehttp.py:157][INFO]["GET /detail/ranking/history/e19cb127-23b1-4100-bfdc-59c0789c58db HTTP/1.1" 200 652]
+[2020-11-03 18:28:16,679][Thread-4:140117638317824][task_id:django.server][basehttp.py:157][INFO]["GET /detail/similar/e19cb127-23b1-4100-bfdc-59c0789c58db HTTP/1.1" 200 897]
+[2020-11-03 18:28:17,220][Thread-6:140117621409536][task_id:django.server][basehttp.py:157][INFO]["GET /detail/popular_major/e19cb127-23b1-4100-bfdc-59c0789c58db HTTP/1.1" 200 399]
+[2020-11-03 18:28:17,294][Thread-3:140117646771968][task_id:django.server][basehttp.py:157][INFO]["GET /detail/score/e19cb127-23b1-4100-bfdc-59c0789c58db HTTP/1.1" 200 340]
+[2020-11-03 18:28:17,441][Thread-2:140117655226112][task_id:django.server][basehttp.py:157][INFO]["GET /detail/e19cb127-23b1-4100-bfdc-59c0789c58db HTTP/1.1" 200 747]
+[2020-11-03 18:28:19,268][Thread-5:140117629863680][task_id:django.server][basehttp.py:157][INFO]["GET /detail/fame/e19cb127-23b1-4100-bfdc-59c0789c58db HTTP/1.1" 200 1042]
+[2020-11-03 18:28:31,805][Thread-5:140117629863680][task_id:django][views.py:161][INFO][revoked func 'get_recommend_tags']
+[2020-11-03 18:28:31,808][Thread-2:140117655226112][task_id:django][views.py:84][INFO][revoked func 'index']
+[2020-11-03 18:28:31,814][Thread-3:140117646771968][task_id:django.server][basehttp.py:157][INFO]["GET /search/init HTTP/1.1" 200 903]
+[2020-11-03 18:28:31,817][Thread-5:140117629863680][task_id:django.server][basehttp.py:157][INFO]["GET /recommendation/tags/ HTTP/1.1" 200 317]
+[2020-11-03 18:28:32,625][Thread-2:140117655226112][task_id:django.server][basehttp.py:157][INFO]["GET /recommendation/ HTTP/1.1" 200 5947]
+[2020-11-03 18:28:34,556][Thread-2:140117655226112][task_id:django][views.py:100][INFO][func 'get_basic_info' get a param id -> 693d3ce3-484d-4cdb-97c9-c96d56ca4636]
+[2020-11-03 18:28:34,559][Thread-5:140117629863680][task_id:django][views.py:289][INFO][func 'get_ranking_data' get a param id -> 693d3ce3-484d-4cdb-97c9-c96d56ca4636]
+[2020-11-03 18:28:34,561][Thread-3:140117646771968][task_id:django][views.py:339][INFO][func 'get_score_data' get a param id -> 693d3ce3-484d-4cdb-97c9-c96d56ca4636]
+[2020-11-03 18:28:34,562][Thread-6:140117621409536][task_id:django][views.py:467][INFO][func 'get_similar_school_data' get a param id -> 693d3ce3-484d-4cdb-97c9-c96d56ca4636]
+[2020-11-03 18:28:34,564][Thread-4:140117638317824][task_id:django][views.py:207][INFO][func 'get_fame_property' get a param id -> 693d3ce3-484d-4cdb-97c9-c96d56ca4636]
+[2020-11-03 18:28:34,566][Thread-1:140117663680256][task_id:django][views.py:426][INFO][func 'get_popular_major' get a param id -> 693d3ce3-484d-4cdb-97c9-c96d56ca4636]
+[2020-11-03 18:28:34,583][Thread-5:140117629863680][task_id:django.server][basehttp.py:157][INFO]["GET /detail/ranking/history/693d3ce3-484d-4cdb-97c9-c96d56ca4636 HTTP/1.1" 200 652]
+[2020-11-03 18:28:34,612][Thread-6:140117621409536][task_id:django.server][basehttp.py:157][INFO]["GET /detail/similar/693d3ce3-484d-4cdb-97c9-c96d56ca4636 HTTP/1.1" 200 897]
+[2020-11-03 18:28:35,065][Thread-3:140117646771968][task_id:django.server][basehttp.py:157][INFO]["GET /detail/score/693d3ce3-484d-4cdb-97c9-c96d56ca4636 HTTP/1.1" 200 340]
+[2020-11-03 18:28:35,409][Thread-2:140117655226112][task_id:django.server][basehttp.py:157][INFO]["GET /detail/693d3ce3-484d-4cdb-97c9-c96d56ca4636 HTTP/1.1" 200 740]
+[2020-11-03 18:28:35,410][Thread-1:140117663680256][task_id:django.server][basehttp.py:157][INFO]["GET /detail/popular_major/693d3ce3-484d-4cdb-97c9-c96d56ca4636 HTTP/1.1" 200 340]
+[2020-11-03 18:28:37,714][Thread-4:140117638317824][task_id:django.server][basehttp.py:157][INFO]["GET /detail/fame/693d3ce3-484d-4cdb-97c9-c96d56ca4636 HTTP/1.1" 200 610]

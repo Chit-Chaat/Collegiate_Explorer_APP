@@ -119,24 +119,24 @@ def index(request):
     data = []
     for school in result:
         obj = {
-            'id': school['node_id.name'],
-            'name': school['node_school.name'],
+            'id': school.get('node_id.name', ''),
+            'name': school.get('node_school.name', ''),
             'logo': 'school_logo.jpg',
             'desc': 'desc',
             'rating': {
                 'QS': format_qs_score(school.get('node_qs_rank.name', '')),
                 'CC': min(int(float(school['node_cc_score.name']) / 400) + 1, 5)
             },
-            'detail': 'detail/' + school['node_id.name'],
-            'address': school['node_address.name'] + ' ' +
-                       school['node_city.name'] + ', ' +
-                       school['node_state.name'] + ' ' +
-                       school['node_zip.name'],
+            'detail': 'detail/' + school.get('node_id.name', ''),
+            'address': school.get('node_address.name', '') + ' ' +
+                       school.get('node_city.name', '') + ', ' +
+                       school.get('node_state.name', '') + ' ' +
+                       school.get('node_zip.name', ''),
             'tuition': '$' + str(int(float(school['node_tuition.name']))),
-            'school_type': school['node_type.name'].capitalize(),
-            'ACT': school['node_sat_min.name'] + '-' + school['node_sat_max.name'],
-            'acceptance_rate': str(round(float(school['node_accept_rate.name']) * 100, 2)) + '%',
-            'link': school['node_web.name']
+            'school_type': school.get('node_type.name', '').capitalize(),
+            'ACT': school.get('node_sat_min.name', '') + '-' + school.get('node_sat_max.name', ''),
+            'acceptance_rate': str(round(float(school.get('node_accept_rate.name', '0')) * 100, 2)) + '%',
+            'link': school.get('node_web.name', '')
         }
         data.append(obj)
     return JsonResponseResult().ok(data=data)

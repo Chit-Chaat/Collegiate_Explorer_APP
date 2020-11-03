@@ -177,17 +177,17 @@ def index(request):
                 'QS': format_qs_score(school.get('node_qs_rank.name', '')),
                 'CC': cc_rating
             },
-            'detail': 'detail/' + school['node_id.name'],
-            'address': school['node_address.name'] + ' ' +
-                       school['node_city.name'] + ' ' +
-                       school['node_state.name'] + ', ' +
-                       school['node_zip.name'],
-            'tuition': '$' + school['node_tuition.name'],
-            'school_type': school['node_type.name'].capitalize(),
-            'ACT': school['node_sat_min.name'] + '-' +
-                   school['node_sat_max.name'],
-            'acceptance_rate': school['node_accept_rate.name'],
-            'link': school['node_web.name']
+            'detail': 'detail/' + school.get('node_id.name', ''),
+            'address': school.get('node_address.name', '') + ' ' +
+                       school.get('node_city.name', '') + ' ' +
+                       school.get('node_state.name', '') + ', ' +
+                       school.get('node_zip.name', ''),
+            'tuition': '$' + school.get('node_tuition.name', ''),
+            'school_type': school.get('node_type.name', '').capitalize(),
+            'ACT': school.get('node_sat_min.name', '') + '-' +
+                   school.get('node_sat_max.name' ,''),
+            'acceptance_rate': school.get('node_accept_rate.name', ''),
+            'link': school.get('node_web.name', '')
         }
         data.append(obj)
 
