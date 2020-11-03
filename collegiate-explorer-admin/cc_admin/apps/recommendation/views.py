@@ -1,3 +1,5 @@
+import re
+
 from JsonResponseResult import JsonResponseResult
 from Neo4jConnectionPool import ConnectionPool
 import logging
@@ -64,7 +66,7 @@ def index(request):
         'logo': 'school_logo.jpg',      # -> school-name.jpg (str) e.g. university-of-southern-california.jpg
         'desc': '',                     # -> school description (str)
         'rating': {
-            'Niche': 5,                 # -> niche score  (float)
+            'QS': 5,                    # -> QS score  (float)
             'CC': 3,                    # -> college confidential score  (float)
         },
         'review': '3453',               # -> # of review (str)
@@ -116,24 +118,14 @@ def index(request):
 
     data = []
     for school in result:
-        cc_score = float(school['node_cc_score.name'])
-        cc_min = 0
-        cc_max = 400
-        cc_rating = 0
-        for i in range(5):
-            if cc_min <= cc_score <= cc_max:
-                cc_rating = i
-            else:
-                cc_min = cc_max
-                cc_max += 500 
-        obj =  {
+        obj = {
             'id': school['node_id.name'],
             'name': school['node_school.name'],
             'logo': 'school_logo.jpg',
             'desc': 'desc',
             'rating': {
-                'Niche': 4,
-                'CC': cc_rating
+                'QS': format_qs_score(school.get('node_qs_rank.name', '')),
+                'CC': min(int(float(school['node_cc_score.name']) / 400) + 1, 5)
             },
             'detail': 'detail/' + school['node_id.name'],
             'address': school['node_address.name'] + ' ' +
@@ -143,7 +135,7 @@ def index(request):
             'tuition': '$' + str(int(float(school['node_tuition.name']))),
             'school_type': school['node_type.name'].capitalize(),
             'ACT': school['node_sat_min.name'] + '-' + school['node_sat_max.name'],
-            'acceptance_rate': str(round(float(school['node_accept_rate.name'])*100, 2)) + '%',
+            'acceptance_rate': str(round(float(school['node_accept_rate.name']) * 100, 2)) + '%',
             'link': school['node_web.name']
         }
         data.append(obj)
@@ -175,3 +167,26 @@ def get_recommend_tags(request):
         {'name': '#Don\'t go there', 'type': 'danger', 'link': ''}
     ]
     return JsonResponseResult().ok(data=data)
+
+
+def format_qs_score(score_str):
+    """
+    help you generate a qs score
+    1 - 100 : 5
+    141-200 : 4
+    =100: 4
+    N/A 3
+    :param score_str:
+    :return:
+    """
+    score = 3
+    if not score_str or score_str != "N/A":
+        try:
+            parts = int(list(filter(lambda val: val,
+                                    list(re.split('-|=', score_str))))[0])
+        except:
+            return 3
+        score = 5 - int(parts / 100)
+        if score > 5 or score < 1:
+            return 3
+    return score

@@ -1,4 +1,5 @@
 import json
+import re
 
 from JsonResponseResult import JsonResponseResult
 from Neo4jConnectionPool import ConnectionPool
@@ -97,7 +98,8 @@ def index(request):
         major = filter_content['major'].split(',')
         if len(major[0]) != 0:
             for item in major:
-                majors += "match (node_school)-[:HAS_N_POPULAR_MAJORS]->(node_popular_major {name: '" + str(item) + "'})         "
+                majors += "match (node_school)-[:HAS_N_POPULAR_MAJORS]->(node_popular_major {name: '" + str(
+                    item) + "'})         "
         else:
             majors = " "
 
@@ -108,25 +110,30 @@ def index(request):
         if key == 'area' and value != '':
             area = "match (node_school)-[:IN_REGION]->(node_region {name: '" + value + "'})" + " "
         if key == 'act' and value != '':
-            act = "where " + str(filter_content['act'][0]) + " <= toInteger(node_avg_act.name) <= " + str(filter_content['act'][1]) + " "
+            act = "where " + str(filter_content['act'][0]) + " <= toInteger(node_avg_act.name) <= " + str(
+                filter_content['act'][1]) + " "
         if key == 'sat' and value != '':
-            sat_max = "where " + str(filter_content['sat'][0])  + "<= toInteger(node_sat_max.name) <= " + str(filter_content['sat'][1]) + " "
-            sat_min = "where " + str(filter_content['sat'][0]) + " <= toInteger(node_sat_min.name)<= " + str(filter_content['sat'][1]) + " "
+            sat_max = "where " + str(filter_content['sat'][0]) + "<= toInteger(node_sat_max.name) <= " + str(
+                filter_content['sat'][1]) + " "
+            sat_min = "where " + str(filter_content['sat'][0]) + " <= toInteger(node_sat_min.name)<= " + str(
+                filter_content['sat'][1]) + " "
 
         if key == 'tuition' and value != '':
-            tuition = "where toInteger(node_tuition.name) <= " +  str(int(''.join([i for i in filter_content['tuition'] if i.isdigit()])) * 1000) + " "
+            tuition = "where toInteger(node_tuition.name) <= " + str(
+                int(''.join([i for i in filter_content['tuition'] if i.isdigit()])) * 1000) + " "
 
     result = connection.executeQuery(
-         area + \
-         s_type + "\
-         match (node_school)-[:AVG_ACT]->(node_avg_act) "\
-         + act + "\
-         match (node_school)-[:HAS_TUITION_OF]->(node_tuition) " +\
-         tuition + majors + "\
-         match (node_school)-[:HAS_SAT_MAX_OF]->(node_sat_max) " +\
-         sat_max + "\
-         match (node_school)-[:HAS_SAT_MIN_OF]->(node_sat_min) " +\
-         sat_min + "\
+        area + \
+        s_type + "\
+         match (node_school)-[:AVG_ACT]->(node_avg_act) " \
+        + act + "\
+         match (node_school)-[:HAS_TUITION_OF]->(node_tuition) " + \
+        tuition + majors + "\
+         match (node_school)-[:HAS_SAT_MAX_OF]->(node_sat_max) " + \
+        sat_max + "\
+         match (node_school)-[:HAS_SAT_MIN_OF]->(node_sat_min) " + \
+        sat_min + "\
+         match (node_school)-[r:HAS_QS_RANK]->(node_qs_rank)\
          match (node_school)-[:ID]->(node_id)\
          match (node_school)-[:HAS_LOGO]->(node_logo)\
          match (node_school)-[:HAS_CC_SCORE]->(node_cc_score)\
@@ -142,13 +149,14 @@ def index(request):
          node_cc_score.name, node_address.name, node_state.name,\
          node_city.name, node_zip.name, node_tuition.name, node_web.name,\
          node_type.name, node_accept_rate.name, node_sat_max.name,\
-         node_sat_min.name, node_telephone.name, node_avg_act.name LIMIT 60\
+         node_sat_min.name, node_telephone.name,  node_qs_rank.name,\
+         node_avg_act.name LIMIT 60\
          ")
 
     data = []
     for school in result:
         if school['node_accept_rate.name'] != 'N/A':
-            school['node_accept_rate.name']  = str(round(float(school['node_accept_rate.name'])*100, 2)) + '%'
+            school['node_accept_rate.name'] = str(round(float(school['node_accept_rate.name']) * 100, 2)) + '%'
         cc_score = float(school['node_cc_score.name'])
         cc_min = 0
         cc_max = 400
@@ -161,12 +169,12 @@ def index(request):
                 cc_max += 500
 
         obj = {
-            'id': school['node_id.name'] ,
+            'id': school['node_id.name'],
             'name': school['node_school.name'],
             'logo': 'school_logo.jpg',
             'desc': 'desc',
             'rating': {
-                'Niche': 5,
+                'QS': format_qs_score(school.get('node_qs_rank.name', '')),
                 'CC': cc_rating
             },
             'detail': 'detail/' + school['node_id.name'],
@@ -174,7 +182,7 @@ def index(request):
                        school['node_city.name'] + ' ' +
                        school['node_state.name'] + ', ' +
                        school['node_zip.name'],
-            'tuition':'$' + school['node_tuition.name'],
+            'tuition': '$' + school['node_tuition.name'],
             'school_type': school['node_type.name'].capitalize(),
             'ACT': school['node_sat_min.name'] + '-' +
                    school['node_sat_max.name'],
@@ -253,7 +261,7 @@ def search_by_tag(request, tag="tag_str"):
          'logo': 'school_logo.jpg',      # -> school-name.jpg (str) e.g. university-of-southern-california.jpg
          'desc': '',                     # -> school description (str)
          'rating': {
-             'Niche': 5,                 # -> niche score  (float)
+             'QS': 5,                 # -> niche score  (float)
              'CC': 3,                    # -> college confidential score  (float)
          },
          'review': '3453',               # -> # of review (str)
@@ -293,7 +301,7 @@ def search_by_tag(request, tag="tag_str"):
             'logo': 'school_logo2.jpg',
             'desc': 't is desc this isthis is desc this isthis is desc this is',
             'rating': {
-                'Niche': 2,
+                'QS': 2,
                 'CC': 3
             },
             'review': '3453',
@@ -310,7 +318,7 @@ def search_by_tag(request, tag="tag_str"):
             'logo': 'school_logo.jpg',
             'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
             'rating': {
-                'Niche': 4,
+                'QS': 4,
                 'CC': 3
             },
             'review': '3453',
@@ -337,7 +345,7 @@ def search_by_major(request, major="major_str"):
          'logo': 'school_logo.jpg',      # -> school-name.jpg (str) e.g. university-of-southern-california.jpg
          'desc': '',                     # -> school description (str)
          'rating': {
-             'Niche': 5,                 # -> niche score  (float)
+             'QS': 5,                 # -> niche score  (float)
              'CC': 3,                    # -> college confidential score  (float)
          },
          'review': '3453',               # -> # of review (str)
@@ -353,68 +361,14 @@ def search_by_major(request, major="major_str"):
      use JsonResponseResult().error(data=[], msg="explain your error", code="500") return
      """
     logger.info("revoked func search/views.py 'search_by_major' func. major -> " + major)
-    '''
-    data = [
-        {
-            'id': '6',
-            'name': 'University of DDDDDD3',
-            'logo': 'school_logo.jpg',
-            'desc': 'this is dessc this isthis is desc this isthis is desc this isthis is desc this is',
-            'rating': {
-                'Niche': 5,
-                'CC': 3
-            },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
-        },
-        {
-            'id': '7',
-            'name': 'University of EEEEE',
-            'logo': 'school_logo2.jpg',
-            'desc': 't is desc this isthis is desc this isthis is desc this is',
-            'rating': {
-                'Niche': 2,
-                'CC': 3
-            },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
-        },
-        {
-            'id': '9',
-            'name': 'University of FFFFF',
-            'logo': 'school_logo.jpg',
-            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
-            'rating': {
-                'Niche': 4,
-                'CC': 3
-            },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
-        }
-    ]
-    '''
+
     connection = ConnectionPool()
     majors = "match (node_school)-[:HAS_N_POPULAR_MAJORS]->(node_popular_major {name: '" + major + "'})         "
 
-
     result = connection.executeQuery(
-         "match (node_school)-[:AVG_ACT]->(node_avg_act) \
-         " + majors + "\
+        "match (node_school)-[:AVG_ACT]->(node_avg_act) \
+        " + majors + "\
+         match (node_school)-[r:HAS_QS_RANK]->(node_qs_rank) \
          match (node_school)-[:HAS_TUITION_OF]->(node_tuition)\
          match (node_school)-[:HAS_SAT_MAX_OF]->(node_sat_max)\
          match (node_school)-[:HAS_SAT_MIN_OF]->(node_sat_min)\
@@ -435,13 +389,14 @@ def search_by_major(request, major="major_str"):
          node_cc_score.name, node_address.name, node_state.name,\
          node_city.name, node_zip.name, node_tuition.name, node_web.name,\
          node_type.name, node_accept_rate.name, node_sat_max.name,\
-         node_sat_min.name, node_telephone.name, node_avg_act.name LIMIT 60\
+         node_sat_min.name, node_telephone.name, node_qs_rank.name, \
+         node_avg_act.name LIMIT 60\
          ")
 
     data = []
     for school in result:
         if school['node_accept_rate.name'] != 'N/A':
-            school['node_accept_rate.name']  = str(round(float(school['node_accept_rate.name'])*100, 2)) + '%'
+            school['node_accept_rate.name'] = str(round(float(school['node_accept_rate.name']) * 100, 2)) + '%'
         cc_score = float(school['node_cc_score.name'])
         cc_min = 0
         cc_max = 400
@@ -454,12 +409,12 @@ def search_by_major(request, major="major_str"):
                 cc_max += 500
 
         obj = {
-            'id': school['node_id.name'] ,
+            'id': school['node_id.name'],
             'name': school['node_school.name'],
             'logo': 'school_logo.jpg',
             'desc': 'desc',
             'rating': {
-                'Niche': 5,
+                'QS': format_qs_score(school.get('node_qs_rank.name', '')),
                 'CC': cc_rating
             },
             'detail': 'detail/' + school['node_id.name'],
@@ -467,7 +422,7 @@ def search_by_major(request, major="major_str"):
                        school['node_city.name'] + ' ' +
                        school['node_state.name'] + ', ' +
                        school['node_zip.name'],
-            'tuition':'$' + school['node_tuition.name'],
+            'tuition': '$' + school['node_tuition.name'],
             'school_type': school['node_type.name'].capitalize(),
             'ACT': school['node_sat_min.name'] + '-' +
                    school['node_sat_max.name'],
@@ -475,7 +430,6 @@ def search_by_major(request, major="major_str"):
             'link': school['node_web.name']
         }
         data.append(obj)
-
 
     return JsonResponseResult().ok(data=data)
 
@@ -495,3 +449,27 @@ def testNeo4j(request):
         "MATCH (tom:Person {name: \"Tom Hanks\"})-[:ACTED_IN]->(tomHanksMovies) RETURN tom,tomHanksMovies")
     return JsonResponseResult().ok(data=result2)
     # http://127.0.0.1:8000/search/test
+
+
+
+def format_qs_score(score_str):
+    """
+    help you generate a qs score
+    1 - 100 : 5
+    141-200 : 4
+    =100: 4
+    N/A 3
+    :param score_str:
+    :return:
+    """
+    score = 3
+    if not score_str or score_str != "N/A":
+        try:
+            parts = int(list(filter(lambda val: val,
+                                    list(re.split('-|=', score_str))))[0])
+        except:
+            return 3
+        score = 5 - int(parts / 100)
+        if score > 5 or score < 1:
+            return 3
+    return score
