@@ -23,3 +23,4 @@
 /collegiate-explorer-admin/cc_admin/apps/search/migrations/__pycache__/*.pyc
 /collegiate-explorer-admin/cc_admin/common/*.py
 /collegiate-explorer-admin/cc_admin/common/__pycache__/*.pyc
+/collegiate-explorer-admin/cc_admin/logs/*.log

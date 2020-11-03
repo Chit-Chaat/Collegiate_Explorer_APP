@@ -144,7 +144,8 @@ def index(request):
             'school_type': school.get('node_type.name', '').capitalize(),
             'ACT': school.get('node_sat_min.name', '') + '-' + school.get('node_sat_max.name', ''),
             'acceptance_rate': str(round(float(school.get('node_accept_rate.name', '0')) * 100, 2)) + '%',
-            'link': school.get('node_web.name', '')
+            'link': school.get('node_web.name', ''),
+            'telephone': school.get('node_telephone.name', '')
         }
         data.append(obj)
     return JsonResponseResult().ok(data=data)
