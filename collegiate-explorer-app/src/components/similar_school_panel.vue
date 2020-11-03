@@ -7,7 +7,7 @@
           <ul class="cont" ref="cont">
             <li class="cont-item" v-for="item of similar_school_obj" :key="item.id">
               <div class="cont-img">
-                <div class="img"><img :src="require('../assets/images/school_logo.jpg')" width="30px"></div>
+                <div class="img"><img :src="require('../assets/images/logo/school_logo.jpg')" width="30px"></div>
                 <div class="cont-title"><a :href="item.link">{{item.name}}</a></div>
               </div>
               <el-divider class="divider"></el-divider>

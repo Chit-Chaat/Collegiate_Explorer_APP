@@ -2,8 +2,7 @@
   <el-container style="height: 230px;">
     <el-aside width="50%">
       <div class="popular_major_tab_title">Popular Major</div>
-      <div class="popular_major_tab_desc">This university has
-        <span class="highlight_val">{{majors.length}}</span> popular majors.<br />
+      <div class="popular_major_tab_desc">This university has these popular majors.<br />
         An academic major is an academic discipline to which an
         <u>undergraduate</u> student formally commits during their time in college. 
         The majority of the student population at this university have chosen
@@ -30,12 +29,6 @@
     components: {
 
     },
-    props: {
-      popular_major_obj: {
-        type: Object | Array,
-        required: false,
-      }
-    },
     data() {
       return {
         width: 500,
@@ -47,7 +40,7 @@
         speedY: Math.PI / 720,
         tags: [],
         majors: [],
-        tagsNum: 10,
+        tagsNum: 15,
       }
     },
     computed: {

@@ -145,11 +145,15 @@ def index(request):
          match (node_school)-[:IS_TYPE]->(node_type)\
          match (node_school)-[:ACCEPT_RATE]->(node_accept_rate)\
          match (node_school)-[:HAS_TELEPHONE]->(node_telephone)\
+         match (node_school)-[:HAS_STUDENT_FACULTY_RATIO_OF]->(node_s_f_ratio)\
+         match (node_school)-[:HAS_SETTING]->(node_school_setting)\
+         match (node_school)-[:HAS_SIZE]->(node_size)\
          return node_id.name, node_school.name, node_logo.name,\
          node_cc_score.name, node_address.name, node_state.name,\
          node_city.name, node_zip.name, node_tuition.name, node_web.name,\
          node_type.name, node_accept_rate.name, node_sat_max.name,\
          node_sat_min.name, node_telephone.name,  node_qs_rank.name,\
+         node_s_f_ratio.name,node_school_setting.name, node_size.name,\
          node_avg_act.name LIMIT 60\
          ")
 
@@ -157,25 +161,19 @@ def index(request):
     for school in result:
         if school['node_accept_rate.name'] != 'N/A':
             school['node_accept_rate.name'] = str(round(float(school['node_accept_rate.name']) * 100, 2)) + '%'
-        cc_score = float(school['node_cc_score.name'])
-        cc_min = 0
-        cc_max = 400
-        cc_rating = 0
-        for i in range(5):
-            if cc_min <= cc_score <= cc_max:
-                cc_rating = i
-            else:
-                cc_min = cc_max
-                cc_max += 500
 
         obj = {
             'id': school['node_id.name'],
             'name': school['node_school.name'],
-            'logo': 'school_logo.jpg',
-            'desc': 'desc',
+            'logo': extract_logo_name(school['node_logo.name']),
+            'desc': school['node_school.name'] + " is a " + school.get('node_type.name', 'private')
+                    + " research university in " + school.get('node_city.name', 'somewhere')
+                    + ". And its campus located in " + school.get('node_school_setting.name', 'unknown') + " area. "
+                    + "And its campus size is " + school.get('node_size.name', 'unknown') + ". "
+                    + "And its student-faculty-ratio is " + school.get('node_s_f_ratio.name', 'unknown') + " . ",
             'rating': {
                 'QS': format_qs_score(school.get('node_qs_rank.name', '')),
-                'CC': cc_rating
+                'CC': min(int(float(school['node_cc_score.name']) / 400) + 1, 5)
             },
             'detail': 'detail/' + school.get('node_id.name', ''),
             'address': school.get('node_address.name', '') + ' ' +
@@ -185,7 +183,7 @@ def index(request):
             'tuition': '$' + school.get('node_tuition.name', ''),
             'school_type': school.get('node_type.name', '').capitalize(),
             'ACT': school.get('node_sat_min.name', '') + '-' +
-                   school.get('node_sat_max.name' ,''),
+                   school.get('node_sat_max.name', ''),
             'acceptance_rate': school.get('node_accept_rate.name', ''),
             'link': school.get('node_web.name', '')
         }
@@ -384,12 +382,16 @@ def search_by_major(request, major="major_str"):
          match (node_school)-[:HAS_WEBSITE]->(node_web)\
          match (node_school)-[:IS_TYPE]->(node_type)\
          match (node_school)-[:ACCEPT_RATE]->(node_accept_rate)\
+         match (node_school)-[:HAS_STUDENT_FACULTY_RATIO_OF]->(node_s_f_ratio)\
+         match (node_school)-[:HAS_SETTING]->(node_school_setting)\
+         match (node_school)-[:HAS_SIZE]->(node_size)\
          match (node_school)-[:HAS_TELEPHONE]->(node_telephone)\
          return node_id.name, node_school.name, node_logo.name,\
          node_cc_score.name, node_address.name, node_state.name,\
          node_city.name, node_zip.name, node_tuition.name, node_web.name,\
          node_type.name, node_accept_rate.name, node_sat_max.name,\
          node_sat_min.name, node_telephone.name, node_qs_rank.name, \
+         node_s_f_ratio.name,node_school_setting.name, node_size.name,\
          node_avg_act.name LIMIT 60\
          ")
 
@@ -397,25 +399,19 @@ def search_by_major(request, major="major_str"):
     for school in result:
         if school['node_accept_rate.name'] != 'N/A':
             school['node_accept_rate.name'] = str(round(float(school['node_accept_rate.name']) * 100, 2)) + '%'
-        cc_score = float(school['node_cc_score.name'])
-        cc_min = 0
-        cc_max = 400
-        cc_rating = 0
-        for i in range(5):
-            if cc_min <= cc_score <= cc_max:
-                cc_rating = i
-            else:
-                cc_min = cc_max
-                cc_max += 500
 
         obj = {
             'id': school['node_id.name'],
             'name': school['node_school.name'],
-            'logo': 'school_logo.jpg',
-            'desc': 'desc',
+            'logo': extract_logo_name(school['node_logo.name']),
+            'desc': school['node_school.name'] + " is a " + school.get('node_type.name', 'private')
+                    + " research university in " + school.get('node_city.name', 'somewhere')
+                    + ". And its campus located in " + school.get('node_school_setting.name', 'unknown') + " area. "
+                    + "And its campus size is " + school.get('node_size.name', 'unknown') + ". "
+                    + "And its student-faculty-ratio is " + school.get('node_s_f_ratio.name', 'unknown') + " . ",
             'rating': {
                 'QS': format_qs_score(school.get('node_qs_rank.name', '')),
-                'CC': cc_rating
+                'CC': min(int(float(school['node_cc_score.name']) / 400) + 1, 5)
             },
             'detail': 'detail/' + school['node_id.name'],
             'address': school['node_address.name'] + ' ' +
@@ -434,6 +430,12 @@ def search_by_major(request, major="major_str"):
     return JsonResponseResult().ok(data=data)
 
 
+def extract_logo_name(logo_url):
+    if logo_url and logo_url != 'N/A':
+        return logo_url.split('/')[-1].split('_')[0] + ".jpg"
+    return "default.png"
+
+
 def testNeo4j(request):
     """
     This func just tell you how to connect to neo4j and do the search
@@ -449,7 +451,6 @@ def testNeo4j(request):
         "MATCH (tom:Person {name: \"Tom Hanks\"})-[:ACTED_IN]->(tomHanksMovies) RETURN tom,tomHanksMovies")
     return JsonResponseResult().ok(data=result2)
     # http://127.0.0.1:8000/search/test
-
 
 
 def format_qs_score(score_str):

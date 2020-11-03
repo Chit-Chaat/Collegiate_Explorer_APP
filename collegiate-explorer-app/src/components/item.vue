@@ -20,7 +20,7 @@
       <div class="other">
         <el-row>
           <el-col :sm="20" :lg="12">
-            <div class="ratingNiche"><img :src="require('../assets/images/qs_logo.png')" width="20px"> QS:
+            <div class="ratingNiche"><img :src="require('../assets/images/qs_logo.png')" width="20px" style="vertical-align: sub;"> QS:
               <el-rate v-model="item.rating.QS" :icon-classes="iconClasses" void-icon-class="el-icon-medal"
                 :colors="iconColors" style="display: inline; pointer-events: none; cursor: default;">
               </el-rate>
