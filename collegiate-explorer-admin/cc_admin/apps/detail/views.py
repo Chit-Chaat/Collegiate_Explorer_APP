@@ -249,17 +249,17 @@ def get_fame_property(request, id="asdasda"):
         "affiliations": affil,
         "athletics": athle,
         "president": {
-            "name": detail['president'],
+            "name": detail.get('president', ''),
             'profile': "",
-            'link': 'https://www.dbpedia.org/page/' + '_'.join(detail['president'].split())
+            'link': 'https://www.dbpedia.org/page/' + '_'.join(detail.get('president', 'N/A').split())
         },
         "motto": {
-            'words': detail['motto'],
+            'words': detail.get('motto', ''),
             'by': ""
         },
         "color": colors,
         "mascot": {
-            'name': detail['mascot'],
+            'name': detail.get('mascot', ''),
             'logo': "",
             'link': ""
         }
@@ -393,12 +393,12 @@ def get_score_data(request, id="asdasdasdsadas"):
         "score_desc": {
             'cc': {
                 'sat': {
-                    'reading': detail['read'],
-                    'writing': detail['write'],
-                    'math': detail['math'],
+                    'reading': detail.get('read', ''),
+                    'writing': detail.get('write', ''),
+                    'math': detail.get('math', ''),
                 },
-                'act': detail['ACT'],
-                'gpa': detail['GPA']
+                'act': detail.get('ACT', ''),
+                'gpa': detail.get('GPA', '')
             }
         }
     }
