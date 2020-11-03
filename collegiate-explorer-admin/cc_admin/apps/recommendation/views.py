@@ -103,15 +103,19 @@ def index(request):
         match (node_school)-[:HAS_ZIP]->(node_zip)\
         match (node_school)-[:HAS_TUITION_OF]->(node_tuition)\
         match (node_school)-[:IS_TYPE]->(node_type)\
+        match (node_school)-[:HAS_SIZE]->(node_size)\
         match (node_school)-[:ACCEPT_RATE]->(node_accept_rate)\
         match (node_school)-[:HAS_TELEPHONE]->(node_telephone)\
         match (node_school)-[:AVG_GPA]->(node_gpa)\
+        match (node_school)-[:HAS_STUDENT_FACULTY_RATIO_OF]->(node_s_f_ratio)\
+        match (node_school)-[:HAS_SETTING]->(node_school_setting)\
         return node_id.name, node_school.name, node_logo.name,\
         node_cc_score.name, node_address.name, node_state.name,\
         node_city.name, node_zip.name, node_tuition.name,\
         node_type.name, node_accept_rate.name, node_sat_max.name,\
         node_sat_min.name, node_telephone.name, node_avg_act.name,\
-        node_qs_rank.name, node_gpa.name, node_web.name\
+        node_qs_rank.name, node_gpa.name, node_web.name, node_size.name,\
+        node_s_f_ratio.name,node_school_setting.name\
         order by toInteger(node_qs_rank.name)\
         limit 24\
         ")
@@ -121,8 +125,12 @@ def index(request):
         obj = {
             'id': school['node_id.name'],
             'name': school['node_school.name'],
-            'logo': 'school_logo.jpg',
-            'desc': 'desc',
+            'logo': extract_logo_name(school['node_logo.name']),
+            'desc': school['node_school.name'] + " is a " + school.get('node_type.name', 'private')
+                    + " research university in " + school.get('node_city.name', 'somewhere')
+                    + ". And its campus located in " + school.get('node_school_setting.name', 'unknown') + " area. "
+                    + "And its campus size is " + school.get('node_size.name', 'unknown') + ". "
+                    + "And its student-faculty-ratio is " + school.get('node_s_f_ratio.name', 'unknown') + " . ",
             'rating': {
                 'QS': format_qs_score(school.get('node_qs_rank.name', '')),
                 'CC': min(int(float(school['node_cc_score.name']) / 400) + 1, 5)
@@ -140,6 +148,12 @@ def index(request):
         }
         data.append(obj)
     return JsonResponseResult().ok(data=data)
+
+
+def extract_logo_name(logo_url):
+    if logo_url and logo_url != 'N/A':
+        return logo_url.split('/')[-1].split('_')[0] + ".jpg"
+    return "default.png"
 
 
 def get_recommend_tags(request):

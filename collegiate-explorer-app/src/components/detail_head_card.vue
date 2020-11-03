@@ -61,8 +61,12 @@
         <el-collapse-item title="Statistics" name="3">
           <div class='text_item' v-if="desc_obj.stat" style="padding-left: 10px;">
             Graduation Rate: <span class="tab_val"> {{desc_obj.stat.graduation_rate}}</span>
-            | Freshman Retention: <span class="tab_val"> {{desc_obj.stat.freshman_retention}} </span>
           </div>
+          <div class='text_item' v-if="desc_obj.stat" style="padding-left: 10px;">
+            Freshman Retention: <span class="tab_val"> {{desc_obj.stat.freshman_retention}} </span>
+          </div>
+        </el-collapse-item>
+        <el-collapse-item title="Salary" name="4">
           <div class='text_item' v-if="desc_obj.stat" style="padding-left: 10px;">
             Employment Rate: <span class="tab_val"> {{desc_obj.stat.employment_rate}} </span>
           </div>

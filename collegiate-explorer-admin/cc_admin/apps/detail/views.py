@@ -163,42 +163,39 @@ def get_basic_info(request, id='2005'):
         "title_info": {
             'main_title': name,
             'duration': '4-Years',
-            'school_type': detail['setting'] + " University",
-            'location': detail['city'] + ', ' + detail['state'],
-            'school_link': detail['website']},
+            'school_type': detail.get('setting', '') + " University",
+            'location': detail.get('city', '') + ', ' + detail.get('state', ''),
+            'school_link': detail.get('website', '')},
         "desc_info": {
             'title': name,
-            'location': detail['address'] + ' ' + detail['city'] + ', ' + detail['state'] + ' ' + detail['zip'],
+            'location': detail.get('address', '') + ' ' + detail.get('city', '') + ', ' + detail.get('state', '') + ' ' + detail.get('zip', ''),
             'avg_score': {
-                'reading': detail['read_sat'],
-                'math': detail['math_sat'],
-                'composite': detail['act']
+                'reading': detail.get('read_sat', ''),
+                'math': detail.get('math_sat', ''),
+                'composite': detail.get('act', '')
             },
-            'app_fee': detail['app_fee'],
-            'expected_salary': detail['med_earn'],
+            'app_fee': detail.get('app_fee', ''),
+            'expected_salary': detail.get('med_earn', ''),
             'cost': {
-                'net_price': detail['tuition'],
-                'avg_aid_award': detail['avg_aid']
+                'net_price': detail.get('tuition', ''),
+                'avg_aid_award': detail.get('avg_aid', '')
             },
             'admission': {
-                'acceptance_rate': detail['accept_rate'],
-                'application_ddl': detail['app_dead']
+                'acceptance_rate': detail.get('accept_rate', ''),
+                'application_ddl': detail.get('app_dead', '')
             },
             'students': {
-                'undergraduate': detail['undergrad_pop'],
-                'graduate': detail['grad_pop'],
+                'undergraduate': detail.get('undergrad_pop', ''),
+                'graduate': detail.get('grad_pop', ''),
             },
             'stat': {
-                'graduation_rate': detail['grad_rate'],
-                'freshman_retention': detail['fresh_ret_rate'],
-                'employment_rate': detail['emp_rate'],
-                'median_salary': detail['med_earn']
+                'graduation_rate': detail.get('grad_rate', ''),
+                'freshman_retention': detail.get('fresh_ret_rate', ''),
+                'employment_rate': detail.get('emp_rate', ''),
+                'median_salary': detail.get('med_earn', '')
             }
         }
     }
-
-
-
 
     return JsonResponseResult(data=data, code=200, msg='success')
 

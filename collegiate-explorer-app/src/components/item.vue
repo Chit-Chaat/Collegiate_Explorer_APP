@@ -2,7 +2,7 @@
   <div class='cc_item'>
     <el-card class="box-card" :body-style="{ height:'200px' }">
       <div slot="header" class="clearfix">
-        <div class='title'><img :src="require('../assets/images/' + item.logo)" width="25px">
+        <div class='title'><img :src="require('../assets/images/logo/' + item.logo)" width="25px">
           <el-link class='school_name' :underline="false"
             @click="$router.push({ name: 'Detail', params: { schoolId: item.id }})">
             {{item.name}}</el-link>
