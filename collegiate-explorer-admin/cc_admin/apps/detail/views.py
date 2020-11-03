@@ -227,10 +227,27 @@ def get_fame_property(request, id="asdasda"):
             athle.append({'name': item['c.name'], 'link':"https://www.dbpedia.org/page/" + '_'.join(item['c.name'].split())})
         if item['c'][0] == 'mascot_node':
             detail['mascot'] = item['c.name']
+        if item['c'][0] == 'school_color_node':
+            detail['color'] = item['c.name']
+
     import requests
+    from bs4 import BeautifulSoup
     url = 'https://www.colorhexa.com/color.php'
-    data = {'c': 'red', 'h': 'h'}
-    #print(requests.post(url, data).text)
+    colors = []
+    if detail['color'] != 'N/A':
+        col = [detail['color']]
+        for color in col:
+            item = color.replace('and', ',')
+            item = item.replace('&', ',')
+            item = item.replace(':', "")
+            item = list(map(lambda s: s.strip(), item.split(',')))
+            item = [i for i in item if i]
+        for color in item:
+            query_data = {'c': color, 'h': 'h'}
+            html = requests.post(url, query_data).text
+            soup = BeautifulSoup(html, 'html.parser')
+            rgb = soup.find('title').string.split()[2]
+            colors.append({'name': color, 'rgb': rgb})
     data = {
         "affiliations": affil,
         "athletics": athle,
@@ -243,15 +260,7 @@ def get_fame_property(request, id="asdasda"):
             'words': detail['motto'],
             'by': ""
         },
-        "color": [
-            {
-                'name': " Green",
-                'rgb': "#008000"
-            }, {
-                'name': "Red",
-                'rgb': "#ff0000"
-            }
-        ],
+        "color": colors,
         "mascot": {
             'name': detail['mascot'],
             'logo': "",
