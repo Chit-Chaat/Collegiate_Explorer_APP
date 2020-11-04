@@ -2,6 +2,7 @@ import logging
 
 from JsonResponseResult import JsonResponseResult
 from Neo4jConnectionPool import ConnectionPool
+
 logger = logging.getLogger('django')
 
 """
@@ -112,52 +113,52 @@ def get_basic_info(request, id='2005'):
         match(n)-[]-(c)\
         return labels(c) as c, c.name\
         "
-        )
+    )
     detail = {}
     for item in result:
-       if item['c'][0] == "school_type_node":
-           detail['setting'] = item['c.name'].capitalize()
-       if item['c'][0] == "web_node":
-           detail['website'] = item['c.name']
-       if item['c'][0] == "read_sat_node":
-           detail['read_sat'] = item['c.name']
-       if item['c'][0] == "math_sat_node":
-           detail['math_sat'] = item['c.name']
-       if item['c'][0] == "act_node":
-           detail['act'] = item['c.name']
-       if item['c'][0] == "addr_node":
-           detail['address'] = item['c.name']
-       if item['c'][0] == "city_node":
-           detail['city'] = item['c.name']
-       if item['c'][0] == "state_node":
-           detail['state'] = item['c.name']
-       if item['c'][0] == "zip_node":
-           detail['zip'] = item['c.name']
-       if item['c'][0] == "med_earn_6_years_node":
-           detail['med_earn'] = item['c.name']
-       if item['c'][0] == "tuition_node":
-           detail['tuition'] = item['c.name']
-       if item['c'][0] == "average_aid_node":
-           detail['avg_aid'] = item['c.name']
-       if item['c'][0] == "accept_rate_node":
-           if item['c.name'] != 'N/A':
-               detail['accept_rate'] = str(int(float(item['c.name'])*100)) + '%'
-           else:
-               detail['accept_rate'] = item['c.name']
-       if item['c'][0] == "app_dead_node":
-           detail['app_dead'] = item['c.name']
-       if item['c'][0] == "app_fee_node":
-           detail['app_fee'] = item['c.name']
-       if item['c'][0] == "undergrad_pop_node":
-           detail['undergrad_pop'] = item['c.name']
-       if item['c'][0] == "grad_pop_node":
-           detail['grad_pop'] = item['c.name']
-       if item['c'][0] == 'grad_rate_node':
-           detail['grad_rate'] = item['c.name']
-       if item['c'][0] == 'fresh_ret_node':
-           detail['fresh_ret_rate'] = item['c.name']
-       if item['c'][0] == 'emp_rate_node':
-           detail['emp_rate'] = item['c.name']
+        if item['c'][0] == "school_type_node":
+            detail['setting'] = item['c.name'].capitalize()
+        if item['c'][0] == "web_node":
+            detail['website'] = item['c.name']
+        if item['c'][0] == "read_sat_node":
+            detail['read_sat'] = item['c.name']
+        if item['c'][0] == "math_sat_node":
+            detail['math_sat'] = item['c.name']
+        if item['c'][0] == "act_node":
+            detail['act'] = item['c.name']
+        if item['c'][0] == "addr_node":
+            detail['address'] = item['c.name']
+        if item['c'][0] == "city_node":
+            detail['city'] = item['c.name']
+        if item['c'][0] == "state_node":
+            detail['state'] = item['c.name']
+        if item['c'][0] == "zip_node":
+            detail['zip'] = item['c.name']
+        if item['c'][0] == "med_earn_6_years_node":
+            detail['med_earn'] = item['c.name']
+        if item['c'][0] == "tuition_node":
+            detail['tuition'] = item['c.name']
+        if item['c'][0] == "average_aid_node":
+            detail['avg_aid'] = item['c.name']
+        if item['c'][0] == "accept_rate_node":
+            if item['c.name'] != 'N/A':
+                detail['accept_rate'] = str(int(float(item['c.name']) * 100)) + '%'
+            else:
+                detail['accept_rate'] = item['c.name']
+        if item['c'][0] == "app_dead_node":
+            detail['app_dead'] = item['c.name']
+        if item['c'][0] == "app_fee_node":
+            detail['app_fee'] = item['c.name']
+        if item['c'][0] == "undergrad_pop_node":
+            detail['undergrad_pop'] = item['c.name']
+        if item['c'][0] == "grad_pop_node":
+            detail['grad_pop'] = item['c.name']
+        if item['c'][0] == 'grad_rate_node':
+            detail['grad_rate'] = item['c.name']
+        if item['c'][0] == 'fresh_ret_node':
+            detail['fresh_ret_rate'] = item['c.name']
+        if item['c'][0] == 'emp_rate_node':
+            detail['emp_rate'] = item['c.name']
 
     data = {
         "title_info": {
@@ -168,7 +169,9 @@ def get_basic_info(request, id='2005'):
             'school_link': detail.get('website', '')},
         "desc_info": {
             'title': name,
-            'location': detail.get('address', '') + ' ' + detail.get('city', '') + ', ' + detail.get('state', '') + ' ' + detail.get('zip', ''),
+            'location': detail.get('address', '') + ' ' + detail.get('city', '') + ', ' + detail.get('state',
+                                                                                                     '') + ' ' + detail.get(
+                'zip', ''),
             'avg_score': {
                 'reading': detail.get('read_sat', ''),
                 'math': detail.get('math_sat', ''),
@@ -209,7 +212,7 @@ def get_fame_property(request, id="asdasda"):
         match(n)-[]-(c)\
         return labels(c) as c, c.name\
         "
-        )
+    )
     detail = {}
     affil = []
     athle = []
@@ -219,9 +222,11 @@ def get_fame_property(request, id="asdasda"):
         if item['c'][0] == "motto_node":
             detail['motto'] = item['c.name']
         if item['c'][0] == 'affil_node':
-            affil.append({'name': item['c.name'], 'link':"https://www.dbpedia.org/page/" + '_'.join(item['c.name'].split())})
+            affil.append(
+                {'name': item['c.name'], 'link': "https://www.dbpedia.org/page/" + '_'.join(item['c.name'].split())})
         if item['c'][0] == 'athletics_node':
-            athle.append({'name': item['c.name'], 'link':"https://www.dbpedia.org/page/" + '_'.join(item['c.name'].split())})
+            athle.append(
+                {'name': item['c.name'], 'link': "https://www.dbpedia.org/page/" + '_'.join(item['c.name'].split())})
         if item['c'][0] == 'mascot_node':
             detail['mascot'] = item['c.name']
         if item['c'][0] == 'school_color_node':
@@ -268,34 +273,76 @@ def get_fame_property(request, id="asdasda"):
     return JsonResponseResult(data=data, code=200, msg='success')
 
 
-def get_ranking_data(request, id='asdas31asdada'):
+def address2geo(address_str, city_str):
+    import googlemaps
+
+    gmaps = googlemaps.Client(key='AIzaSyBe0n3z7qndMX9owX_5rySTLivp7ZSMYvA')
+    geocode_result = None
+    if address_str == "N/A":
+        geocode_result = gmaps.geocode(city_str)[0]
+    else:
+        geocode_result = gmaps.geocode(address_str + " " + city_str)[0]
+
+    if geocode_result and geocode_result['geometry']:
+        values = geocode_result['geometry']['location']
+        return float(values['lat']), float(values['lng']),
+    else:
+        return float(34.052234), float(-118.243685)
+
+
+def get_loc_data(request, id='asdas31asdada'):
     """
 
     :param request:
     :param id: you will receive a school id (str) (required)
     :return: you need to return a list of historical ranking data of this school
-    [{
-        'name': '1997',
-        'value': 37,
-        'type': 'Niche'
-    },{},...]
+    {
+        "markers": [
+                {'label': 'School',
+                 'color': 'blue',
+                 'lat': '40.702147',
+                 'lng': '-74.015794',
+                 'size': 'normal'}
+            ],
+        "center": "Los Angeles, CA"
+    }
     and use JsonResponseResult().ok(data=data) return
     if there is any exception raised,
     use JsonResponseResult().error(data=[], msg="explain your error", code="500") return
     """
     logger.info("func 'get_ranking_data' get a param id -> " + id)
-    data = [{'name': 1997, 'value': 37, 'type': 'Niche'},
-            {'name': 2007, 'value': 35, 'type': 'Niche'},
-            {'name': 2018, 'value': 30, 'type': 'Niche'},
-            {'name': 2020, 'value': 33, 'type': 'Niche'},
-            {'name': 1997, 'value': 40, 'type': 'CollegeConfidential'},
-            {'name': 2007, 'value': 36, 'type': 'CollegeConfidential'},
-            {'name': 2018, 'value': 35, 'type': 'CollegeConfidential'},
-            {'name': 2020, 'value': 39, 'type': 'CollegeConfidential'},
-            {'name': 1997, 'value': 30, 'type': 'QS News'},
-            {'name': 2007, 'value': 32, 'type': 'QS News'},
-            {'name': 2018, 'value': 35, 'type': 'QS News'},
-            {'name': 2020, 'value': 32, 'type': 'QS News'}]
+    connection = ConnectionPool()
+    result = connection.executeQuery(
+        "\
+        match(n)-[]-(m {name: '" + id + "'})\
+            match(n)-[]-(c)\
+            return labels(c) as c, c.name\
+            "
+    )
+    detail, data = {}, {}
+    for item in result:
+        if item['c'][0] == "addr_node":
+            detail['address'] = item.get('c.name', '')
+        if item['c'][0] == "city_node":
+            detail['city'] = item.get('c.name', '')
+        if item['c'][0] == "state_node":
+            detail['state'] = item.get('c.name', '')
+
+    center_str = detail['city'] + ", " + detail['state']
+    markers = []
+    if '' != detail['address']:
+        lag, lng = address2geo(detail['address'], center_str)
+        markers.append({
+            'label': 'School',
+            'color': 'orange',
+            'lat': lag,
+            'lng': lng,
+            'size': 'normal'
+        })
+
+    data['markers'] = markers
+    data['center'] = center_str
+
     return JsonResponseResult().ok(data=data)
 
 
@@ -341,54 +388,54 @@ def get_score_data(request, id="asdasdasdsadas"):
         match(n)-[]-(c)\
         return labels(c) as c, c.name\
         "
-        )
+    )
 
     detail = {}
     for item in result:
-       if item['c'][0] == "read_sat_node":
-           if item['c.name'] != 'N/A':
-               detail['read_sat'] = item['c.name']
-               detail['read'] = item['c.name']
-           else:
-               detail['read_sat'] = '0'
-               detail['read'] = 'N/A'
+        if item['c'][0] == "read_sat_node":
+            if item['c.name'] != 'N/A':
+                detail['read_sat'] = item['c.name']
+                detail['read'] = item['c.name']
+            else:
+                detail['read_sat'] = '0'
+                detail['read'] = 'N/A'
 
-       if item['c'][0] == "math_sat_node":
-           if item['c.name'] != 'N/A':
-               detail['math_sat'] = item['c.name']
-               detail['math'] = item['c.name']
-           else:
-               detail['math_sat'] = '0'
-               detail['math'] = 'N/A'
-       if item['c'][0] == "write_sat_node":
-           if item['c.name'] != 'N/A':
-               detail['write_sat'] = item['c.name']
-               detail['write'] = item['c.name']
-           else:
-               detail['write_sat'] = '0'
-               detail['write'] = 'N/A'
-       if item['c'][0] == "act_node":
-           if item['c.name'] != 'N/A':
-               detail['act'] = item['c.name']
-               detail['ACT'] = item['c.name']
-           else:
-               detail['act'] = '0'
-               detail['ACT'] = 'N/A'
-       if item['c'][0] == "gpa_node":
-           if item['c.name'] != 'N/A':
-               detail['gpa'] = item['c.name']
-               detail['GPA'] = item['c.name']
-           else:
-               detail['gpa'] = '0'
-               detail['GPA'] = 'N/A'
+        if item['c'][0] == "math_sat_node":
+            if item['c.name'] != 'N/A':
+                detail['math_sat'] = item['c.name']
+                detail['math'] = item['c.name']
+            else:
+                detail['math_sat'] = '0'
+                detail['math'] = 'N/A'
+        if item['c'][0] == "write_sat_node":
+            if item['c.name'] != 'N/A':
+                detail['write_sat'] = item['c.name']
+                detail['write'] = item['c.name']
+            else:
+                detail['write_sat'] = '0'
+                detail['write'] = 'N/A'
+        if item['c'][0] == "act_node":
+            if item['c.name'] != 'N/A':
+                detail['act'] = item['c.name']
+                detail['ACT'] = item['c.name']
+            else:
+                detail['act'] = '0'
+                detail['ACT'] = 'N/A'
+        if item['c'][0] == "gpa_node":
+            if item['c.name'] != 'N/A':
+                detail['gpa'] = item['c.name']
+                detail['GPA'] = item['c.name']
+            else:
+                detail['gpa'] = '0'
+                detail['GPA'] = 'N/A'
 
     data = {
         "score_data": [
-            {'item': 'SAT_reading', 'score': int(detail['read_sat'])/10},  # div 10
-            {'item': 'SAT_writing', 'score': int(detail['write_sat'])/10},  # div 10
-            {'item': 'SAT_math', 'score': int(detail['math_sat'])/10},  # div 10
-            {'item': 'ACT', 'score': int(detail['act'])*2},  # * 2
-            {'item': 'GPA', 'score': int(float(detail['gpa'])*20)}  # * 20
+            {'item': 'SAT_reading', 'score': int(detail['read_sat']) / 10},  # div 10
+            {'item': 'SAT_writing', 'score': int(detail['write_sat']) / 10},  # div 10
+            {'item': 'SAT_math', 'score': int(detail['math_sat']) / 10},  # div 10
+            {'item': 'ACT', 'score': int(detail['act']) * 2},  # * 2
+            {'item': 'GPA', 'score': int(float(detail['gpa']) * 20)}  # * 20
         ],
         "score_desc": {
             'cc': {
@@ -428,12 +475,12 @@ def get_popular_major(request, id='asdas31asdada'):
         match(n)-[]-(c)\
         return labels(c) as c, c.name\
         "
-        )
+    )
 
     detail = []
     for item in result:
-       if item['c'][0] == "n_pop_majors_node":
-           detail.append(item['c.name'])
+        if item['c'][0] == "n_pop_majors_node":
+            detail.append(item['c.name'])
     data = []
     for major in detail:
         data.append({'name': major})

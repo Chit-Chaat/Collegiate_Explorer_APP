@@ -135,6 +135,7 @@
     bottom: 0;
     width: 95%;
     margin-left: 2%;
+    height: 95%;
   }
 
   .right-card {

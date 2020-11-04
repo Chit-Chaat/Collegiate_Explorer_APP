@@ -15,14 +15,10 @@
             <img :src="require('../assets/images' + img)">
           </el-carousel-item>
         </el-carousel>
-        <div class='ranking_chart' v-if="ranking_data">
-          <div style="text-align: left; font-size: 17px; color: azure; padding-left: 20px;">Historical Ranking of
-            {{title_info.main_title}}</div>
-          <g2-area :padding="['auto', 30]" v-if="ranking_data" :data="ranking_data"
-            :axis-name="{name:'Years', value:'Ranking', type:'Site'}"
-            :axisColor="{ lineColor: 'rgb(240, 255, 255)', labelColor: 'rgb(240, 255, 255)' }"
-            style="height: 180px; width: 100%;">
-          </g2-area>
+        <div class='location_chart' v-if="location_data">
+          <div class="chart_title">School Location</div>
+          <static-map :google-api-key="apiKey" format="png" :markers="location_data.markers" 
+          :zoom="zoom" :center="location_data.center" :size="size" type="roadmap" language="en"></static-map>
         </div>
       </el-main>
       <el-aside width="40%" style="line-height: 200px;">
@@ -59,6 +55,7 @@
   import SimilarSchoolPanel from '../components/similar_school_panel.vue'
   import PopularMajorPanel from '../components/popular_major_panel.vue'
   import FamePanel from "../components/fame_panel.vue"
+  import StaticMap from 'vue-static-map';
   export default {
     components: {
       Header,
@@ -69,6 +66,7 @@
       SimilarSchoolPanel,
       PopularMajorPanel,
       FamePanel,
+      StaticMap,
     },
     props: {
       schoolId: {
@@ -78,7 +76,7 @@
     },
     data() {
       return {
-        rankingHistoricalDataApiPrefix: "/detail/ranking/history/",
+        localtionDataApiPrefix: "/detail/location/",
         basicInfoApiPrefix: "/detail/",
         scoreInfoApiPrefix: "/detail/score/",
         similarSchoolApiPrefix: "/detail/similar/",
@@ -86,18 +84,24 @@
         head_imgs: [],
         title_info: {},
         desc_info: {},
-        ranking_data: [],
+        location_data: {
+          markers:[],
+          center:{}
+        },
         score_info: {},
         popular_major_info: {},
         similar_school_info: [],
         fame_info: {},
+        apiKey: 'AIzaSyBe0n3z7qndMX9owX_5rySTLivp7ZSMYvA',
+        size: [640, 200],
+        zoom: 12,
       }
     },
     computed: {
 
     },
     created() {
-      this.getRankingData()
+      this.getLocationData()
       this.getBasicInfo()
       this.getScoreData()
       this.getSimilarSchoolList()
@@ -150,15 +154,15 @@
           }
         );
       },
-      getRankingData() {
+      getLocationData() {
         axios({
           method: "GET",
-          url: this.$hostname + this.rankingHistoricalDataApiPrefix + this.$route.params.schoolId
+          url: this.$hostname + this.localtionDataApiPrefix + this.$route.params.schoolId
         }).then(
           result => {
             if (result.data != null) {
               if (result.data.code == 200) {
-                this.ranking_data = result.data.data;
+                this.location_data = JSON.parse(JSON.stringify(result.data.data));
               } else {
                 this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
               }
@@ -299,9 +303,26 @@
     background-image: url('../assets/images/gray_64.png');
   }
 
-  .ranking_chart {
+  .location_chart {
     height: 230px;
-    padding-top: 10px;
-    margin-top: 10px;
+    width: 100%;
+    padding-top: 0px;
+    margin-top: 5px;
+  }
+  .location_chart > img {
+    width: 100%;
+    height: 212px;
+  }
+
+  .chart_title{
+    width: 60%;
+    height: 10%;
+    float: left;
+    color: rgb(255, 255, 255);
+    text-align: left;
+    font-family: "microsoft yahei";
+    padding-left: 4%;
+    font-size: 25px;
+    padding-bottom: 15px;
   }
 </style>

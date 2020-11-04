@@ -40,7 +40,7 @@
         speedY: Math.PI / 720,
         tags: [],
         majors: [],
-        tagsNum: 15,
+        tagsNum: 10,
       }
     },
     computed: {

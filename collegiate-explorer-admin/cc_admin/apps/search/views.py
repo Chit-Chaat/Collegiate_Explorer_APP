@@ -282,7 +282,7 @@ def search_by_tag(request, tag="tag_str"):
             'logo': 'school_logo.jpg',
             'desc': 'this is dessc this isthis is desc this isthis is desc this isthis is desc this is',
             'rating': {
-                'Niche': 5,
+                'QS': 5,
                 'CC': 3
             },
             'review': '3453',
