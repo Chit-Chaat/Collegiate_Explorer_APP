@@ -452,6 +452,68 @@ def get_score_data(request, id="asdasdasdsadas"):
     return JsonResponseResult().ok(data=data)
 
 
+def get_subject_info_data(request, id="asdasdasdsadas"):
+    """
+
+       :param request:
+       :param id: you will receive a school id (str) (required)
+       :return: you need to return an obj of ACT SAT GPA data of this school
+       {
+        "score_data": [
+            {'item': 'SAT_reading', 'niche': 67.5, 'cc': 60.3},  # div 10
+            {'item': 'SAT_writing', 'niche': 64.6, 'cc': 50.6},  # div 10
+            {'item': 'SAT_math', 'niche': 71.0, 'cc': 70.1},  # div 10
+            {'item': 'ACT', 'niche': 64, 'cc': 68},  # * 2
+            {'item': 'GPA', 'niche': 76, 'cc': 74}  # * 20
+        ],
+        "score_desc": {
+            'niche': {
+                'sat_range': '1390-1540',
+                'act_range': '32-35',
+            },
+            'cc': {
+                'sat': {
+                    'reading': 731,
+                    'writing': 656,
+                    'math': 731,
+                },
+                'act': 32,
+                'gpa': 3.72
+            }
+        }
+      }
+       and use JsonResponseResult().ok(data=data) return
+       if there is any exception raised,
+       use JsonResponseResult().error(data=[], msg="explain your error", code="500") return
+       """
+    logger.info("func 'get_subject_info_data' get a param id -> " + id)
+    connection = ConnectionPool()
+    # result = connection.executeQuery(
+    #     "\
+    #     match(n)-[]-(m {name: '" + id + "'})\
+    #     match(n)-[]-(c)\
+    #     return labels(c) as c, c.name\
+    #     "
+    # )
+
+    detail = {}
+
+    data = {
+        "niche_ranking": [
+            {'item': 'Academic', 'score': 4, 'label': 'A'},
+            {'item': 'Academic2', 'score': 4, 'label': 'A'},
+            {'item': 'Academic3', 'score': 4, 'label': 'A'},
+            {'item': 'Academic4', 'score': 4, 'label': 'A'},
+            {'item': 'Academic5', 'score': 4, 'label': 'A'},
+        ],
+        "over_all_ranking": "A+",
+        "title_list": [
+            {'item': "", 'ranking': 23, 'desc': ''},
+        ]
+    }
+    return JsonResponseResult().ok(data=data)
+
+
 def get_popular_major(request, id='asdas31asdada'):
     """
 

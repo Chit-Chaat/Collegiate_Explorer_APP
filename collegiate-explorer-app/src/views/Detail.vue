@@ -15,10 +15,10 @@
             <img :src="require('../assets/images' + img)">
           </el-carousel-item>
         </el-carousel>
-        <div class='location_chart' v-if="location_data">
+        <div class='location_chart'>
           <div class="chart_title">School Location</div>
-          <static-map :google-api-key="apiKey" format="png" :markers="location_data.markers" 
-          :zoom="zoom" :center="location_data.center" :size="size" type="roadmap" language="en"></static-map>
+          <static-map :google-api-key="apiKey" format="png" :markers="markers" :zoom="zoom" :center="center"
+            :size="size" type="roadmap" language="en"></static-map>
         </div>
       </el-main>
       <el-aside width="40%" style="line-height: 200px;">
@@ -31,6 +31,9 @@
 
     <el-divider></el-divider>
     <ScorePanel :score_obj="score_info"></ScorePanel>
+
+    <el-divider></el-divider>
+    <SubInfoPanel :sub_info_obj="subject_info"></SubInfoPanel>
 
     <el-divider></el-divider>
     <PopularMajorPanel></PopularMajorPanel>
@@ -56,6 +59,7 @@
   import PopularMajorPanel from '../components/popular_major_panel.vue'
   import FamePanel from "../components/fame_panel.vue"
   import StaticMap from 'vue-static-map';
+  import SubInfoPanel from '../components/sub_info_panel.vue'
   export default {
     components: {
       Header,
@@ -67,6 +71,7 @@
       PopularMajorPanel,
       FamePanel,
       StaticMap,
+      SubInfoPanel,
     },
     props: {
       schoolId: {
@@ -81,20 +86,21 @@
         scoreInfoApiPrefix: "/detail/score/",
         similarSchoolApiPrefix: "/detail/similar/",
         fameInfoApiPrefix: "/detail/fame/",
+        subjectInfoPrefix: "/detail/subjective/",
         head_imgs: [],
         title_info: {},
         desc_info: {},
-        location_data: {
-          markers:[],
-          center:{}
-        },
         score_info: {},
         popular_major_info: {},
         similar_school_info: [],
         fame_info: {},
-        apiKey: 'AIzaSyBe0n3z7qndMX9owX_5rySTLivp7ZSMYvA',
+        // apiKey: 'AIzaSyBe0n3z7qndMX9owX_5rySTLivp7ZSMYvA',
+        apiKey: '',
         size: [640, 200],
         zoom: 12,
+        center: '',
+        markers: [],
+        subject_info: {},
       }
     },
     computed: {
@@ -106,6 +112,7 @@
       this.getScoreData()
       this.getSimilarSchoolList()
       this.getFameInfo()
+      this.getSubjectInfo()
     },
     mounted() {
       this.head_imgs = ['/usc/1.png', '/usc/2.png', '/usc/3.png']
@@ -121,6 +128,27 @@
               if (result.data.code == 200) {
                 this.title_info = result.data.data.title_info;
                 this.desc_info = result.data.data.desc_info;
+              } else {
+                this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
+              }
+            }
+          },
+          error => {
+            this.$options.methods.sendErrorMsg.bind(this)(
+              "Something wrong with the basic deatil info."
+            );
+          }
+        );
+      },
+      getSubjectInfo() {
+        axios({
+          method: "GET",
+          url: this.$hostname + this.subjectInfoPrefix + this.$route.params.schoolId
+        }).then(
+          result => {
+            if (result.data != null) {
+              if (result.data.code == 200) {
+                this.subject_info = result.data.data;
               } else {
                 this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
               }
@@ -162,7 +190,8 @@
           result => {
             if (result.data != null) {
               if (result.data.code == 200) {
-                this.location_data = JSON.parse(JSON.stringify(result.data.data));
+                this.center = result.data.data.center;
+                this.markers = result.data.data.markers;
               } else {
                 this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
               }
@@ -309,12 +338,13 @@
     padding-top: 0px;
     margin-top: 5px;
   }
-  .location_chart > img {
+
+  .location_chart>img {
     width: 100%;
     height: 212px;
   }
 
-  .chart_title{
+  .chart_title {
     width: 60%;
     height: 10%;
     float: left;

@@ -9,6 +9,7 @@ import './assets/styles/global.css'
 import router from './router'
 import axios from 'axios'
 import Vuex from 'vuex'
+import './assets/fonts/style.css'
 
 Vue.use(ElementUI, { size: 'small', zIndex: 3000 });
 Vue.config.productionTip = false

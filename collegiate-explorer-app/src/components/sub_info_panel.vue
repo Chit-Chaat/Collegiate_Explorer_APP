@@ -1,0 +1,133 @@
+<template>
+
+  <el-container style="height: 255px;" v-if="sub_info_obj">
+    <el-tabs tab-position="left" @tab-click="testssss">
+      <el-tab-pane label="Subjective Statistic" disabled>
+        <div class="sub_desc">
+          ssss
+        </div>
+        <div class="sub_desc">
+          ssss
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="Niche Review">
+        <el-container style="padding-left: 5%;">
+          <el-main class="niche-panel">
+            <div class="sub_desc">In order to find most suitable school for every students,
+              we analysis different aspect of review text information on <img
+                :src="require('../assets/images/niche-logo.png')" width="30px" style="vertical-align: sub;">
+              Niche website. Aiming at this goal, a systematic investigation and study was
+              carried out on following aspects: </div>
+            <el-row v-for="item in sub_info_obj.niche_ranking" :key='item.item'>
+              <el-col :span="4">
+                <span style="color: rgb(255, 255, 255); font-size: 18px;">{{item.item}}</span>
+              </el-col>
+              <el-col :span="5">
+                <el-rate v-model="item.score" :icon-classes="iconClasses"
+                  style="display: inline; pointer-events: none; cursor: default;" void-icon-class="icon-rate-face-off"
+                  :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
+                </el-rate>
+              </el-col>
+              <el-col :span="4">
+                <span style="color: rgb(255, 255, 255); font-size: 18px;">{{item.label}}</span>
+              </el-col>
+            </el-row>
+            <div style="float:right; position: relative; top: -70px; left: -150px;">
+              <span style="color: rgb(255, 255, 255); font-size: 18px;">Over all Ranking : </span> 
+              <span class="highlight_val">{{sub_info_obj.over_all_ranking}}</span>
+            </div>
+          </el-main>
+        </el-container>
+      </el-tab-pane>
+      <el-tab-pane label="Named Title">角色管理</el-tab-pane>
+      <el-tab-pane label="...">定时任务补偿</el-tab-pane>
+    </el-tabs>
+  </el-container>
+
+</template>
+
+
+<script>
+
+  export default {
+    props: {
+      sub_info_obj: {
+        type: Object,
+        required: true,
+      }
+    },
+    data() {
+      return {
+        iconClasses: ['icon-rate-face-1', 'icon-rate-face-2', 'icon-rate-face-3'],
+        iconColors: ['#99A9BF', '#F7BA2A', '#FF9900']
+      }
+    },
+    mounted() {
+    },
+    methods: {
+      testssss(e) {
+        if (e.label === 'Niche Review') {
+          console.log(e.currentTarget)
+        }
+      }
+    },
+  }
+</script>
+
+
+<style scoped>
+  .el-tabs>>>.el-tabs__item {
+    color: rgb(255, 255, 255);
+    text-align: right;
+    font-family: "microsoft yahei";
+    font-size: 25px;
+    top: 20px;
+  }
+
+  .el-tabs>>>.el-tabs__item:hover {
+    color: darkorange;
+    cursor: grab;
+  }
+
+  .el-tabs>>>.el-tabs__item.is-active {
+    color: darkorange;
+  }
+
+  .el-tabs>>>.el-tabs__active-bar {
+    top: 20px;
+    background-color: darkorange;
+  }
+
+  .el-tabs {
+    padding-left: 4%;
+    height: 100%;
+  }
+
+
+  .el-link {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+  }
+
+  .sub_desc {
+    width: 100%;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    padding-bottom: 10px;
+  }
+
+  .niche-panel {
+    width: 710px;
+    height: 100%;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+
+  .highlight_val {
+    color: #ff8c00;
+    font-size: 22px;
+    font-weight: 600;
+    vertical-align: sub;
+  }
+</style>
