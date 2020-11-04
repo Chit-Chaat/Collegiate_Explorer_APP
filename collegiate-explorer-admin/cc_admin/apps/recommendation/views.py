@@ -117,7 +117,7 @@ def index(request):
         node_qs_rank.name, node_gpa.name, node_web.name, node_size.name,\
         node_s_f_ratio.name,node_school_setting.name\
         order by toInteger(node_qs_rank.name)\
-        limit 24\
+        limit 36\
         ")
 
     data = []
