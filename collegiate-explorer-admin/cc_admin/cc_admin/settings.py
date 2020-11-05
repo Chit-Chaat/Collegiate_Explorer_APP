@@ -88,7 +88,7 @@ DATABASES = {
         'NAME': 'collegiate_explorer',
         'USER': 'neo4j',
         'PASSWORD': '123456',
-        'URL': 'bolt://localhost:7687'
+        'URL': 'bolt://localhost:11005'
     }
 }
 

@@ -50,12 +50,6 @@
               <el-col :span="12">
                 <span style="color: rgb(255, 255, 255); font-size: 18px;">{{title.item}}</span>
               </el-col>
-              <el-col :span="5">
-                <div style="color:darkgray; font-size: 16px; 
-                overflow: hidden; width: 90%;
-                text-overflow: ellipsis;
-                white-space: nowrap;">({{title.desc}})</div>
-              </el-col>
             </el-row>
 
           </el-main>

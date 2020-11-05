@@ -480,31 +480,45 @@ def get_subject_info_data(request, id="asdasdasdsadas"):
        """
     logger.info("func 'get_subject_info_data' get a param id -> " + id)
     connection = ConnectionPool()
-    # result = connection.executeQuery(
-    #     "\
-    #     match(n)-[]-(m {name: '" + id + "'})\
-    #     match(n)-[]-(c)\
-    #     return labels(c) as c, c.name\
-    #     "
-    # )
+    result = connection.executeQuery(
+        "match(node_school)-[:ID]->(n {name: '" + id + "'})\
+        match(node_school)-[p:HAS_GRADE]->(node_n_grade)\
+        return node_school.name, node_n_grade.name, p.grade"
+    )
 
-    detail = {}
+    result2 = connection.executeQuery(
+        "match(node_school)-[:ID]->(n {name: '" + id + "'})\
+        match(node_school)-[p:HAS_RANK]->(node_usn_rank)\
+        return node_school.name, node_usn_rank.name, p.rank"
+    )
+    grade = {'A+': 4.0, 'A': 4.0, 'A-': 3.7, 'B+': 3.3, 'B': 3.0, 'B-': 2.7, 'C+': 2.3,\
+             'C': 2.0, 'C-': 1.7, 'D+': 1.3, 'D': 1.0, 'D-': 0.7, 'F': 0.0, 'NG': 0.0}
+
+    inv_grade = {v: k for k, v in grade.items()}
+    niche = []
+    overall_grade = 0
+    for item in result:
+        overall_grade += grade.get(item.get('p.grade', ''), '')
+        if item.get('node_n_grade.name', '') in ['Academics', 'Athletics', 'Student Life', 'Party Scene', 'Safety']:
+            niche.append({'item': item.get('node_n_grade.name', ''), 'score': grade.get(item.get('p.grade', ''), ''), 'label': item.get('p.grade', '')})
+
+    overall_grade /= 12
+    overall_rank = ""
+    overall_grade = round(overall_grade, 2)
+    for k, v in inv_grade.items():
+        if overall_grade >= k:
+            overall_rank = v
+            break
+
+
+    usn_rank = []
+    for item in result2:
+        usn_rank.append({'item': item.get('node_usn_rank.name', ''), 'ranking': int(item.get('p.rank', '0'))})
 
     data = {
-        "niche_ranking": [
-            {'item': 'Academic', 'score': 4, 'label': 'A'},
-            {'item': 'Academic2', 'score': 4, 'label': 'A'},
-            {'item': 'Academic3', 'score': 4, 'label': 'A'},
-            {'item': 'Academic4', 'score': 4, 'label': 'A'},
-            {'item': 'Academic5', 'score': 4, 'label': 'A'},
-        ],
-        "over_all_ranking": "A+",
-        "title_list": [
-            {'item': "National University", 'ranking': 24, 'desc': 'ssssssssssssssssssssssssssss'},
-            {'item': "Best College for Veterans", 'ranking': 8, 'desc': 'ssssssssssssssssssssssssssss'},
-            {'item': "Best Value Schools", 'ranking': 60, 'desc': 'ssssssssssssssssssssssssssss'},
-            {'item': "Top Performers on Social Mobility", 'ranking': 161, 'desc': 'ssssssssssssssssssssssssssss'},
-        ]
+        "niche_ranking": niche,
+        "over_all_ranking": overall_rank,
+        "title_list": usn_rank
     }
     return JsonResponseResult().ok(data=data)
 
