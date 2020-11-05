@@ -26,7 +26,7 @@
                 <span style="color: rgb(255, 255, 255); font-size: 18px;">{{item.label}}</span>
               </el-col>
             </el-row>
-            <div style="float:right; position: relative; top: -70px; left: -150px;">
+            <div style="float:right; position: static; top: -70px; left: -150px;">
               <span style="color: rgb(255, 255, 255); font-size: 18px;">Over all Ranking : </span>
               <span class="highlight_val">{{sub_info_obj.over_all_ranking}}</span>
             </div>
@@ -95,11 +95,6 @@
 
 <style scoped>
   @import "../assets/fonts/style.css";
-
-  .icon-android {
-    font-size: 24px;
-    color: darkorchid;
-  }
 
   .el-tabs>>>.el-tabs__item {
     color: rgb(255, 255, 255);
