@@ -1,16 +1,10 @@
 <template>
 
   <el-container style="height: 255px;" v-if="sub_info_obj">
-    <el-tabs tab-position="left" @tab-click="testssss">
-      <el-tab-pane label="Subjective Statistic" disabled>
-        <div class="sub_desc">
-          ssss
-        </div>
-        <div class="sub_desc">
-          ssss
-        </div>
+    <el-tabs tab-position="left" v-model="activeName" @tab-click="testssss">
+      <el-tab-pane label="Subjective Statistic" disabled name='index'>
       </el-tab-pane>
-      <el-tab-pane label="Niche Review">
+      <el-tab-pane label="Niche Review" name="niche">
         <el-container style="padding-left: 5%;">
           <el-main class="niche-panel">
             <div class="sub_desc">In order to find most suitable school for every students,
@@ -33,14 +27,43 @@
               </el-col>
             </el-row>
             <div style="float:right; position: relative; top: -70px; left: -150px;">
-              <span style="color: rgb(255, 255, 255); font-size: 18px;">Over all Ranking : </span> 
+              <span style="color: rgb(255, 255, 255); font-size: 18px;">Over all Ranking : </span>
               <span class="highlight_val">{{sub_info_obj.over_all_ranking}}</span>
             </div>
           </el-main>
         </el-container>
       </el-tab-pane>
-      <el-tab-pane label="Named Title">角色管理</el-tab-pane>
-      <el-tab-pane label="...">定时任务补偿</el-tab-pane>
+      <el-tab-pane label="Named Title" name='title'>
+        <el-container style="padding-left: 5%;">
+          <el-main class="niche-panel">
+            <div class="sub_desc">See Where this school lands in our other rankingd to get a bigger
+              picture of the institution's offereings.
+            </div>
+            <el-row v-for="title in sub_info_obj.title_list" :key='title.item' style="padding-top: 10px;">
+              <el-col :span="3">
+                <span style="color: rgb(255, 255, 255); font-size: 18px;"><i class="el-icon-star-on"
+                    style="color: darkorange;"></i> #{{title.ranking}}</span>
+              </el-col>
+              <el-col :span="2">
+                <span style="padding-left: 10px; font-size: 18px; color: darkgray;">in</span>
+              </el-col>
+              <el-col :span="12">
+                <span style="color: rgb(255, 255, 255); font-size: 18px;">{{title.item}}</span>
+              </el-col>
+              <el-col :span="5">
+                <div style="color:darkgray; font-size: 16px; 
+                overflow: hidden; width: 90%;
+                text-overflow: ellipsis;
+                white-space: nowrap;">({{title.desc}})</div>
+              </el-col>
+            </el-row>
+
+          </el-main>
+        </el-container>
+      </el-tab-pane>
+      <el-tab-pane label="..." name='dontknow' disabled>
+        Nothing here
+      </el-tab-pane>
     </el-tabs>
   </el-container>
 
@@ -58,6 +81,7 @@
     },
     data() {
       return {
+        activeName: 'niche',
         iconClasses: ['icon-rate-face-1', 'icon-rate-face-2', 'icon-rate-face-3'],
         iconColors: ['#99A9BF', '#F7BA2A', '#FF9900']
       }
@@ -76,6 +100,13 @@
 
 
 <style scoped>
+  @import "../assets/fonts/style.css";
+
+  .icon-android {
+    font-size: 24px;
+    color: darkorchid;
+  }
+
   .el-tabs>>>.el-tabs__item {
     color: rgb(255, 255, 255);
     text-align: right;
@@ -99,7 +130,7 @@
   }
 
   .el-tabs {
-    padding-left: 4%;
+    padding-left: 3%;
     height: 100%;
   }
 
