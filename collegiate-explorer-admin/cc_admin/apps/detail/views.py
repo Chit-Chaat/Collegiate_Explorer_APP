@@ -510,7 +510,6 @@ def get_subject_info_data(request, id="asdasdasdsadas"):
             overall_rank = v
             break
 
-
     usn_rank = []
     for item in result2:
         usn_rank.append({'item': item.get('node_usn_rank.name', ''), 'ranking': int(item.get('p.rank', '0'))})
