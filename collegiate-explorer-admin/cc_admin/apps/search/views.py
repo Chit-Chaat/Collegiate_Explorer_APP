@@ -320,6 +320,45 @@ def init_filter_option(request):
 
     return JsonResponseResult().ok(data=data)
 
+def tag_query(tag_str):
+    connection = ConnectionPool()
+    data_objs = []
+    for school in tag_str:
+        result = connection.executeQuery(
+            "match (node_school {name: '" + school + "'})\
+            match (node_school)-[:AVG_ACT]->(node_avg_act) \
+            match (node_school)-[r:HAS_QS_RANK]->(node_qs_rank) \
+            match (node_school)-[:HAS_TUITION_OF]->(node_tuition)\
+            match (node_school)-[:HAS_SAT_MAX_OF]->(node_sat_max)\
+            match (node_school)-[:HAS_SAT_MIN_OF]->(node_sat_min)\
+            match (node_school)-[:ID]->(node_id)\
+            match (node_school)-[:IS_TYPE]->(node_school_type)\
+            match (node_school)-[:IN_REGION]->(node_region)\
+            match (node_school)-[:HAS_LOGO]->(node_logo)\
+            match (node_school)-[:HAS_CC_SCORE]->(node_cc_score)\
+            match (node_school)-[:HAS_ADDRESS]->(node_address)\
+            match (node_school)-[:HAS_STATE]->(node_state)\
+            match (node_school)-[:HAS_CITY]->(node_city)\
+            match (node_school)-[:HAS_ZIP]->(node_zip)\
+            match (node_school)-[:HAS_WEBSITE]->(node_web)\
+            match (node_school)-[:IS_TYPE]->(node_type)\
+            match (node_school)-[:ACCEPT_RATE]->(node_accept_rate)\
+            match (node_school)-[:HAS_STUDENT_FACULTY_RATIO_OF]->(node_s_f_ratio)\
+            match (node_school)-[:HAS_SETTING]->(node_school_setting)\
+            match (node_school)-[:HAS_SIZE]->(node_size)\
+            match (node_school)-[:HAS_TELEPHONE]->(node_telephone)\
+            return node_id.name, node_school.name, node_logo.name,\
+            node_cc_score.name, node_address.name, node_state.name,\
+            node_city.name, node_zip.name, node_tuition.name, node_web.name,\
+            node_type.name, node_accept_rate.name, node_sat_max.name,\
+            node_sat_min.name, node_telephone.name, node_qs_rank.name, \
+            node_s_f_ratio.name,node_school_setting.name, node_size.name,\
+            node_avg_act.name LIMIT 90\
+        ")
+        data_objs.append(result)
+    return data_objs
+   
+
 
 def search_by_tag(request, tag="tag_str"):
     """
@@ -349,6 +388,60 @@ def search_by_tag(request, tag="tag_str"):
      use JsonResponseResult().error(data=[], msg="explain your error", code="500") return
      """
     logger.info("revoked func search/views.py 'search_by_tag' func. tag -> " + tag)
+
+    ivy_league = ['Brown University', 'Columbia University', 'Cornell University', 'Darthmouth College',\
+                  'Harvard University', 'University of Pennsylvania', 'Princeton University', 'Yale University']
+    uc = ['University of California, Berkeley',  'University of California, Davis','University of California, Santa Cruz',\
+          'University of California, Santa Barbara','University of California, San Diego','University of California, Los Angeles',\
+          'University of California, Irvine','University of California, Merced', 'University of California, Riverside']
+    csu = ['California State University, Bakersfield',  'California State University, Fullerton','California State University, Northridge',\
+           'California State University, Long Beach','California State Polytechnic University, Ponoma',\
+           'California State University Channel Islands','California State University, Chico','California State University, Dominguez Hills',\
+           'California State University, East Bay','California State University, Fresno','California State University, Los Angeles',\
+           'California State University Maritime Academy','California State University, Monterey Bay',\
+           'California State University, San Bernardino','California State University, San Marcos','California State University, Stanislaus']
+
+    data_objs = []
+    if tag == 'Ivy League':
+        data_objs = tag_query(ivy_league)
+    if tag == 'University of California':
+        data_objs = tag_query(uc)
+    if tag == 'California State University':
+        data_objs = tag_query(csu)
+
+    data = []
+    for result in data_objs:
+        for school in result:
+            if school['node_accept_rate.name'] != 'N/A':
+                school['node_accept_rate.name'] = str(round(float(school['node_accept_rate.name']) * 100, 2)) + '%'
+ 
+            obj = {
+                'id': school['node_id.name'],
+                'name': school['node_school.name'],
+                'logo': extract_logo_name(school['node_logo.name']),
+                'desc': school['node_school.name'] + " is a " + school.get('node_type.name', 'private')
+                        + " research university in " + school.get('node_city.name', 'somewhere')
+                        + ". And its campus located in " + school.get('node_school_setting.name', 'unknown') + " area. "
+                        + "And its campus size is " + school.get('node_size.name', 'unknown') + ". "
+                        + "And its student-faculty-ratio is " + school.get('node_s_f_ratio.name', 'unknown') + " . ",
+                'rating': {
+                    'QS': format_qs_score(school.get('node_qs_rank.name', '')),
+                    'CC': min(int(float(school['node_cc_score.name']) / 400) + 1, 5)
+                },
+                'detail': 'detail/' + school['node_id.name'],
+                'address': school['node_address.name'] + ' ' +
+                           school['node_city.name'] + ' ' +
+                           school['node_state.name'] + ', ' +
+                           school['node_zip.name'],
+                'tuition': '$' + school['node_tuition.name'],
+                'school_type': school['node_type.name'].capitalize(),
+                'ACT': school['node_sat_min.name'] + '-' +
+                       school['node_sat_max.name'],
+                'acceptance_rate': school['node_accept_rate.name'],
+                'link': school['node_web.name']
+            }
+            data.append(obj)
+    '''
     data = [
         {
             'id': '6',
@@ -402,6 +495,7 @@ def search_by_tag(request, tag="tag_str"):
             'acceptance_rate': '7.88%'
         }
     ]
+    '''
     return JsonResponseResult().ok(data=data)
 
 

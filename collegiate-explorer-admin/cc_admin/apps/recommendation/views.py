@@ -175,11 +175,9 @@ def get_recommend_tags(request):
     """
     logger.info("revoked func 'get_recommend_tags'")
     data = [
-        {'name': 'USC', 'type': 'primary', 'link': ''},
-        {'name': 'Best CS in LA', 'type': 'success', 'link': ''},
-        {'name': 'xxxxxxxxxxx', 'type': 'info', 'link': ''},
-        {'name': 'Top 10 DS programs', 'type': 'warning', 'link': ''},
-        {'name': '#Don\'t go there', 'type': 'danger', 'link': ''}
+        {'name': 'Ivy League', 'type': 'primary', 'link': ''},
+        {'name': 'University of California', 'type': 'success', 'link': ''},
+        {'name': 'California State University', 'type': 'info', 'link': ''},
     ]
     return JsonResponseResult().ok(data=data)
 
