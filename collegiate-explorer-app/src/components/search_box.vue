@@ -28,7 +28,8 @@
         <div style="visibility: hidden;">dont delete me</div>
       </el-col>
       <el-col :span="15">
-        <Advanced_Search_Filter v-bind:style="{ display: show_or_not  }" @toggle="filterSearch"></Advanced_Search_Filter>
+        <Advanced_Search_Filter v-bind:style="{ display: show_or_not  }"
+         @toggleBasic="filterSearch" @toggleNiche='filterSearch'></Advanced_Search_Filter>
       </el-col>
     </el-row>
     <el-row id="recommend_search_tag" :gutter="10">
@@ -129,6 +130,7 @@
       filterSearch(tags){
         this.filter_content = tags
         this.advancedSearch()
+        this.toggleFilter()
       },
       getTagList() {
         axios({

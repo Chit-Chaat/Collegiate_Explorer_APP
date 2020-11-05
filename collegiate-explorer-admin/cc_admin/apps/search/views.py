@@ -74,6 +74,25 @@ def index(request):
                 'sat': [1500, 1600]
             }
             you can convert it into dict and do further process.
+
+            #TODO -> niche
+            when you use niche filter
+            you will receive this obj
+            {
+                "academic":4,
+                "dorms":3,
+                "food":2,
+                "location":1,
+                "safety":0,
+                "value":1
+            }
+            [0-4], all value will be int number
+            4 -> A+, A, A-,
+            3 -> B+, B, B-,
+            2 -> C+, C, C-,
+            1 -> D+, D, D-,
+            0 -> NG
+
     :return:
     """
     if request.method == "POST" and request.POST:
@@ -89,7 +108,6 @@ def index(request):
         else:
             # user used filter
             selected_tags = json.loads(filter_content)
-            print(selected_tags['area'])
 
     filter_content = eval(filter_content)
     connection = ConnectionPool()
