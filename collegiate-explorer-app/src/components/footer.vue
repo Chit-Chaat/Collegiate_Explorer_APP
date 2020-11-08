@@ -39,7 +39,7 @@
         </el-container>
       </el-col>
       <el-col :span="5">
-        <div class="title">CONTACT</div>
+        <div class="concat_title">CONTACT US</div>
         <el-row style="width: 100%; padding-right: 0px;">
           <el-col>
             <div class="grid-content team">Aaron Yang <span class="highlighted_val">UI/UX + BackEnd</span></div>
@@ -156,9 +156,18 @@
   .title {
     color: #FFF;
     font-weight: bold;
-    padding-left: 30%;
+    padding-left: 40%;
     font-size: 23px;
     padding-bottom: 10px;
+  }
+
+  .concat_title{
+    color: #FFF;
+    font-weight: bold;
+    padding-left: 60%;
+    font-size: 23px;
+    padding-bottom: 10px;
+    width: 100%;
   }
 
   .team_desc {

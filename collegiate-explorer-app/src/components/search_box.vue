@@ -88,6 +88,7 @@
           result => {
             if (result.data != null) {
               if (result.data.code == 200) {
+                this.$store.commit("updateTagTag", tag_name);
                 this.$store.commit("updateResultSolt", result.data.data);
               } else {
                 this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);

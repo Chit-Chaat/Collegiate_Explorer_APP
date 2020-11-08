@@ -12,9 +12,9 @@
       </div>
     </el-aside>
     <el-main class="main">
-      <svg :width='width' :height='height' @mousemove='listener($event)' style="padding-left: 0px;">
-        <a v-for='tag in tags' :key='tag.text' style="color: darkorange;" @click="handdleClickMajor(tag.text)">
-          <text :x='tag.x' :y='tag.y' :font-size='20 * (500/(500-tag.z))'
+      <svg :width='width' :height='height' @mousemove='listener($event)' style="padding-left: 0px; ">
+        <a v-for='tag in tags' :key='tag.text' style="color: #ff8c00; cursor:grab;" @click="handdleClickMajor(tag.text)">
+          <text :x='tag.x' :y='tag.y' :font-size='20 * (500/(500-tag.z))' class="float_tag"
             :fill-opacity='((400+tag.z)/600)'>{{tag.text}}</text>
         </a>
       </svg>
@@ -93,6 +93,7 @@
             if (result.data != null) {
               if (result.data.code == 200) {
                 this.$router.push('/index')
+                this.$store.commit("updateMajorTag", major_val);
                 this.$store.commit("updateResultSolt", result.data.data);
               } else {
                 this.$options.methods.sendAlert.bind(this)(result.data.msg);
@@ -209,5 +210,12 @@
     padding-bottom: 0px;
     padding-top: 0px;
     padding-left: 0px;
+  }
+
+  .float_tag{
+    font-weight: 500;
+    fill:darkorange;
+    font-size: 25px;
+    text-decoration: underline;
   }
 </style>

@@ -28,14 +28,19 @@
               ${{desc_obj.app_fee}} <span style="color: darkgray; font-size: 12px; font-weight: 400;">
                 /program</span></div>
           </el-col>
-          <el-col :span="3">
-            <div class="tuition_title">Tuition:</div>
+          
+          <el-col :span="10"> </el-col>
+        </el-row>
+  
+        <el-row :gutter="10" style="margin-bottom: 15px;">
+          <el-col :span="7">
+            <div class="acceptance_title">Basic Tuition: </div>
           </el-col>
-          <el-col :span="6" v-if="desc_obj.cost">
-            <div class="tuition_val">
+          <el-col :span="10">
+            <div class="salary_val"  v-if="desc_obj.cost">
               ${{desc_obj.cost.net_price}} <span class="hidden_val">/year </span></div>
           </el-col>
-
+          
           <el-col :span="7"></el-col>
         </el-row>
 
@@ -60,10 +65,10 @@
         </el-collapse-item>
         <el-collapse-item title="Statistics" name="3">
           <div class='text_item' v-if="desc_obj.stat" style="padding-left: 10px;">
-            Graduation Rate: <span class="tab_val"> {{desc_obj.stat.graduation_rate}}</span>
+            Graduation Rate: <span class="tab_val"> {{desc_obj.stat.graduation_rate}}</span> <span class="hidden_val">× 100% </span>
           </div>
           <div class='text_item' v-if="desc_obj.stat" style="padding-left: 10px;">
-            Freshman Retention: <span class="tab_val"> {{desc_obj.stat.freshman_retention}} </span>
+            Freshman Retention: <span class="tab_val"> {{desc_obj.stat.freshman_retention}} </span> <span class="hidden_val">× 100% </span>
           </div>
         </el-collapse-item>
         <el-collapse-item title="Salary" name="4">

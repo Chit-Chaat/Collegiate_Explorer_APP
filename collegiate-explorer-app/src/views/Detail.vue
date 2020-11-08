@@ -38,8 +38,8 @@
     <el-divider></el-divider>
     <PopularMajorPanel></PopularMajorPanel>
 
-    <el-divider></el-divider>
-    <SimilarSchoolPanel :similar_school_obj="similar_school_info"></SimilarSchoolPanel>
+    <!-- <el-divider></el-divider>
+    <SimilarSchoolPanel :similar_school_obj="similar_school_info"></SimilarSchoolPanel> -->
 
     <el-divider></el-divider>
     <el-footer>
@@ -116,8 +116,13 @@
     },
     mounted() {
       this.head_imgs = ['/usc/1.png', '/usc/2.png', '/usc/3.png']
+      this.clearMajorAndTag()
     },
     methods: {
+      clearMajorAndTag(){
+        this.$store.commit("updateMajorTag", "");
+        this.$store.commit("updateTagTag", "");
+      },
       getBasicInfo() {
         axios({
           method: "GET",
