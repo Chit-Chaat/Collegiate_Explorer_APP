@@ -113,6 +113,11 @@
     color: darkorange;
   }
 
+  .el-tabs>>>.el-tabs__item.is-disabled {
+    color: white;
+    cursor: context-menu;
+  }
+
   .el-tabs>>>.el-tabs__active-bar {
     top: 20px;
     background-color: darkorange;

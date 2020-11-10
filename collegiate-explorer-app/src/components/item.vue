@@ -59,6 +59,12 @@
                 class="num_info_val"> {{item.acceptance_rate}}</span></div>
           </el-col>
         </el-row>
+        <el-row>
+          <el-col :sm="24" :lg="24">
+            <el-tag type="warning" v-if="this.$store.state.major_now">{{this.$store.state.major_now}}</el-tag>
+            <el-tag v-if="this.$store.state.tag_now">{{this.$store.state.tag_now}}</el-tag>
+          </el-col>  
+        </el-row>
       </div>
     </el-card>
   </div>

@@ -24,14 +24,18 @@ axios.defaults.baseURL = Vue.prototype.$hostname
 const store = new Vuex.Store({
   state:{
     results: [],
-    title_now:"",
+    major_now:"",
+    tag_now: "",
   },
   mutations:{
     updateResultSolt(state, new_val){
       state.results = new_val
     },
-    updateTitle(state, new_val){
-      state.title_now = new_val
+    updateMajorTag(state, new_val){
+      state.major_now = new_val
+    },
+    updateTagTag(state, new_val){
+      state.tag_now = new_val
     }
   }
 })
