@@ -1,10 +1,9 @@
 import json
 import re
-
+from sklearn.neighbors import NearestNeighbors
 from JsonResponseResult import JsonResponseResult
 from Neo4jConnectionPool import ConnectionPool
 import logging
-
 logger = logging.getLogger('django')
 
 """
@@ -110,12 +109,83 @@ def index(request):
             selected_tags = json.loads(filter_content)
 
     filter_content = eval(filter_content)
+
+    if 'academic' in filter_content:
+        universities = get_cluster_schools(filter_content)
+        connection = ConnectionPool()
+        data = []
+        for uni in universities:
+            result = connection.executeQuery("\
+                match (node_school {name: '" + uni.strip() + "'})\
+                match (node_school)-[:AVG_ACT]->(node_avg_act) \
+                match (node_school)-[:HAS_TUITION_OF]->(node_tuition)\
+                match (node_school)-[:HAS_SAT_MAX_OF]->(node_sat_max)\
+                match (node_school)-[:HAS_SAT_MIN_OF]->(node_sat_min)\
+                match (node_school)-[r:HAS_QS_RANK]->(node_qs_rank)\
+                match (node_school)-[:ID]->(node_id)\
+                match (node_school)-[:HAS_LOGO]->(node_logo)\
+                match (node_school)-[:HAS_CC_SCORE]->(node_cc_score)\
+                match (node_school)-[:HAS_ADDRESS]->(node_address)\
+                match (node_school)-[:HAS_STATE]->(node_state)\
+                match (node_school)-[:HAS_CITY]->(node_city)\
+                match (node_school)-[:HAS_ZIP]->(node_zip)\
+                match (node_school)-[:HAS_WEBSITE]->(node_web)\
+                match (node_school)-[:IS_TYPE]->(node_type)\
+                match (node_school)-[:ACCEPT_RATE]->(node_accept_rate)\
+                match (node_school)-[:HAS_TELEPHONE]->(node_telephone)\
+                match (node_school)-[:HAS_STUDENT_FACULTY_RATIO_OF]->(node_s_f_ratio)\
+                match (node_school)-[:HAS_SETTING]->(node_school_setting)\
+                match (node_school)-[:HAS_SIZE]->(node_size)\
+                return node_id.name, node_school.name, node_logo.name,\
+                node_cc_score.name, node_address.name, node_state.name,\
+                node_city.name, node_zip.name, node_tuition.name, node_web.name,\
+                node_type.name, node_accept_rate.name, node_sat_max.name,\
+                node_sat_min.name, node_telephone.name,  node_qs_rank.name,\
+                node_s_f_ratio.name,node_school_setting.name, node_size.name,\
+                node_avg_act.name LIMIT 90\
+            ")
+            for school in result:
+                if school['node_accept_rate.name'] != 'N/A':
+                    school['node_accept_rate.name'] = str(round(float(school['node_accept_rate.name']) * 100, 2)) + '%'
+
+                obj = {
+                    'id': school['node_id.name'],
+                    'name': school['node_school.name'],
+                    'logo': extract_logo_name(school['node_logo.name']),
+                    'desc': school['node_school.name'] + " is a " + school.get('node_type.name', 'private')
+                            + " research university in " + school.get('node_city.name', 'somewhere')
+                            + ". And its campus located in " + school.get('node_school_setting.name', 'unknown') + " area. "
+                            + "And its campus size is " + school.get('node_size.name', 'unknown') + ". "
+                            + "And its student-faculty-ratio is " + school.get('node_s_f_ratio.name', 'unknown') + " . ",
+                    'rating': {
+                        'QS': format_qs_score(school.get('node_qs_rank.name', '')),
+                        'CC': min(int(float(school['node_cc_score.name']) / 400) + 1, 5)
+                    },
+                    'detail': 'detail/' + school.get('node_id.name', ''),
+                    'address': school.get('node_address.name', '') + ' ' +
+                               school.get('node_city.name', '') + ' ' +
+                               school.get('node_state.name', '') + ', ' +
+                               school.get('node_zip.name', ''),
+                    'tuition': '$' + school.get('node_tuition.name', ''),
+                    'school_type': school.get('node_type.name', '').capitalize(),
+                    'ACT': school.get('node_sat_min.name', '') + '-' +
+                           school.get('node_sat_max.name', ''),
+                    'acceptance_rate': school.get('node_accept_rate.name', ''),
+                    'link': school.get('node_web.name', '')
+                }
+                data.append(obj)
+                print(obj)
+
+        return JsonResponseResult().ok(data=data)
+
+        
+
+
     connection = ConnectionPool()
 
     if input_content != '':
         uni = []
         for item in input_content.split():
-            print(item)
             if len(item) > 3:
                 uni.append(item.capitalize())
             else:
@@ -459,61 +529,6 @@ def search_by_tag(request, tag="tag_str"):
                 'link': school['node_web.name']
             }
             data.append(obj)
-    '''
-    data = [
-        {
-            'id': '6',
-            'name': 'University of DDDDDD2',
-            'logo': 'school_logo.jpg',
-            'desc': 'this is dessc this isthis is desc this isthis is desc this isthis is desc this is',
-            'rating': {
-                'QS': 5,
-                'CC': 3
-            },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
-        },
-        {
-            'id': '7',
-            'name': 'University of EEEEE',
-            'logo': 'school_logo2.jpg',
-            'desc': 't is desc this isthis is desc this isthis is desc this is',
-            'rating': {
-                'QS': 2,
-                'CC': 3
-            },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
-        },
-        {
-            'id': '9',
-            'name': 'University of FFFFF',
-            'logo': 'school_logo.jpg',
-            'desc': 'this is desc isthis is des desc this isthis is desc this isthis is desc this isthi is desc this is',
-            'rating': {
-                'QS': 4,
-                'CC': 3
-            },
-            'review': '3453',
-            'detail': 'detail/school_id',
-            'address': '1420 22nd W St, Los Angeles, CA, 90007',
-            'tuition': '$17,234',
-            'school_type': 'Private School',
-            'ACT': '1500-1570',
-            'acceptance_rate': '7.88%'
-        }
-    ]
-    '''
     return JsonResponseResult().ok(data=data)
 
 
@@ -660,3 +675,54 @@ def format_qs_score(score_str):
         if score > 5 or score < 1:
             return 3
     return score
+
+def get_cluster_schools(rating):
+    f = open('./college_explorer_n_ext.csv', 'r')
+    next(f)
+    grade = {'A+': 4.0, 'A': 4.0, 'A-': 3.7, 'B+': 3.3, 'B': 3.0, 'B-': 2.7, 'C+': 2.3,\
+             'C': 2.0, 'C-': 1.7, 'D+': 1.3, 'D': 1.0, 'D-': 0.7, 'F': 0.0, 'NG': 0.0}
+
+    knn_dict = {}
+    data = []
+    for line in f.readlines():
+        line = line.strip().split(',')
+
+        if len(data) == 5:
+            uni = line[1]
+
+        if len(data) == 6:
+            knn_dict[uni] = data
+            data = []
+
+        if line[-2] == 'Academics':
+            data.insert(0, grade[line[-1]])
+        if line[-2] == 'Dorms':
+            data.insert(1, grade[line[-1]])
+        if line[-2] == 'Campus Food':
+            data.insert(2, grade[line[-1]])
+        if line[-2] == 'Location':
+            data.insert(3, grade[line[-1]])
+        if line[-2] == 'Safety':
+            data.insert(4, grade[line[-1]])
+        if line[-2] == 'Value':
+            data.insert(5, grade[line[-1]])
+
+    samples = []
+    school_dict = {}
+    for k, v in knn_dict.items():
+       samples.append(v)
+       school_dict[len(school_dict)] = k
+
+    neigh = NearestNeighbors(n_neighbors=3, radius=0.4)
+    neigh.fit(samples)
+    similar_schools = neigh.kneighbors([[rating.get('academic', ''),rating.get('dorms', ''),\
+                                         rating.get('food', ''),\
+                                         rating.get('location', ''),\
+                                         rating.get('safety', ''),\
+                                         rating.get('value', '')]], n_neighbors=20, return_distance=False)
+
+    schools = []
+    for school in similar_schools[0]:
+        schools.append(school_dict[school])
+
+    return schools
