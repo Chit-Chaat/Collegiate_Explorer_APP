@@ -26,7 +26,7 @@
                 <span style="color: rgb(255, 255, 255); font-size: 18px;">{{item.label}}</span>
               </el-col>
             </el-row>
-            <div style="float:right; position: static; top: -70px; left: -150px;">
+            <div style="float:right; position: static; margin-top: -80px;">
               <span style="color: rgb(255, 255, 255); font-size: 18px;">Over all Ranking : </span>
               <span class="highlight_val">{{sub_info_obj.over_all_ranking}}</span>
             </div>
@@ -47,7 +47,7 @@
               <el-col :span="2">
                 <span style="padding-left: 10px; font-size: 18px; color: darkgray;">in</span>
               </el-col>
-              <el-col :span="12">
+              <el-col :span="19">
                 <span style="color: rgb(255, 255, 255); font-size: 18px;">{{title.item}}</span>
               </el-col>
             </el-row>
@@ -143,11 +143,14 @@
 
   .niche-panel {
     width: 710px;
-    height: 100%;
+    height: 255px;
     padding-top: 0px;
     padding-bottom: 0px;
   }
 
+  .niche-panel::-webkit-scrollbar {
+    width: 0;
+  }
 
   .highlight_val {
     color: #ff8c00;

@@ -13,7 +13,7 @@
     </el-aside>
     <el-main class="main">
       <svg :width='width' :height='height' @mousemove='listener($event)' style="padding-left: 0px; ">
-        <a v-for='tag in tags' :key='tag.text' style="color: #ff8c00; cursor:grab;" @click="handdleClickMajor(tag.text)">
+        <a v-for='tag in tags' :key='tag.text' style="color: #ff8c00; cursor:pointer;" @click="handdleClickMajor(tag.text)">
           <text :x='tag.x' :y='tag.y' :font-size='20 * (500/(500-tag.z))' class="float_tag"
             :fill-opacity='((400+tag.z)/600)'>{{tag.text}}</text>
         </a>
