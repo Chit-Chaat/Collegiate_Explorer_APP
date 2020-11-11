@@ -680,7 +680,7 @@ def get_cluster_schools(rating):
     f = open('./college_explorer_n_ext.csv', 'r')
     next(f)
     grade = {'A+': 4.0, 'A': 4.0, 'A-': 3.7, 'B+': 3.3, 'B': 3.0, 'B-': 2.7, 'C+': 2.3,\
-             'C': 2.0, 'C-': 1.7, 'D+': 1.3, 'D': 1.0, 'D-': 0.7, 'F': 0.0, 'NG': 0.0}
+             'C': 2.0, 'C-': 1.7, 'D+': 1.3, 'D': 1.0, 'D-': 0.7, 'F': 0.0, 'NG': 2.5}
 
     knn_dict = {}
     data = []
@@ -713,13 +713,14 @@ def get_cluster_schools(rating):
        samples.append(v)
        school_dict[len(school_dict)] = k
 
-    neigh = NearestNeighbors(n_neighbors=3, radius=0.4)
+    neigh = NearestNeighbors(n_neighbors=7, algorithm='ball_tree', radius=0.4)
     neigh.fit(samples)
-    similar_schools = neigh.kneighbors([[rating.get('academic', ''),rating.get('dorms', ''),\
+    similar_schools = neigh.kneighbors([[rating.get('academic', ''),
+                                         rating.get('dorms', ''),\
                                          rating.get('food', ''),\
                                          rating.get('location', ''),\
                                          rating.get('safety', ''),\
-                                         rating.get('value', '')]], n_neighbors=20, return_distance=False)
+                                         rating.get('value', '')]], n_neighbors=18, return_distance=False)
 
     schools = []
     for school in similar_schools[0]:
