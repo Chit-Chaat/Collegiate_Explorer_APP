@@ -491,8 +491,8 @@ def get_subject_info_data(request, id="asdasdasdsadas"):
         match(node_school)-[p:HAS_RANK]->(node_usn_rank)\
         return node_school.name, node_usn_rank.name, p.rank"
     )
-    grade = {'A+': 4.0, 'A': 4.0, 'A-': 3.7, 'B+': 3.3, 'B': 3.0, 'B-': 2.7, 'C+': 2.3,\
-             'C': 2.0, 'C-': 1.7, 'D+': 1.3, 'D': 1.0, 'D-': 0.7, 'F': 0.0, 'NG': 0.0}
+    grade = {'A+': 5.0, 'A': 5.0, 'A-': 4.7, 'B+': 4.3, 'B': 4.0, 'B-': 3.7, 'C+': 3.3, \
+             'C': 3.0, 'C-': 2.7, 'D+': 2.3, 'D': 2.0, 'D-': 1.7, 'F': 1.0, 'NG': 3.5}
 
     inv_grade = {v: k for k, v in grade.items()}
     niche = []
@@ -500,7 +500,8 @@ def get_subject_info_data(request, id="asdasdasdsadas"):
     for item in result:
         overall_grade += grade.get(item.get('p.grade', ''), '')
         if item.get('node_n_grade.name', '') in ['Academics', 'Athletics', 'Student Life', 'Party Scene', 'Safety']:
-            niche.append({'item': item.get('node_n_grade.name', ''), 'score': grade.get(item.get('p.grade', ''), ''), 'label': item.get('p.grade', '')})
+            niche.append({'item': item.get('node_n_grade.name', ''), 'score': grade.get(item.get('p.grade', ''), ''),
+                          'label': item.get('p.grade', '')})
 
     overall_grade /= 12
     overall_rank = ""
@@ -602,4 +603,54 @@ def get_similar_school_data(request, id='asdas31asdada'):
          'rating': {'Niche': 5, 'CC': 3, }}
 
     ]
+    return JsonResponseResult().ok(data=data)
+
+
+def get_sentimental_tags(request, id=""):
+    logger.info("func 'get_sentimental_tags' get a param id -> " + id)
+    data = {
+        "positive_info": {
+            "data": [{"name": "helpful", "value": 16}, {"name": "good", "value": 15}, {"name": "nice", "value": 11},
+                     {"name": "great", "value": 10}, {"name": "diverse", "value": 8}, {"name": "easy", "value": 8},
+                     {"name": "amazing", "value": 8}, {"name": "first year", "value": 7}, {"name": "more", "value": 6},
+                     {"name": "great school", "value": 6}, {"name": "able", "value": 5},
+                     {"name": "make sure", "value": 5},
+                     {"name": "convenient", "value": 5}, {"name": "friendly", "value": 5}, {"name": "most", "value": 5},
+                     {"name": "other", "value": 4}, {"name": "great professor", "value": 4},
+                     {"name": "knowledgeable", "value": 4}, {"name": "supportive", "value": 4},
+                     {"name": "affordable", "value": 4}, {"name": "fun", "value": 4}, {"name": "much", "value": 4},
+                     {"name": "feel safe", "value": 4}, {"name": "sure", "value": 3},
+                     {"name": "online course", "value": 3},
+                     {"name": "first semester", "value": 3}, {"name": "different", "value": 3},
+                     {"name": "diverse campus", "value": 3}, {"name": "other university", "value": 3},
+                     {"name": "great opportunity", "value": 3}, {"name": "passionate", "value": 3},
+                     {"name": "willing", "value": 3}, {"name": "only thing", "value": 3},
+                     {"name": "overall", "value": 3},
+                     {"name": "great experience", "value": 3}, {"name": "nervous", "value": 3},
+                     {"name": "beautiful campus", "value": 3}, {"name": "welcoming", "value": 3},
+                     {"name": "good experience", "value": 3}, {"name": "grateful", "value": 2}],
+            "people": {"alum": "5.8%", "other": "10.0%", "senior": "16.7%", "junior": "16.7%", "sophomore": "25.0%",
+                       "freshman": "25.8%"}, "percent": "50.0%", "total": "120"},
+        "negative_info": {
+            "data": [{"name": "expensive", "value": 9}, {"name": "good", "value": 6}, {"name": "terrible", "value": 5},
+                     {"name": "bad", "value": 5}, {"name": "greek life", "value": 4},
+                     {"name": "financial aid", "value": 4},
+                     {"name": "great", "value": 4}, {"name": "little", "value": 4}, {"name": "okay", "value": 4},
+                     {"name": "good luck", "value": 4}, {"name": "horrible", "value": 3},
+                     {"name": "boring", "value": 3},
+                     {"name": "social life", "value": 3}, {"name": "bad part", "value": 3},
+                     {"name": "cold", "value": 3},
+                     {"name": "nice", "value": 3}, {"name": "free", "value": 3}, {"name": "fun", "value": 3},
+                     {"name": "amazing", "value": 3}, {"name": "much", "value": 3}, {"name": "many", "value": 3},
+                     {"name": "difficult", "value": 3}, {"name": "available", "value": 3}, {"name": "hard", "value": 3},
+                     {"name": "motivated", "value": 2}, {"name": "helpful", "value": 2}, {"name": "high", "value": 2},
+                     {"name": "willing", "value": 2}, {"name": "many people", "value": 2},
+                     {"name": "convenient", "value": 2}, {"name": "own fun", "value": 2},
+                     {"name": "next semester", "value": 2}, {"name": "sunny", "value": 2},
+                     {"name": "many option", "value": 2}, {"name": "low", "value": 2},
+                     {"name": "interesting", "value": 2},
+                     {"name": "right", "value": 2}, {"name": "Most", "value": 2}, {"name": "well", "value": 2},
+                     {"name": "few", "value": 2}],
+            "people": {"other": "2.5%", "alum": "10.0%", "senior": "18.3%", "junior": "20.0%", "sophomore": "24.2%",
+                       "freshman": "25.0%"}, "percent": "50.0%", "total": "120"}}
     return JsonResponseResult().ok(data=data)

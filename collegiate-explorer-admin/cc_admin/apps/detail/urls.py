@@ -14,4 +14,5 @@ urlpatterns = [
     path('similar/<str:id>', views.get_similar_school_data),
     path('fame/<str:id>', views.get_fame_property),
     path('subjective/<str:id>', views.get_subject_info_data),
+    path('sentimental/<str:id>', views.get_sentimental_tags),
 ]
