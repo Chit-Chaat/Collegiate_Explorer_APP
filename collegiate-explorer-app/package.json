@@ -21,6 +21,7 @@
     "vue-g2": "^2.0.13",
     "vue-router": "^3.4.7",
     "vue-static-map": "^3.0.2",
+    "vuewordcloud": "^18.7.12",
     "vuex": "^3.5.1"
   },
   "browserslist": [

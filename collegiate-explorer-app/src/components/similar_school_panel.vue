@@ -7,17 +7,17 @@
           <ul class="cont" ref="cont">
             <li class="cont-item" v-for="item of similar_school_obj" :key="item.id">
               <div class="cont-img">
-                <div class="img"><img :src="require('../assets/images/logo/school_logo.jpg')" width="30px"></div>
-                <div class="cont-title"><a :href="item.link">{{item.name}}</a></div>
+                <div class="img"><img :src="require('../assets/images/logo/' + item.logo)" width="30px"></div>
+                <div class="cont-title"><a :href="item.link" target="_blank">{{item.name}}</a></div>
               </div>
               <el-divider class="divider"></el-divider>
               <div class="cont-desc">
                 <el-row>
                   <el-col :sm="20" :lg="15">
-                    <div class="ratingNiche"><img :src="require('../assets/images/niche-logo.png')" width="20px"> Niche:
-                      <el-rate v-model="item.rating.Niche" :icon-classes="iconClasses" void-icon-class="el-icon-medal"
-                        :colors="iconColors" style="display: inline; pointer-events: none; cursor: default;">
-                      </el-rate> {{item.rating.Niche}} / 5
+                    <div class="ratingNiche"><img :src="require('../assets/images/qs_logo.png')" width="20px"> Q S: 
+                      <el-rate v-model="item.rating.QS" :icon-classes="iconClasses" void-icon-class="el-icon-medal"
+                        :colors="iconColors" style="padding-left:12px; display: inline; pointer-events: none; cursor: default;">
+                      </el-rate> {{item.rating.QS}} / 5
                     </div>
                   </el-col>
                   <el-col :sm="16" :lg="15">
@@ -34,12 +34,7 @@
                 </el-row>
                 <el-row>
                   <el-col :sm="14" :lg="15">
-                    <div style="padding-left: 14px; padding-top: 5px;"> Similarity Score:  <div class="highlighted_val">{{item.similarity}} </div></div>
-                  </el-col>
-                  <el-col :sm="10" :lg="9">
-                    <el-button class="go_detail_btn" size="medium" type="text"
-                    @click="$router.push({ name: 'Detail', params: { schoolId: item.id }})">
-                    <i class="el-icon-bottom-right"></i></el-button>
+                    <div style="padding-left: 14px; padding-top: 5px;"> Required Score:  <span class="highlighted_val"> {{item.ACT}}</span></div>
                   </el-col>
                 </el-row>
               </div>
@@ -58,7 +53,7 @@
     props: {
       similar_school_obj: {
         type: Object|Array,
-        required: true,
+        required: false,
       },
 
     },
@@ -66,7 +61,7 @@
 
     },
     mounted() {
-
+    
     },
     data() {
       return {
@@ -76,9 +71,9 @@
     },
     methods: {
       verScroll() {
-        var temp_obj = JSON.parse(JSON.stringify(this.similar_school_obj))
+        var temp_obj = this.similar_school_obj
         let width = 0
-        if (null === temp_obj || temp_obj.length == 0){
+        if (null === temp_obj || typeof temp_obj == 'undefined' || temp_obj.length == 0){
           width = 2100
         }else{
           width = this.similar_school_obj.length * 300
@@ -166,17 +161,26 @@
     display: inline-block;
     font-size: 16px;
     margin-left: 5px;
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 0px;
+    text-align: left;
+    vertical-align: middle;
   }
 
   .recommand-wrap .cont .cont-item .cont-img .img {
     display: inline-block;
     vertical-align: middle;
+
   }
 
   .recommand-wrap .cont .cont-item .cont-desc {
     padding: 1% 2%;
     text-align: left;
     height: 63%;
+    
   }
 
   .ratingNiche {
@@ -188,12 +192,16 @@
   }
 
   .highlighted_val {
+    width: 60%;
     line-height: 20px;
     color: darkorange;
     font-size: 16px;
-    font-weight: 600;
-    display: inline;
+    font-weight: 500;
+
     padding-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .go_detail_btn {

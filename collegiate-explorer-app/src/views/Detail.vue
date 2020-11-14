@@ -36,10 +36,13 @@
     <SubInfoPanel :sub_info_obj="subject_info"></SubInfoPanel>
 
     <el-divider></el-divider>
+    <SentimentalAna :sentimental_tags_obj="sentimental_tags"></SentimentalAna>
+
+    <el-divider></el-divider>
     <PopularMajorPanel></PopularMajorPanel>
 
-    <!-- <el-divider></el-divider>
-    <SimilarSchoolPanel :similar_school_obj="similar_school_info"></SimilarSchoolPanel> -->
+    <el-divider></el-divider>
+    <SimilarSchoolPanel :similar_school_obj="similar_school_info"></SimilarSchoolPanel>
 
     <el-divider></el-divider>
     <el-footer>
@@ -60,6 +63,7 @@
   import FamePanel from "../components/fame_panel.vue"
   import StaticMap from 'vue-static-map';
   import SubInfoPanel from '../components/sub_info_panel.vue'
+  import SentimentalAna from '../components/sentimental_ana.vue'
   export default {
     components: {
       Header,
@@ -72,6 +76,7 @@
       FamePanel,
       StaticMap,
       SubInfoPanel,
+      SentimentalAna,
     },
     props: {
       schoolId: {
@@ -87,12 +92,14 @@
         similarSchoolApiPrefix: "/detail/similar/",
         fameInfoApiPrefix: "/detail/fame/",
         subjectInfoPrefix: "/detail/subjective/",
+        sentimentalTagApiPrefix: "/detail/sentimental/",
         head_imgs: [],
         title_info: {},
         desc_info: {},
         score_info: {},
         popular_major_info: {},
         similar_school_info: [],
+        sentimental_tags: {},
         fame_info: {},
         apiKey: 'AIzaSyBe0n3z7qndMX9owX_5rySTLivp7ZSMYvA',
         // apiKey: '',
@@ -110,9 +117,10 @@
       this.getLocationData()
       this.getBasicInfo()
       this.getScoreData()
-      this.getSimilarSchoolList()
       this.getFameInfo()
       this.getSubjectInfo()
+      this.getSimilarSchoolList()
+      this.getSentimentalTags()
     },
     mounted() {
       this.head_imgs = ['/usc/1.png', '/usc/2.png', '/usc/3.png']
@@ -187,6 +195,27 @@
           }
         );
       },
+      getSentimentalTags(){
+        axios({
+          method: "GET",
+          url: this.$hostname + this.sentimentalTagApiPrefix + this.$route.params.schoolId
+        }).then(
+          result => {
+            if (result.data != null) {
+              if (result.data.code == 200) {
+                this.sentimental_tags = result.data.data;
+              } else {
+                this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
+              }
+            }
+          },
+          error => {
+            this.$options.methods.sendErrorMsg.bind(this)(
+              "Something wrong with the fame info."
+            );
+          }
+        );
+      },
       getLocationData() {
         axios({
           method: "GET",
@@ -232,26 +261,7 @@
         );
       },
       getSimilarSchoolList() {
-        axios({
-          method: "GET",
-          url: this.$hostname + this.similarSchoolApiPrefix + this.$route.params.schoolId
-        }).then(
-          result => {
-            if (result.data != null) {
-              if (result.data.code == 200) {
-                this.similar_school_info = result.data.data;
-              } else {
-                this.$options.methods.sendErrorMsg.bind(this)(result.data.msg);
-              }
-            }
-
-          },
-          error => {
-            this.$options.methods.sendErrorMsg.bind(this)(
-              "Something wrong with the similar school list."
-            );
-          }
-        );
+        this.similar_school_info = this.$store.state.results;
       },
       sendTips(msg) {
         const h = this.$createElement;
