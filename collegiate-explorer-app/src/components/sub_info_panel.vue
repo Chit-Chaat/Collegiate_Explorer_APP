@@ -26,7 +26,7 @@
                 <span style="color: rgb(255, 255, 255); font-size: 18px;">{{item.label}}</span>
               </el-col>
             </el-row>
-            <div style="float:right; position: static; margin-top: -80px;">
+            <div style="float:right; position: static; margin-top: -80px;margin-right: 50px;">
               <span style="color: rgb(255, 255, 255); font-size: 18px;">Over all Ranking : </span>
               <span class="highlight_val">{{sub_info_obj.over_all_ranking}}</span>
             </div>

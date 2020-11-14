@@ -36,10 +36,10 @@
     <SubInfoPanel :sub_info_obj="subject_info"></SubInfoPanel>
 
     <el-divider></el-divider>
-    <SentimentalAna :sentimental_tags_obj="sentimental_tags"></SentimentalAna>
+    <PopularMajorPanel></PopularMajorPanel>
 
     <el-divider></el-divider>
-    <PopularMajorPanel></PopularMajorPanel>
+    <SentimentalAna :sentimental_tags_obj="sentimental_tags"></SentimentalAna>
 
     <el-divider></el-divider>
     <SimilarSchoolPanel :similar_school_obj="similar_school_info"></SimilarSchoolPanel>

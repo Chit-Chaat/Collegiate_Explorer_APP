@@ -76,7 +76,7 @@
             Employment Rate: <span class="tab_val"> {{desc_obj.stat.employment_rate}} </span>
           </div>
           <div class='text_item' v-if="desc_obj.stat" style="padding-left: 10px;">
-            Median Of Salary: <span class="tab_val"> {{desc_obj.stat.median_salary}} </span> <span class="hidden_val">/ year (after 6 years)</span>
+            Median Of Salary: <span class="tab_val"> ${{desc_obj.stat.median_salary}} </span> <span class="hidden_val">/ year (after 6 years)</span>
           </div>
         </el-collapse-item>
       </el-collapse>

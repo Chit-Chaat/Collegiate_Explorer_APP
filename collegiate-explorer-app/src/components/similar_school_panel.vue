@@ -34,7 +34,7 @@
                 </el-row>
                 <el-row>
                   <el-col :sm="14" :lg="15">
-                    <div style="padding-left: 14px; padding-top: 5px;"> Required Score:  <span class="highlighted_val"> {{item.ACT}}</span></div>
+                    <div style="padding-left: 14px; padding-top: 5px;"> Required Score:  ACT：<span class="highlighted_val">{{item.ACT}}</span></div>
                   </el-col>
                 </el-row>
               </div>
@@ -147,6 +147,7 @@
     height: 9rem;
     margin: 0 0.2rem;
     background-color: #FFF;
+    cursor: grab;
   }
 
   .recommand-wrap .cont .cont-item .cont-img {
