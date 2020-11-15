@@ -614,7 +614,6 @@ def get_sentimental_tags(request, id=""):
     if not review_tags:
         with open("./niche_reviews_result.json", 'r', encoding='utf-8') as file:
             review_tags = json.load(file)
-            print("load first")
 
     default_data = {
         "positive_info": {
