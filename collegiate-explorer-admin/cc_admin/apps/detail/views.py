@@ -1,10 +1,12 @@
+import json
 import logging
+import os
 
 from JsonResponseResult import JsonResponseResult
 from Neo4jConnectionPool import ConnectionPool
 
 logger = logging.getLogger('django')
-
+review_tags = None
 """
 normally, u just initialize a JsonResponseResult obj and dot ok(). 
 and send back to the data you queried
@@ -607,8 +609,14 @@ def get_similar_school_data(request, id='asdas31asdada'):
 
 
 def get_sentimental_tags(request, id=""):
+    global review_tags
     logger.info("func 'get_sentimental_tags' get a param id -> " + id)
-    data = {
+    if not review_tags:
+        with open("./niche_reviews_result.json", 'r', encoding='utf-8') as file:
+            review_tags = json.load(file)
+            print("load first")
+
+    default_data = {
         "positive_info": {
             "data": [{"name": "helpful", "value": 16}, {"name": "good", "value": 15}, {"name": "nice", "value": 11},
                      {"name": "great", "value": 10}, {"name": "diverse", "value": 8}, {"name": "easy", "value": 8},
@@ -653,4 +661,5 @@ def get_sentimental_tags(request, id=""):
                      {"name": "few", "value": 2}],
             "people": {"other": "2.5%", "alum": "10.0%", "senior": "18.3%", "junior": "20.0%", "sophomore": "24.2%",
                        "freshman": "25.0%"}, "percent": "50.0%", "total": "120"}}
-    return JsonResponseResult().ok(data=data)
+    result = review_tags.get(id, default_data)
+    return JsonResponseResult().ok(data=result)
