@@ -403,7 +403,7 @@ def init_filter_option(request):
             'Criminal Justice and Safety Studies',
             'Human Services',
             'Sociology'],
-        "tuitions": ['>= $5k', '>= $10k', '>= $15k']
+        "tuitions": ['<= $5k', '<= $10k', '<= $15k']
     }
 
     return JsonResponseResult().ok(data=data)

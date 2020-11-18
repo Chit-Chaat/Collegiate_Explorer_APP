@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="location"><i class="el-icon-map-location"></i>{{item.address}} </div>
-      <div class="phone_and_review"><i class="el-icon-phone-outline"></i> {{item.telephone}} | <i class="el-icon-thumb"></i> <el-link :href="item.link">{{item.link}}</el-link></div>
+      <div class="phone_and_review"><i class="el-icon-phone-outline"></i> {{item.telephone}} | <i class="el-icon-thumb"></i> <el-link :href="item.link" target="_blank">{{item.link}}</el-link></div>
       <div class="desc">{{item.desc}}</div>
       <el-divider content-position="right">Facts</el-divider>
       <div class="other">

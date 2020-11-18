@@ -10,7 +10,7 @@
             <el-select v-model="search_type" slot="prepend" placeholder="SEARCH TYPE" style="width: 140px;">
               <el-option label="PRIVATE" value="private"></el-option>
               <el-option label="PUBLIC" value="public"></el-option>
-              <el-option label="PROGRAMS" value="public"></el-option>
+              <el-option label="PROGRAMS" value="programs"></el-option>
               <el-option label="OTHER" value="other"></el-option>
             </el-select>
             <el-button slot="append" icon="el-icon-search" @click="advancedSearch">Search</el-button>

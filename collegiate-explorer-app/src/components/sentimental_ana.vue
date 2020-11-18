@@ -34,9 +34,9 @@
           <div class='negative' :style="{width: sentimental_tags_obj.negative_info.percent}">
             <span
               style="float: right; font-size: 30px; color: rgba(255, 255, 255, 0.7); padding-top: 10px; padding-right: 10px;">
-              <span
+              <!-- <span
                 style="font-size: 20px; color: rgba(255, 255, 255, 0.3); ">[{{sentimental_tags_obj.negative_info.total}}
-                reviews]</span>
+                reviews]</span> -->
               {{sentimental_tags_obj.negative_info.percent}}
             </span>
           </div>
@@ -96,6 +96,7 @@
     padding-left: 4%;
     font-size: 25px;
     float: left;
+    width: 280px;
   }
 
   .tag {

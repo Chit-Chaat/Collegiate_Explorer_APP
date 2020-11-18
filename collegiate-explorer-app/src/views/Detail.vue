@@ -41,8 +41,8 @@
     <el-divider></el-divider>
     <SentimentalAna :sentimental_tags_obj="sentimental_tags"></SentimentalAna>
 
-    <el-divider></el-divider>
-    <SimilarSchoolPanel :similar_school_obj="similar_school_info"></SimilarSchoolPanel>
+    <!-- <el-divider></el-divider>
+    <SimilarSchoolPanel :similar_school_obj="similar_school_info"></SimilarSchoolPanel> -->
 
     <el-divider></el-divider>
     <el-footer>

@@ -209,7 +209,7 @@
     height: 100%;
     padding-bottom: 0px;
     padding-top: 0px;
-    padding-left: 0px;
+    padding-left: 80px;
   }
 
   .float_tag{
