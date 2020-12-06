@@ -15,9 +15,7 @@ There are two main features in this tool.
 
 
 
-2. The second one is to recommend some champions to play.<br>
- Based on your enemy's team banned champion, this tool will provide you three<br> 
- more choices to counter your enemies. [为每个学校提供一站式详情浏览服务（融合5家不同网站上，关于这个实体的信息）]<br>
+2. The second one is that provide one-stop detailed browsing service for each school (integrating information about this entity on 5 different websites [为每个学校提供一站式详情浏览服务（融合5家不同网站上，关于这个实体的信息）]<br>
 ![feature3](https://user-images.githubusercontent.com/24391143/99323732-a874e200-2827-11eb-9115-8c27d3c440af.png)
 
 
