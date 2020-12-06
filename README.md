@@ -11,7 +11,8 @@ There are two main features in this tool.
  status you are in. [多维度搜索，可以通过关键词，或者通过其他人历史评价信息进行学校的查找] <br>
 ![feature1](https://user-images.githubusercontent.com/24391143/99323300-cbeb5d00-2826-11eb-86cc-681a90372793.png)
 ![feature2](https://user-images.githubusercontent.com/24391143/99323341-e4f40e00-2826-11eb-9453-690fd113ce08.png)
-![index](https://user-images.githubusercontent.com/24391143/97255903-e35a9b80-17ce-11eb-9a92-6e16187376f9.png)
+![index](https://user-images.githubusercontent.com/24391143/101289045-c55d5f00-37ae-11eb-890f-3cbe7150b65a.png)
+
 
 
 
