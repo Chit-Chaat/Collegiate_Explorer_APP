@@ -1,31 +1,32 @@
 # Collegiate_Explorer_APP
+## 美国大学知识图谱APP -- 帮你找到最适合的大学
 
-### Tips:
-1. guys, add what you have done here.
-2. dont submit you setting files. (.idea/.DS_Store/...)
+Using knowledge graph techniques to help you to find your best fit school.
 
+### ScreenShots [功能预览]
+There are two main features in this tool.
+这个应用APP有两个特点。
 
-### Usage:
-- dir <b>crawler</b> is used to save how you got the raw data
-- dir <b>documents</b> is used to save our PPT and other wirtten assets
-- dir <b>data_sample</b> saved some sample raw data files, enabling the team to do further process.
-- dir <b>collegiate-explorer-app</b> saved all front page files.
-- you can add more dirs if necessary.
-
-
-### Tasks:
-| No|     Task       | SkillSet | Assigned to   | Current Status | SubTask | 
-|---|----------------|---------------|---------------|----------------|-----------|
-| 1 |[Proposal](https://github.com/Chit-Chaat/Collegiate_Explorer_APP/blob/main/documents/proposal.pdf) & [PPT](https://github.com/Chit-Chaat/Collegiate_Explorer_APP/blob/main/documents/proposal_ppt.pdf)  | -  | Kevin, Ryan, Aaron | finished|  <ul><li>[x] Presentation</li>
-| 2 |[Prototype](https://modao.cc/app/PGbqNSPourjzgZo74MkyITYfuJwUVl4?simulator_type=device&sticky)   | Modao, Unity  | Aaron | finished |  <ul><li>[x] Model Assets</li>
-| 3 |Extract Data | Request, Scrapy  | Kevin, Ryan, Aaron | finished|  <ul><li>[x] US News</li><li>[x] QS</li><li>[x] DBpedia</li><li>[x] College Confidential</li><li>[x] Niche</li></ul>
-| 4 |Entity Resolution | ER  | Kevin, Ryan | finished |  <ul><li>[x] item1</li><li>[x] item2</li></ul>
-| 5 |Neo4J Init   | neo4j  | Kevin, Ryan | finished |  <ul><li>[x] item1</li><li>[x] item2</li></ul>
-| 6 |Front-end Init   | Vue, Element  | Aaron | finished |  <ul><li>[x] Index</li><li>[x] Detail Page</li></ul>
-| 7 |Back-end Init   | Django | Aaron | finished |  <ul><li>[x] Init</li><li>[x] item2</li></ul>
-
-### ScreenShot
+1. The first one is that you can find school by seaching keyword or query school based on other's review info <br> 
+ status you are in. [多维度搜索，可以通过关键词，或者通过其他人历史评价信息进行学校的查找] <br>
+![feature1](https://user-images.githubusercontent.com/24391143/99323300-cbeb5d00-2826-11eb-86cc-681a90372793.png)
+![feature2](https://user-images.githubusercontent.com/24391143/99323341-e4f40e00-2826-11eb-9453-690fd113ce08.png)
 ![index](https://user-images.githubusercontent.com/24391143/97255903-e35a9b80-17ce-11eb-9a92-6e16187376f9.png)
 
 
-![detail](https://user-images.githubusercontent.com/24391143/97255914-ec4b6d00-17ce-11eb-906a-80153f524ead.png)
+
+2. The second one is to recommend some champions to play.<br>
+ Based on your enemy's team banned champion, this tool will provide you three<br> 
+ more choices to counter your enemies. [为每个学校提供一站式详情浏览服务（融合5家不同网站上，关于这个实体的信息）]<br>
+![feature3](https://user-images.githubusercontent.com/24391143/99323732-a874e200-2827-11eb-9115-8c27d3c440af.png)
+
+
+
+### Video Link [完整视频链接]
+
+|     |           Video Link         |
+|-----|------------------------------|
+|video|[bilibili](https://www.bilibili.com/video/BV1oD4y1Q7T5) - [youtube](https://www.youtube.com/watch?v=ZMMI99O9CEo)
+
+
+
